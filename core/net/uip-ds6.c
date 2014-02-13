@@ -47,6 +47,7 @@
 #include "net/uip-nd6.h"
 #include "net/uip-ds6.h"
 #include "net/uip-packetqueue.h"
+#include "net/mac/frame802154.h"
 
 #if UIP_CONF_IPV6
 
@@ -539,6 +540,13 @@ uip_ds6_set_addr_iid(uip_ipaddr_t *ipaddr, uip_lladdr_t *lladdr)
   ipaddr->u8[12] = 0xfe;
   memcpy(ipaddr->u8 + 13, (uint8_t *)lladdr + 3, 3);
   ipaddr->u8[8] ^= 0x02;
+#elif (UIP_LLADDR_LEN == 2)
+  ipaddr->u16[4] = UIP_HTONS(IEEE802154_PANID);
+  ipaddr->u16[5] = UIP_HTONS(0x00ff);
+  ipaddr->u16[6] = UIP_HTONS(0xfe00);
+  memcpy(ipaddr->u16 + 7, lladdr, 2);
+  // set u/l bit to 0 as defined in http://tools.ietf.org/html/rfc4944#section-6
+  ipaddr->u8[8] &= 0xfd;
 #else
 #error uip-ds6.c cannot build interface address when UIP_LLADDR_LEN is not 6 or 8
 #endif

@@ -54,6 +54,7 @@
 #define __UIP_H__
 
 #include "net/uipopt.h"
+#include "net/rime/rimeaddr.h"
 
 /**
  * Representation of an IP address.
@@ -101,9 +102,7 @@ typedef struct uip_eth_addr {
 #if UIP_CONF_LL_802154
 /** \brief 802.15.4 address */
 typedef uip_802154_longaddr uip_lladdr_t;
-#define UIP_802154_SHORTADDR_LEN 2
-#define UIP_802154_LONGADDR_LEN  8
-#define UIP_LLADDR_LEN UIP_802154_LONGADDR_LEN
+#define UIP_LLADDR_LEN RIMEADDR_SIZE
 #else /*UIP_CONF_LL_802154*/
 #if UIP_CONF_LL_80211
 /** \brief 802.11 address */

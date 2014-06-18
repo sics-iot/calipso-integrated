@@ -244,3 +244,17 @@ phase_init(void)
   nbr_table_register(nbr_phase, NULL);
 }
 /*---------------------------------------------------------------------------*/
+rtimer_clock_t
+get_phase(const rimeaddr_t *neighbor, rtimer_clock_t cycle_time)
+{
+	struct phase * e;
+
+	e = nbr_table_get_from_lladdr(nbr_phase, neighbor);
+
+	if(e && e->time != cycle_time)
+		return e->time;
+	else {
+		return 0;
+	}
+}
+/*---------------------------------------------------------------------------*/

@@ -257,4 +257,3 @@ get_phase(const rimeaddr_t *neighbor, rtimer_clock_t cycle_time)
 		return 0;
 	}
 }
-/*---------------------------------------------------------------------------*/

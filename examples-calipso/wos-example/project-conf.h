@@ -4,7 +4,7 @@
 #define PROCESS_CONF_NO_PROCESS_NAMES 1
 #define LOG_CONF_ENABLED 0
 
-//#define RAWMAC 1
+#define RAWMAC 0
 
 /* Some platforms have weird includes. */
 #undef IEEE802154_CONF_PANID
@@ -15,7 +15,7 @@
 #if RAWMAC
 #define NETSTACK_CONF_RDC	rawmac_driver
 #else
-#define NETSTACK_CONF_RDC   nullrdc_driver
+#define NETSTACK_CONF_RDC   contikimac_driver
 #endif /* RAWMAC */
 
 /* Increase rpl-border-router IP-buffer when using more than 64. */
@@ -65,6 +65,12 @@
 
 #undef SICSLOWPAN_CONF_FRAG
 #define SICSLOWPAN_CONF_FRAG	0
+
+#undef UIP_CONF_ND6_SEND_NA
+#define UIP_CONF_ND6_SEND_NA 	0
+
+#undef UIP_CONF_ND6_SEND_RA
+#define UIP_CONF_ND6_SEND_RA 	0
 
 // channel check rate in Hz
 #undef NETSTACK_RDC_CHANNEL_CHECK_RATE

@@ -1,11 +1,9 @@
 all: wos-example
 # use this target explicitly if requried: er-plugtest-server
 
-
 # variable for this Makefile
 # configure CoAP implementation (3|7|12|13) (er-coap-07 also supports CoAP draft 08)
 WITH_COAP=13
-
 
 # variable for Makefile.include
 WITH_UIP6=1

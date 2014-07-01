@@ -244,6 +244,7 @@ phase_init(void)
   nbr_table_register(nbr_phase, NULL);
 }
 /*---------------------------------------------------------------------------*/
+#ifdef WITH_RAWMAC
 rtimer_clock_t
 get_phase(const rimeaddr_t *neighbor, rtimer_clock_t cycle_time)
 {
@@ -257,3 +258,4 @@ get_phase(const rimeaddr_t *neighbor, rtimer_clock_t cycle_time)
 		return 0;
 	}
 }
+#endif

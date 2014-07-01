@@ -84,4 +84,3 @@ contiki-cc2530dk.lib
 
 #regression tests artifacts
 *.testlog
-/.project

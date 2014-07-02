@@ -54,6 +54,7 @@
 #include "net/rpl/rpl.h"
 #include "net/uip-ds6-nbr.h"
 #include "net/rime/rimeaddr.h"
+#include "net/mac/phase.h"
 
 
 #include <string.h>

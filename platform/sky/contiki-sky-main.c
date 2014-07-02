@@ -98,6 +98,11 @@ static uint8_t is_gateway;
 #include "experiment-setup.h"
 #endif
 
+#if WITH_IPV6_RRPL
+#include "net/rrpl/rrpl.h"
+#endif
+
+
 void init_platform(void);
 
 /*---------------------------------------------------------------------------*/
@@ -331,6 +336,12 @@ main(int argc, char **argv)
     printf("%02x%02x\n",
            ipaddr.u8[7 * 2], ipaddr.u8[7 * 2 + 1]);
   }
+
+#if WITH_IPV6_RRPL
+  printf("rrpl start ?\n");
+  process_start(&rrpl_process, NULL);
+#endif
+
 
 #else /* WITH_UIP6 */
 

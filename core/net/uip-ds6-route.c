@@ -31,7 +31,7 @@
  */
  
 #if WITH_IPV6_LOADNG 
-#include "net/loadng/loadng.h"
+#include "net/rrpl/rrpl.h"
 #endif
 #include "net/uip-ds6.h"
 #include "net/uip.h"

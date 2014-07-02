@@ -3,6 +3,10 @@
 
 #define PROCESS_CONF_NO_PROCESS_NAMES 1
 #define LOG_CONF_ENABLED 0
+//#define SIGFOX_SERIAL_ENABLED 1
+
+//#undef printf
+//#define printf(...)
 
 #define RAWMAC 0
 

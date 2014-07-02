@@ -1,26 +1,31 @@
+#include "cc2420.h"
+#include "dev/watchdog.h"
+#include "dev/uart1.h"
+#include "lib/ringbuf.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "dev/uart1.h"
-#include "lib/ringbuf.h"
+
 #include "contiki.h"
 #include "contiki-net.h"
-#include "cc2420.h"
-#include "dev/watchdog.h"
-#include "erbium.h"
 
-/* For CoAP-specific example: not required for normal RESTful Web service. */
+//#include "dev/button-sensor.h"
+
 #if WITH_COAP == 3
-#include "er-coap-03.h"
+#include "er-coap-03-engine.h"
+#elif WITH_COAP == 6
+#include "er-coap-06-engine.h"
 #elif WITH_COAP == 7
-#include "er-coap-07.h"
+#include "er-coap-07-engine.h"
 #elif WITH_COAP == 12
-#include "er-coap-12.h"
+#include "er-coap-12-engine.h"
 #elif WITH_COAP == 13
-#include "er-coap-13.h"
+#include "er-coap-13-engine.h"
 #else
-#warning "Erbium example without CoAP-specifc functionality"
-#endif /* CoAP-specific example */
+#error "CoAP version defined by WITH_COAP not implemented"
+#endif
+
 
 #define DEBUG 0
 #if DEBUG
@@ -32,6 +37,15 @@
 #define PRINT6ADDR(addr)
 #define PRINTLLADDR(addr)
 #endif
+
+/* TODO: This server address is hard-coded for Cooja. */
+#define SERVER_NODE(ipaddr)   uip_ip6addr(ipaddr, 0xaaaa, 0, 0, 0, 0x0212, 0x7402, 0x0002, 0x0202) /* cooja2 */
+
+#define LOCAL_PORT      UIP_HTONS(COAP_DEFAULT_PORT+1)
+#define REMOTE_PORT     UIP_HTONS(COAP_DEFAULT_PORT)
+
+#define TOGGLE_INTERVAL 10
+
 
 typedef enum {
 	CMD_NONE			= 0,
@@ -157,68 +171,62 @@ static cmd_t *get_cmd() {
 	return &sigfox_cmd;
 }
 
-static void
-sigfox_event_handler(resource_t *r, char *msg, uint8_t len)
-{
-  static uint16_t event_counter = 0;
+/*************************************************************************************/
 
-  ++event_counter;
-  /* Build notification. */
-  coap_packet_t notification[1]; /* This way the packet can be treated as pointer as usual. */
-  coap_init_message(notification, COAP_TYPE_CON, REST.status.OK, 0 );
-  coap_set_payload(notification, msg, len);
-  
-  /* Notify the registered observers with the given message type, observe option, and payload. */
-  REST.notify_subscribers(r, event_counter, notification);
-}
+PROCESS(coap_client_example, "COAP Client Example");
+AUTOSTART_PROCESSES(&coap_client_example);
 
-/*
- * Example for an event resource.
- * Additionally takes a period parameter that defines the interval to call [name]_periodic_handler().
- * A default post_handler takes care of subscriptions and manages a list of subscribers to notify.
- */
-EVENT_RESOURCE(event, METHOD_GET, "button", "title=\"Event demo\";obs");
 
+uip_ipaddr_t server_ipaddr;
+static struct etimer et;
+
+/* Example URIs that can be queried. */
+#define NUMBER_OF_URLS 4
+/* leading and ending slashes only for demo purposes, get cropped automatically when setting the Uri-Path */
+char* service_urls[NUMBER_OF_URLS] = {".well-known/core", "/actuators/toggle", "battery/", "error/in//path"};
+char* service_fastprk_url = "fastprk/";
+
+/* This function is will be passed to COAP_BLOCKING_REQUEST() to handle responses. */
 void
-event_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset)
+client_chunk_handler(void *response)
 {
-  REST.set_header_content_type(response, REST.type.TEXT_PLAIN);
-  /* Usually, a CoAP server would response with the current resource representation. */
-  const char *msg = "It's eventful!";
-  REST.set_response_payload(response, (uint8_t *)msg, strlen(msg));
+  const uint8_t *chunk;
 
-  /* A post_handler that handles subscriptions/observing will be called for periodic resources by the framework. */
+  int len = coap_get_payload(response, &chunk);
+  printf("|%.*s", len, (char *)chunk);
 }
 
-PROCESS(rest_server_example, "Erbium Example Server");
-AUTOSTART_PROCESSES(&rest_server_example);
 
-PROCESS_THREAD(rest_server_example, ev, data)
+static coap_packet_t *build_coap_msg(char* url, uint8_t *msg, uint8_t len) {
+	static coap_packet_t request[1]; /* This way the packet can be treated as pointer as usual. */
+	printf("--Requesting %s--\n", url);
+	/* prepare request, TID is set by COAP_BLOCKING_REQUEST() */
+	coap_init_message(request, COAP_TYPE_CON, COAP_POST, 0 );
+	coap_set_header_uri_path(request, url);
+
+	coap_set_payload(request, (uint8_t *)msg, len);
+
+	PRINT6ADDR(&server_ipaddr);
+	PRINTF(" : %u\n", UIP_HTONS(REMOTE_PORT));
+
+	//COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, request, client_chunk_handler);
+
+	printf("\n--Done--\n");
+	return request;
+}
+
+PROCESS_THREAD(coap_client_example, ev, data)
 {
   PROCESS_BEGIN();
 
-  PRINTF("Starting Erbium Example Server\n");
+  //static coap_packet_t request[1]; /* This way the packet can be treated as pointer as usual. */
+  SERVER_NODE(&server_ipaddr);
 
-#ifdef RF_CHANNEL
-  PRINTF("RF channel: %u\n", RF_CHANNEL);
-#endif
-#ifdef IEEE802154_PANID
-  PRINTF("PAN ID: 0x%04X\n", IEEE802154_PANID);
-#endif
-
-  PRINTF("uIP buffer: %u\n", UIP_BUFSIZE);
-  PRINTF("LL header: %u\n", UIP_LLH_LEN);
-  PRINTF("IP+UDP header: %u\n", UIP_IPUDPH_LEN);
-  PRINTF("REST max chunk: %u\n", REST_MAX_CHUNK_SIZE);
-
-  /* Initialize the REST engine. */
-  rest_init_engine();
-
-  /* Activate the application-specific resources. */
-  rest_activate_event_resource(&resource_event);
-
-  /* Define application-specific events here. */
+  /* receives all CoAP messages */
+  coap_receiver_init();
   init_sigfox_com();
+
+  etimer_set(&et, TOGGLE_INTERVAL * CLOCK_SECOND);
 
   while(1) {
     cmd_t *cmd;
@@ -226,20 +234,18 @@ PROCESS_THREAD(rest_server_example, ev, data)
 		PROCESS_WAIT_EVENT_UNTIL(ev == PROCESS_EVENT_POLL);
 	
     cmd = get_cmd();
-    switch ( cmd->cmd ) {
-		case CMD_SFSEND: {
-          write_sfok();
-          sigfox_event_handler(&resource_event,cmd->payload, cmd->paylen);
-#if REST_RES_SEPARATE && WITH_COAP>3
-		  // Also call the separate response example handler.
-		  separate_finalize_handler();
-#endif
-		  //etimer_set(&et, 3 * CLOCK_SECOND);
-		  //PROCESS_YIELD();
-		  //if (etimer_expired(&et)) {}
+	if ( CMD_SFSEND == cmd->cmd ) {
+		write_sfok();
+          //sigfox_event_handler(&resource_event,cmd->payload, cmd->paylen);
+		  //send_coap_msg(service_fastprk_url, cmd->payload, cmd->paylen);
 		  
+		  COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, build_coap_msg(service_fastprk_url, cmd->payload, cmd->paylen), client_chunk_handler);
+
           write_sfsent();
-		} break;
+		  cmd->cmd = CMD_NONE;
+	}
+	
+    switch ( cmd->cmd ) {
 		case CMD_AT_GETFWVER: {
 			// reset
 			watchdog_reboot();
@@ -260,7 +266,7 @@ PROCESS_THREAD(rest_server_example, ev, data)
 }
 
 static int sigofx_input_byte(unsigned char c) {
-	int res = ringbuf_put(&ringb,c);
-	process_poll(&rest_server_example);
+	ringbuf_put(&ringb,c);
+	process_poll(&coap_client_example);
 	return 1;
 }

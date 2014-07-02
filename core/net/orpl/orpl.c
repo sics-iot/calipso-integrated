@@ -214,7 +214,7 @@ orpl_is_edc_frozen()
 int
 orpl_are_routing_set_active()
 {
-  return orpl_up_only == 0 && (FREEZE_TOPOLOGY || clock_seconds() > UPDATE_ROUTING_SET_MIN_TIME);
+  return orpl_up_only == 0 && !(FREEZE_TOPOLOGY && clock_seconds() <= UPDATE_ROUTING_SET_MIN_TIME);
 }
 
 /* Returns 1 if the node is root of ORPL */

@@ -29,10 +29,7 @@
  */
 /**
  * \file
- *         Example file using ORPL for a any-to-any routing: the root and all
- *         nodes with an even node-id send a ping periodically to another node
- *         (which also must be root or have even node-id). Upon receiving a ping,
- *         nodes answer with a poing.
+ *         Example file using ORPL for a data collection.
  *         Enables logging as used in the ORPL SenSyS'13 paper.
  *         Can be deployed in the Indriya or Twist testbeds.
  *
@@ -42,90 +39,48 @@
 #include "contiki-conf.h"
 #include "lib/random.h"
 #include "orpl.h"
-#include "orpl-routing-set.h"
-#include "deployment.h"
-#include "simple-energest.h"
 #include "simple-udp.h"
 #include "cc2420.h"
+#include "node-id.h"
+#include <string.h>
 #include <stdio.h>
 
-#define SEND_INTERVAL   (60 * CLOCK_SECOND)
+#define SEND_INTERVAL   (15 * CLOCK_SECOND)
 #define UDP_PORT 1234
+#define ROOT_ID 1
+#define SRC_ID 6
+#define DEST_ID 8
 
 static struct simple_udp_connection unicast_connection;
-static uint16_t current_cnt = 0;
-
-static const uint16_t any_to_any_list[] = {
-#if IN_INDRIYA
-  20, 12, 28, 50, 56, 72, 92, 94, 112,
-#elif IN_COOJA
-  1, 2, 4, 6, 8,
-#endif
-  0
-};
-
-static int
-is_id_in_any_to_any(uint16_t id)
-{
-  const uint16_t *curr = any_to_any_list;
-  while(*curr != 0) {
-    if(*curr == id) {
-      return 1;
-    }
-    curr++;
-  }
-  return 0;
-}
 
 /*---------------------------------------------------------------------------*/
-PROCESS(unicast_sender_process, "ORPL -- Any-to-any Application");
+PROCESS(unicast_sender_process, "ORPL -- Collect-only Application");
 AUTOSTART_PROCESSES(&unicast_sender_process);
 /*---------------------------------------------------------------------------*/
-void app_send_to(uint16_t id, int ping, uint32_t seqno);
 static void
 receiver(struct simple_udp_connection *c,
          const uip_ipaddr_t *sender_addr,
          uint16_t sender_port,
          const uip_ipaddr_t *receiver_addr,
          uint16_t receiver_port,
-         const uint8_t *dataptr,
+         const uint8_t *data,
          uint16_t datalen)
 {
-  struct app_data data;
-  appdata_copy(&data, (struct app_data*)dataptr);
-  if(data.ping) {
-    ORPL_LOG_FROM_APPDATAPTR((struct app_data *)dataptr, "App: received ping");
-  } else {
-    ORPL_LOG_FROM_APPDATAPTR((struct app_data *)dataptr, "App: received pong");
-  }
-  if(data.ping) {
-    app_send_to(data.src, 0, data.seqno | 0x8000l);
-  }
+  printf("App: received 0x%lx\n", *((uint32_t*)data));
 }
 /*---------------------------------------------------------------------------*/
-void
-app_send_to(uint16_t id, int ping, uint32_t seqno)
-{
-  struct app_data data;
+void app_send_to(uint16_t id) {
+
+  static unsigned int cnt;
   uip_ipaddr_t dest_ipaddr;
+  uint32_t seqno = ((uint32_t)node_id << 16) + cnt;
 
-  data.seqno = seqno;
-  data.src = node_id;
-  data.dest = id;
-  data.hop = 0;
-  data.fpcount = 0;
-  data.ping = ping;
+  printf("App: sending 0x%lx\n", seqno);
 
-  if(ping) {
-    ORPL_LOG_FROM_APPDATAPTR(&data, "App: sending ping");
-  } else {
-    ORPL_LOG_FROM_APPDATAPTR(&data, "App: sending pong");
-  }
+  uip_ip6addr(&dest_ipaddr, 0xaaaa, 0, 0, 0, 0x0212, 0x7400 | id, id, (id << 8) | id);
+  simple_udp_sendto(&unicast_connection, &seqno, sizeof(seqno), &dest_ipaddr);
 
-  orpl_set_curr_seqno(data.seqno);
-  set_ipaddr_from_id(&dest_ipaddr, id);
-
-  simple_udp_sendto(&unicast_connection, &data, sizeof(data), &dest_ipaddr);
+  cnt++;
 }
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(unicast_sender_process, ev, data)
@@ -136,47 +91,34 @@ PROCESS_THREAD(unicast_sender_process, ev, data)
 
   PROCESS_BEGIN();
 
-  if(node_id == 0) {
-    NETSTACK_RDC.off(0);
-    printf("Node id unset, my mac is ");
-    uip_debug_lladdr_print(&rimeaddr_node_addr);
-    printf("\n");
-    PROCESS_EXIT();
-  }
-
-  cc2420_set_txpower(RF_POWER);
-  cc2420_set_cca_threshold(RSSI_THR);
-  simple_energest_start();
-
   printf("App: %u starting\n", node_id);
 
-  deployment_init(&global_ipaddr);
+  uip_ip6addr(&global_ipaddr, 0xaaaa, 0, 0, 0, 0, 0, 0, 0);
+  uip_ds6_set_addr_iid(&global_ipaddr, &uip_lladdr);
+  uip_ds6_addr_add(&global_ipaddr, 0, ADDR_AUTOCONF);
+
+  if(node_id == ROOT_ID) {
+    rpl_dag_t *dag = rpl_set_root(RPL_DEFAULT_INSTANCE, &global_ipaddr);
+    rpl_set_prefix(dag, &global_ipaddr, 64);
+    NETSTACK_RDC.off(1);
+  }
+
   orpl_init(&global_ipaddr, node_id == ROOT_ID, 0);
   simple_udp_register(&unicast_connection, UDP_PORT,
                       NULL, UDP_PORT, receiver);
 
-  if(node_id == ROOT_ID) {
-    NETSTACK_RDC.off(1);
-  } else if(is_id_in_any_to_any(get_node_id())) {
-    etimer_set(&periodic_timer, 8 * 60 * CLOCK_SECOND);
-    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&periodic_timer));
-    etimer_set(&periodic_timer, SEND_INTERVAL);
-
+  if(node_id == SRC_ID) {
+	etimer_set(&periodic_timer, 8 * 60 * CLOCK_SECOND);
+	PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&periodic_timer));
+	etimer_set(&periodic_timer, SEND_INTERVAL);
     while(1) {
-      uint16_t target_id;
-
       etimer_set(&send_timer, random_rand() % (SEND_INTERVAL));
       PROCESS_WAIT_UNTIL(etimer_expired(&send_timer));
 
-      do {
-        target_id = get_node_id_from_index((random_rand()>>8)%get_n_nodes());
-      } while (target_id == node_id || !is_id_in_any_to_any(target_id));
-
-      if(target_id < node_id || target_id == ROOT_ID) {
-        /* After finding an addressable node, send only if destination has lower ID
-         * otherwise, next attempt will be at the next period */
-        app_send_to(target_id, 1, ((uint32_t)node_id << 16) + current_cnt);
-        current_cnt++;
+      if(orpl_current_edc() != 0xffff) {
+        app_send_to(DEST_ID);
+      } else {
+        printf("App: not in DODAG\n");
       }
 
       PROCESS_WAIT_UNTIL(etimer_expired(&periodic_timer));

@@ -202,7 +202,11 @@ main(int argc, char **argv)
   leds_on(LEDS_RED);
 
 
+#ifdef SIGFOX_SERIAL_ENABLED
+  uart1_init(BAUD2UBR(9600));
+#else
   uart1_init(BAUD2UBR(115200)); /* Must come before first printf */
+#endif
 
   leds_on(LEDS_GREEN);
   ds2411_init();

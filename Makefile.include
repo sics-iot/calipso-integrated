@@ -65,7 +65,7 @@ DEV     = nullradio.c
 
 include $(CONTIKI)/core/net/Makefile.uip
 include $(CONTIKI)/core/net/rpl/Makefile.rpl
-include $(CONTIKI)/core/net/loadng/Makefile.loadng
+include $(CONTIKI)/core/net/rrpl/Makefile.rrpl
 include $(CONTIKI)/core/net/orpl/Makefile.orpl
 include $(CONTIKI)/core/net/featurecast/Makefile.featurecast
 include $(CONTIKI)/core/net/ipsec/Makefile.ipsec

@@ -38,6 +38,7 @@
  *         Niclas Finne <nfi@sics.se>
  *         Joakim Eriksson <joakime@sics.se>
  */
+#ifdef WITH_RAWMAC
 
 #include "contiki-conf.h"
 #include "dev/leds.h"
@@ -1157,3 +1158,4 @@ rawmac_set_phase_for_routing(rimeaddr_t * addr)
 
 // TODO: check for any ongoing transmissions/receptions before switching off brutally
 }
+#endif

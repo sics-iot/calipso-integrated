@@ -63,4 +63,9 @@ void phase_update(const rimeaddr_t *neighbor,
                   rtimer_clock_t time, int mac_status);
 void phase_remove(const rimeaddr_t *neighbor);
 
+#ifdef WITH_RAWMAC
+rtimer_clock_t get_phase(const rimeaddr_t *neighbor, rtimer_clock_t cycle_time);
+#endif
+
+
 #endif /* PHASE_H */

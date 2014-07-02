@@ -1,0 +1,10 @@
+This example is equivalent to the one in examples/ipv6/rpl-udp
+
+RAWMAC is a radio duty cycling protocol very similar to ContikiMAC, but with an exploitation
+of the routing topology, built by RPL, to make each node align its wake-up phase with that of its
+preferred parent.
+In this way, a data propagation “wave” is created from the leaves of the tree to the root,
+in order to reduce delay for data collection.
+
+To run RAWMAC you only need to change RDC layer (ContikiMAC is the default one), by declaring it properly in the project-conf.h file.
+You do not need to modify anything in the application.

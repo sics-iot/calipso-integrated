@@ -10,6 +10,8 @@
 #include "contiki.h"
 #include "contiki-net.h"
 
+#include "energest.h"
+
 //#include "dev/button-sensor.h"
 
 #if WITH_COAP == 3
@@ -44,8 +46,11 @@
 #define LOCAL_PORT      UIP_HTONS(COAP_DEFAULT_PORT+1)
 #define REMOTE_PORT     UIP_HTONS(COAP_DEFAULT_PORT)
 
-#define TOGGLE_INTERVAL 10
-
+#define PUSH_INTERVAL   60
+#define MAX_URL_SIZE	32
+#define MAX_ID_SIZE		8
+char url_str_buf[MAX_URL_SIZE];
+char id_str_buf[MAX_ID_SIZE];
 
 typedef enum {
 	CMD_NONE			= 0,
@@ -54,6 +59,27 @@ typedef enum {
 	CMD_AT_SFOXCONF, 
 	CMD_ATCMD
 } sfox_cmd_t;
+
+
+typedef struct str_buf_t {
+	char *str;
+	uint8_t len;
+	uint8_t max_len;
+} str_buf_t ;
+
+void init_strbuf( str_buf_t *url, char *buf, uint8_t max_len ) {
+	url->len = 0;
+	url->max_len = 0;
+	url->str = buf;
+	url->str[url->len] = 0x00;
+}
+
+void concat_strbuf( str_buf_t *url, char *buf, uint8_t len ) {
+	int i;
+	for (i=0; ((i<len) || (0==len && 0!=buf[i])) && (url->len<(url->max_len-1));++i)
+		url->str[url->len++] = buf[i];
+	url->str[url->len] = 0x00;
+}
 
 typedef struct cmd_t {
 	sfox_cmd_t cmd;
@@ -174,7 +200,9 @@ static cmd_t *get_cmd() {
 /*************************************************************************************/
 
 PROCESS(coap_client_example, "COAP Client Example");
-AUTOSTART_PROCESSES(&coap_client_example);
+PROCESS(push_stats_thread, "radio stack stats");
+AUTOSTART_PROCESSES(&coap_client_example,&push_stats_thread);
+//AUTOSTART_PROCESSES(&push_stats_thread);
 
 
 uip_ipaddr_t server_ipaddr;
@@ -183,50 +211,125 @@ static struct etimer et;
 /* Example URIs that can be queried. */
 #define NUMBER_OF_URLS 4
 /* leading and ending slashes only for demo purposes, get cropped automatically when setting the Uri-Path */
-char* service_urls[NUMBER_OF_URLS] = {".well-known/core", "/actuators/toggle", "battery/", "error/in//path"};
-char* service_fastprk_url = "fastprk/";
+static char* service_urls[NUMBER_OF_URLS] = {"/rpl", "/presence", "/dc", "/error/in//path"};
+static char* service_fastprk_url = "/parking/";
+static char* dummy_stats_str = "_stats_data_";
 
+static str_buf_t request_url;
+static str_buf_t url_id;
+static str_buf_t stats;
+static char stats_buf[16];
+static unsigned long rx_start_duration;
+static unsigned long tx_start_duration;
+static unsigned long all_cpu;
+static unsigned long all_lpm;
 /* This function is will be passed to COAP_BLOCKING_REQUEST() to handle responses. */
 void
-client_chunk_handler(void *response)
+client_id_handler(void *response)
 {
-  const uint8_t *chunk;
-
-  int len = coap_get_payload(response, &chunk);
-  printf("|%.*s", len, (char *)chunk);
+  const uint8_t *buf;
+  url_id.len = coap_get_payload(response, &buf);
+  memcpy(url_id.str,buf,url_id.len);
+  printf("ID: |%.*s", url_id.len, (char *)(url_id.str));
 }
 
+void
+client_dummy_handler(void *response) {}
 
-static coap_packet_t *build_coap_msg(char* url, uint8_t *msg, uint8_t len) {
+static coap_packet_t *build_coap_msg(str_buf_t* url, coap_method_t method, char *msg, uint8_t len) {
 	static coap_packet_t request[1]; /* This way the packet can be treated as pointer as usual. */
-	printf("--Requesting %s--\n", url);
+	printf("--Requesting %s--\n", url->str);
 	/* prepare request, TID is set by COAP_BLOCKING_REQUEST() */
-	coap_init_message(request, COAP_TYPE_CON, COAP_POST, 0 );
-	coap_set_header_uri_path(request, url);
+	coap_init_message(request, COAP_TYPE_CON, method, 0 );
+	coap_set_header_uri_path(request, url->str);
 
 	coap_set_payload(request, (uint8_t *)msg, len);
 
 	PRINT6ADDR(&server_ipaddr);
 	PRINTF(" : %u\n", UIP_HTONS(REMOTE_PORT));
 
-	//COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, request, client_chunk_handler);
-
 	printf("\n--Done--\n");
 	return request;
 }
 
-PROCESS_THREAD(coap_client_example, ev, data)
+static void build_url( str_buf_t *url, char *res_name ) {
+	init_strbuf(&request_url,url_str_buf,MAX_URL_SIZE);
+	concat_strbuf(&request_url,service_fastprk_url,0);
+	concat_strbuf(&request_url,url_id.str,url_id.len);
+	concat_strbuf(&request_url,res_name,0);
+}
+
+static void get_dutycycle_str( str_buf_t *strbuf ) {
+	uint32_t all_transmit = energest_type_time(ENERGEST_TYPE_TRANSMIT) - tx_start_duration;
+	uint32_t all_listen = energest_type_time(ENERGEST_TYPE_LISTEN) - rx_start_duration;
+	uint32_t all_time = energest_type_time(ENERGEST_TYPE_CPU) + energest_type_time(ENERGEST_TYPE_LPM);
+	// stats_buf 16 dummy_stats_str
+	init_strbuf(strbuf,stats_buf,16);
+	concat_strbuf(&request_url,dummy_stats_str,0);
+}
+
+static void get_rplstats_str( str_buf_t *strbuf ) {
+	init_strbuf(strbuf,stats_buf,16);
+	concat_strbuf(&request_url,dummy_stats_str,0);
+}
+/*
+ *
+char url_str_buf[MAX_URL_SIZE];
+char id_str_buf[MAX_ID_SIZE];
+init_url( url_buf_t *url, char *buf, uint8_t max_len )
+ *
+ * */
+PROCESS_THREAD(push_stats_thread, ev, data)
 {
   PROCESS_BEGIN();
 
+  while (1) {
+	  PROCESS_YIELD();
+
+	  if (etimer_expired(&et)) {
+		printf("--Stats push timer--\n");
+
+		// RPL STATS
+		get_rplstats_str( &stats );
+		build_url( &request_url, service_urls[0] );
+		COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, build_coap_msg(&request_url, COAP_PUT, stats.str, stats.len), client_dummy_handler);
+
+		// DUTY CYCLE
+		get_dutycycle_str( &stats );
+		build_url( &request_url, service_urls[2] );
+		COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, build_coap_msg(&request_url, COAP_PUT, stats.str, stats.len), client_dummy_handler);
+		printf("\n--Stats push Done--\n");
+		etimer_reset(&et);
+	  }
+  }
+
+  PROCESS_END();
+}
+
+PROCESS_THREAD(coap_client_example, ev, data)
+{
+	int i = 0;
+  PROCESS_BEGIN();
+
+  rx_start_duration = energest_type_time(ENERGEST_TYPE_LISTEN);
+  tx_start_duration = energest_type_time(ENERGEST_TYPE_TRANSMIT);
   //static coap_packet_t request[1]; /* This way the packet can be treated as pointer as usual. */
   SERVER_NODE(&server_ipaddr);
 
   /* receives all CoAP messages */
   coap_receiver_init();
-  init_sigfox_com();
 
-  etimer_set(&et, TOGGLE_INTERVAL * CLOCK_SECOND);
+  init_strbuf(&request_url,url_str_buf,MAX_URL_SIZE);
+  concat_strbuf(&request_url,service_fastprk_url,0);
+  COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, build_coap_msg(&request_url, COAP_POST, NULL, 0), client_id_handler);
+
+  for (i=0;i<3;++i) {
+	  build_url( &request_url, service_urls[i] );
+	  COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, build_coap_msg(&request_url, COAP_POST, NULL, 0), client_dummy_handler);
+  }
+
+  init_sigfox_com();
+  etimer_set(&et, PUSH_INTERVAL * CLOCK_SECOND);
 
   while(1) {
     cmd_t *cmd;
@@ -236,13 +339,14 @@ PROCESS_THREAD(coap_client_example, ev, data)
     cmd = get_cmd();
 	if ( CMD_SFSEND == cmd->cmd ) {
 		write_sfok();
-          //sigfox_event_handler(&resource_event,cmd->payload, cmd->paylen);
-		  //send_coap_msg(service_fastprk_url, cmd->payload, cmd->paylen);
-		  
-		  COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, build_coap_msg(service_fastprk_url, cmd->payload, cmd->paylen), client_chunk_handler);
+		//sigfox_event_handler(&resource_event,cmd->payload, cmd->paylen);
+		//send_coap_msg(service_fastprk_url, cmd->payload, cmd->paylen);
 
-          write_sfsent();
-		  cmd->cmd = CMD_NONE;
+		build_url( &request_url, service_urls[1] );
+		COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, build_coap_msg(&request_url, COAP_PUT, cmd->payload, cmd->paylen), client_dummy_handler);
+
+		write_sfsent();
+		cmd->cmd = CMD_NONE;
 	}
 	
     switch ( cmd->cmd ) {

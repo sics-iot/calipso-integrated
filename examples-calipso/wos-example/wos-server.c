@@ -14,13 +14,13 @@
 
 /* Define which resources to include to meet memory constraints. */
 #define REST_RES_HELLO 0
-#define REST_RES_CHUNKS 1
-#define REST_RES_SEPARATE 1
-#define REST_RES_PUSHING 1
-#define REST_RES_EVENT 1
-#define REST_RES_SUB 1
-#define REST_RES_LEDS 0
-#define REST_RES_TOGGLE 1
+#define REST_RES_CHUNKS 0
+#define REST_RES_SEPARATE 0
+#define REST_RES_PUSHING 0
+#define REST_RES_EVENT 0
+#define REST_RES_SUB 0
+#define REST_RES_LEDS 1
+#define REST_RES_TOGGLE 0
 #define REST_RES_LIGHT 0
 #define REST_RES_BATTERY 0
 #define REST_RES_RADIO 0
@@ -64,7 +64,7 @@
 #warning "Erbium example without CoAP-specifc functionality"
 #endif /* CoAP-specific example */
 
-#define DEBUG 0
+#define DEBUG 1
 #if DEBUG
 #define PRINTF(...) printf(__VA_ARGS__)
 #define PRINT6ADDR(addr) PRINTF("[%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x]", ((uint8_t *)addr)[0], ((uint8_t *)addr)[1], ((uint8_t *)addr)[2], ((uint8_t *)addr)[3], ((uint8_t *)addr)[4], ((uint8_t *)addr)[5], ((uint8_t *)addr)[6], ((uint8_t *)addr)[7], ((uint8_t *)addr)[8], ((uint8_t *)addr)[9], ((uint8_t *)addr)[10], ((uint8_t *)addr)[11], ((uint8_t *)addr)[12], ((uint8_t *)addr)[13], ((uint8_t *)addr)[14], ((uint8_t *)addr)[15])
@@ -554,7 +554,7 @@ sub_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_s
 /******************************************************************************/
 #if REST_RES_LEDS
 /*A simple actuator example, depending on the color query parameter and post variable mode, corresponding led is activated or deactivated*/
-RESOURCE(leds, METHOD_POST | METHOD_PUT , "actuators/leds", "title=\"LEDs: ?color=r|g|b, POST/PUT mode=on|off\";rt=\"Control\"");
+RESOURCE(leds, METHOD_POST | METHOD_PUT , "leds", "title=\"LEDs: ?color=r|g|b, POST/PUT mode=on|off\";rt=\"Control\"");
 
 void
 leds_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset)
@@ -565,15 +565,19 @@ leds_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_
   uint8_t led = 0;
   int success = 1;
 
+  PRINTF("LED request recv\n");
   if ((len=REST.get_query_variable(request, "color", &color))) {
-    PRINTF("color %.*s\n", len, color);
+    PRINTF("color len=%d %.*s\n", len, 1, color);
 
     if (strncmp(color, "r", len)==0) {
       led = LEDS_RED;
+      PRINTF("req RED led\n");
     } else if(strncmp(color,"g", len)==0) {
       led = LEDS_GREEN;
+      PRINTF("req GREEN led\n");
     } else if (strncmp(color,"b", len)==0) {
       led = LEDS_BLUE;
+      PRINTF("req BLUE led\n");
     } else {
       success = 0;
     }
@@ -612,6 +616,93 @@ toggle_handler(void* request, void* response, uint8_t *buffer, uint16_t preferre
 }
 #endif
 #endif /* PLATFORM_HAS_LEDS */
+
+
+/******************************************************************************/
+
+RESOURCE(clientsub, METHOD_POST, "parking", "title=\"client subscribe\";rt=\"Control\"");
+
+void
+clientsub_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset)
+{
+	PRINTF("Client subscribe request recv\n");
+  REST.set_header_content_type(response, REST.type.TEXT_PLAIN);
+
+  /* Usually, a CoAP server would response with the resource representation matching the periodic_handler. */
+  const char *msg = "120";
+  REST.set_response_payload(response, msg, strlen(msg));
+}
+
+RESOURCE(presenceres, METHOD_POST | METHOD_PUT , "parking/120/presence", "title=\"sensor messages\";rt=\"Control\"");
+
+void
+presenceres_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset)
+{
+  REST.set_header_content_type(response, REST.type.TEXT_PLAIN);
+
+	if ( METHOD_POST & REST.get_method_type(request) ) {
+		PRINTF("Parking resource subscribe request recv\n");
+	}
+
+	if ( METHOD_PUT & REST.get_method_type(request) ) {
+	  const uint8_t *buf;
+	  int len = REST.get_request_payload(request,&buf);
+	  PRINTF("FASTPRK data: %s\n",buf);
+	}
+
+  /* Usually, a CoAP server would response with the resource representation matching the periodic_handler. */
+  const char *msg = "OK";
+  REST.set_response_payload(response, msg, strlen(msg));
+}
+
+
+RESOURCE(rplres, METHOD_POST | METHOD_PUT , "parking/120/rpl", "title=\"rpl stats\";rt=\"Control\"");
+
+void
+rplres_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset)
+{
+
+  REST.set_header_content_type(response, REST.type.TEXT_PLAIN);
+
+  if ( METHOD_POST & REST.get_method_type(request) ) {
+	  PRINTF("RPL resource subscribe request recv\n");
+  }
+
+  if ( METHOD_PUT & REST.get_method_type(request) ) {
+	  const uint8_t *buf;
+	  int len = REST.get_request_payload(request,&buf);
+	  PRINTF("RPL data: %s\n",buf);
+  }
+
+  /* Usually, a CoAP server would response with the resource representation matching the periodic_handler. */
+  const char *msg = "OK";
+  REST.set_response_payload(response, msg, strlen(msg));
+}
+
+
+RESOURCE(dcres, METHOD_POST | METHOD_PUT , "parking/120/dc", "title=\"duty cycle\";rt=\"Control\"");
+
+void
+dcres_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred_size, int32_t *offset)
+{
+
+  REST.set_header_content_type(response, REST.type.TEXT_PLAIN);
+
+	if ( METHOD_POST & REST.get_method_type(request) ) {
+		PRINTF("DC resource subscribe request recv\n");
+	}
+
+	if ( METHOD_PUT & REST.get_method_type(request) ) {
+	  const uint8_t *buf;
+	  int len = REST.get_request_payload(request,&buf);
+	  PRINTF("DC data: %s\n",buf);
+	}
+
+  /* Usually, a CoAP server would response with the resource representation matching the periodic_handler. */
+  const char *msg = "OK";
+  REST.set_response_payload(response, msg, strlen(msg));
+}
+
 
 /******************************************************************************/
 #if REST_RES_LIGHT && defined (PLATFORM_HAS_LIGHT)
@@ -825,6 +916,10 @@ PROCESS_THREAD(rest_server_example, ev, data)
   rest_activate_resource(&resource_radio);
 #endif
 
+  rest_activate_resource(&resource_clientsub);
+  rest_activate_resource(&resource_presenceres);
+  rest_activate_resource(&resource_rplres);
+  rest_activate_resource(&resource_dcres);
   /* Define application-specific events here. */
   while(1) {
     PROCESS_WAIT_EVENT();

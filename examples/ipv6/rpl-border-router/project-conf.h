@@ -31,7 +31,18 @@
 #ifndef __PROJECT_ROUTER_CONF_H__
 #define __PROJECT_ROUTER_CONF_H__
 
+//#define RAWMAC 1
+//#define CONTIKIMAC 1
+
+//#define NETSTACK_CONF_RDC   nullrdc_driver
+#undef NETSTACK_CONF_RDC
+#if RAWMAC
+#define NETSTACK_CONF_RDC	rawmac_driver
+#elif defined(CONTIKIMAC)
 #define NETSTACK_CONF_RDC   contikimac_driver
+#else
+#define NETSTACK_CONF_RDC   nullrdc_driver
+#endif
 
 #ifndef UIP_FALLBACK_INTERFACE
 #define UIP_FALLBACK_INTERFACE rpl_interface

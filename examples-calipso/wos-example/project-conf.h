@@ -5,10 +5,15 @@
 #define LOG_CONF_ENABLED 0
 //#define SIGFOX_SERIAL_ENABLED 1
 
+#ifndef WITH_COMPOWER
+#define WITH_COMPOWER 1
+#endif
+
 //#undef printf
 //#define printf(...)
 
-#define RAWMAC 0
+//#define RAWMAC 1
+//#define CONTIKIMAC 1
 
 /* Some platforms have weird includes. */
 #undef IEEE802154_CONF_PANID
@@ -18,8 +23,10 @@
 #undef NETSTACK_CONF_RDC
 #if RAWMAC
 #define NETSTACK_CONF_RDC	rawmac_driver
-#else
+#elif defined(CONTIKIMAC)
 #define NETSTACK_CONF_RDC   contikimac_driver
+#else
+#define NETSTACK_CONF_RDC   nullrdc_driver
 #endif /* RAWMAC */
 
 /* Increase rpl-border-router IP-buffer when using more than 64. */

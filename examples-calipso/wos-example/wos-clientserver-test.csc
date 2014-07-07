@@ -93,8 +93,8 @@
       <breakpoints />
       <interface_config>
         se.sics.cooja.interfaces.Position
-        <x>86.66489747579777</x>
-        <y>41.702554814245346</y>
+        <x>96.6504942307095</x>
+        <y>46.95952214118115</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -121,8 +121,8 @@
       <breakpoints />
       <interface_config>
         se.sics.cooja.interfaces.Position
-        <x>66.31678100922475</x>
-        <y>43.518673720249275</y>
+        <x>64.20818558970353</x>
+        <y>51.46539834132086</y>
         <z>0.0</z>
       </interface_config>
       <interface_config>
@@ -130,6 +130,34 @@
         <id>3</id>
       </interface_config>
       <motetype_identifier>sky3</motetype_identifier>
+    </mote>
+    <mote>
+      <breakpoints />
+      <interface_config>
+        se.sics.cooja.interfaces.Position
+        <x>49.78938174925644</x>
+        <y>-12.518043700663107</y>
+        <z>0.0</z>
+      </interface_config>
+      <interface_config>
+        se.sics.cooja.mspmote.interfaces.MspMoteID
+        <id>4</id>
+      </interface_config>
+      <motetype_identifier>sky2</motetype_identifier>
+    </mote>
+    <mote>
+      <breakpoints />
+      <interface_config>
+        se.sics.cooja.interfaces.Position
+        <x>43.48115506906084</x>
+        <y>-47.21329044173892</y>
+        <z>0.0</z>
+      </interface_config>
+      <interface_config>
+        se.sics.cooja.mspmote.interfaces.MspMoteID
+        <id>5</id>
+      </interface_config>
+      <motetype_identifier>sky2</motetype_identifier>
     </mote>
   </simulation>
   <plugin>
@@ -149,10 +177,10 @@
       <skin>se.sics.cooja.plugins.skins.TrafficVisualizerSkin</skin>
       <skin>se.sics.cooja.plugins.skins.UDGMVisualizerSkin</skin>
       <skin>se.sics.cooja.plugins.skins.LEDVisualizerSkin</skin>
-      <viewport>2.1872743118760036 0.0 0.0 2.1872743118760036 35.44009600982001 119.78507311520019</viewport>
+      <viewport>2.219324179321643 0.0 0.0 2.219324179321643 79.50122121039945 167.78159706268661</viewport>
     </plugin_config>
     <width>400</width>
-    <z>4</z>
+    <z>3</z>
     <height>400</height>
     <location_x>1</location_x>
     <location_y>1</location_y>
@@ -165,7 +193,7 @@
       <coloring />
     </plugin_config>
     <width>985</width>
-    <z>1</z>
+    <z>6</z>
     <height>523</height>
     <location_x>400</location_x>
     <location_y>160</location_y>
@@ -176,13 +204,15 @@
       <mote>0</mote>
       <mote>1</mote>
       <mote>2</mote>
+      <mote>3</mote>
+      <mote>4</mote>
       <showRadioRXTX />
       <showRadioHW />
       <showLEDs />
       <zoomfactor>500.0</zoomfactor>
     </plugin_config>
     <width>1382</width>
-    <z>6</z>
+    <z>8</z>
     <height>166</height>
     <location_x>4</location_x>
     <location_y>686</location_y>
@@ -194,7 +224,7 @@
       <decorations>true</decorations>
     </plugin_config>
     <width>706</width>
-    <z>5</z>
+    <z>7</z>
     <height>160</height>
     <location_x>680</location_x>
     <location_y>0</location_y>
@@ -203,19 +233,37 @@
     SerialSocketServer
     <mote_arg>2</mote_arg>
     <width>395</width>
-    <z>3</z>
-    <height>74</height>
-    <location_x>5</location_x>
-    <location_y>432</location_y>
+    <z>2</z>
+    <height>86</height>
+    <location_x>3</location_x>
+    <location_y>602</location_y>
   </plugin>
   <plugin>
     SerialSocketServer
     <mote_arg>1</mote_arg>
     <width>395</width>
-    <z>2</z>
-    <height>80</height>
-    <location_x>5</location_x>
-    <location_y>507</location_y>
+    <z>1</z>
+    <height>56</height>
+    <location_x>6</location_x>
+    <location_y>545</location_y>
+  </plugin>
+  <plugin>
+    SerialSocketServer
+    <mote_arg>3</mote_arg>
+    <width>399</width>
+    <z>5</z>
+    <height>63</height>
+    <location_x>0</location_x>
+    <location_y>480</location_y>
+  </plugin>
+  <plugin>
+    SerialSocketServer
+    <mote_arg>4</mote_arg>
+    <width>399</width>
+    <z>4</z>
+    <height>69</height>
+    <location_x>1</location_x>
+    <location_y>405</location_y>
   </plugin>
 </simconf>
 

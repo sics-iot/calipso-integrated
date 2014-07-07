@@ -646,7 +646,7 @@ presenceres_handler(void* request, void* response, uint8_t *buffer, uint16_t pre
 
 	if ( METHOD_PUT & REST.get_method_type(request) ) {
 	  const uint8_t *buf;
-	  int len = REST.get_request_payload(request,&buf);
+	  /*int len =*/ REST.get_request_payload(request,&buf);
 	  PRINTF("FASTPRK data: %s\n",buf);
 	}
 
@@ -670,7 +670,7 @@ rplres_handler(void* request, void* response, uint8_t *buffer, uint16_t preferre
 
   if ( METHOD_PUT & REST.get_method_type(request) ) {
 	  const uint8_t *buf;
-	  int len = REST.get_request_payload(request,&buf);
+	  /*int len =*/ REST.get_request_payload(request,&buf);
 	  PRINTF("RPL data: %s\n",buf);
   }
 
@@ -694,7 +694,7 @@ dcres_handler(void* request, void* response, uint8_t *buffer, uint16_t preferred
 
 	if ( METHOD_PUT & REST.get_method_type(request) ) {
 	  const uint8_t *buf;
-	  int len = REST.get_request_payload(request,&buf);
+	  /*int len =*/ REST.get_request_payload(request,&buf);
 	  PRINTF("DC data: %s\n",buf);
 	}
 

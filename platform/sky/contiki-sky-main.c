@@ -201,8 +201,7 @@ main(int argc, char **argv)
   leds_init();
   leds_on(LEDS_RED);
 
-
-#ifdef SIGFOX_SERIAL_ENABLED
+#if defined(SIGFOX_SERIAL_ENABLED) | defined(SIGFOX_SERIAL_TEST_EN)
   uart1_init(BAUD2UBR(9600));
 #else
   uart1_init(BAUD2UBR(115200)); /* Must come before first printf */

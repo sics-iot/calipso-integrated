@@ -4,13 +4,16 @@
 #define PROCESS_CONF_NO_PROCESS_NAMES 1
 #define LOG_CONF_ENABLED 0
 //#define SIGFOX_SERIAL_ENABLED 1
+#define SIGFOX_SERIAL_TEST_EN 1
 
 #ifndef WITH_COMPOWER
 #define WITH_COMPOWER 1
 #endif
 
-//#undef printf
-//#define printf(...)
+#ifdef SIGFOX_SERIAL_ENABLED
+#undef printf
+#define printf(...)
+#endif
 
 //#define RAWMAC 1
 //#define CONTIKIMAC 1

@@ -180,7 +180,7 @@
       <viewport>2.219324179321643 0.0 0.0 2.219324179321643 79.50122121039945 167.78159706268661</viewport>
     </plugin_config>
     <width>400</width>
-    <z>3</z>
+    <z>5</z>
     <height>400</height>
     <location_x>1</location_x>
     <location_y>1</location_y>
@@ -193,7 +193,7 @@
       <coloring />
     </plugin_config>
     <width>985</width>
-    <z>6</z>
+    <z>2</z>
     <height>523</height>
     <location_x>400</location_x>
     <location_y>160</location_y>
@@ -233,7 +233,7 @@
     SerialSocketServer
     <mote_arg>2</mote_arg>
     <width>395</width>
-    <z>2</z>
+    <z>6</z>
     <height>86</height>
     <location_x>3</location_x>
     <location_y>602</location_y>
@@ -243,27 +243,27 @@
     <mote_arg>1</mote_arg>
     <width>395</width>
     <z>1</z>
-    <height>56</height>
+    <height>57</height>
     <location_x>6</location_x>
-    <location_y>545</location_y>
+    <location_y>544</location_y>
   </plugin>
   <plugin>
     SerialSocketServer
     <mote_arg>3</mote_arg>
     <width>399</width>
-    <z>5</z>
-    <height>63</height>
+    <z>4</z>
+    <height>72</height>
     <location_x>0</location_x>
-    <location_y>480</location_y>
+    <location_y>471</location_y>
   </plugin>
   <plugin>
     SerialSocketServer
     <mote_arg>4</mote_arg>
     <width>399</width>
-    <z>4</z>
-    <height>69</height>
+    <z>3</z>
+    <height>72</height>
     <location_x>1</location_x>
-    <location_y>405</location_y>
+    <location_y>402</location_y>
   </plugin>
 </simconf>
 

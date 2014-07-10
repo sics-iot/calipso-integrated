@@ -40,14 +40,15 @@
 #endif
 
 // TODO: This server address is hard-coded as we do not have discovery.
-#define SERVER_NODE(ipaddr)   uip_ip6addr(ipaddr, 0xaaaa, 0, 0, 0, 0x0212, 0x7401, 0x0001, 0x0101)
+//#define SERVER_NODE(ipaddr)   uip_ip6addr(ipaddr, 0xaaaa, 0, 0, 0, 0x0212, 0x7403, 0x0003, 0x0303)
+#define SERVER_NODE(ipaddr)   uip_ip6addr(ipaddr, 0xaaaa, 0, 0, 0, 0, 0, 0, 0x0001)
 
 #define LOCAL_PORT      UIP_HTONS(COAP_DEFAULT_PORT+1)
 #define REMOTE_PORT     UIP_HTONS(COAP_DEFAULT_PORT)
 
-#define PUSH_INTERVAL   600
+#define PUSH_INTERVAL   30
 #define MAX_URL_SIZE	128
-#define MAX_ID_SIZE		8
+#define MAX_ID_SIZE	15
 static char url_str_buf[MAX_URL_SIZE];
 static char id_str_buf[MAX_ID_SIZE];
 
@@ -225,7 +226,7 @@ enum {
 	DUTYCYCLE_RESOURCE_IDX
 };
 static char* service_urls[NUMBER_OF_RES] = {"/rpl", "/presence", "/dc"};
-static char* service_fastprk_url = "/parking/";
+//static char* service_fastprk_url = "/parking/";
 //static char* service_fastprk_url = "/leds";
 static uint8_t reg_resource_idx;
 static uint8_t reg_resource_status[NUMBER_OF_RES];
@@ -239,25 +240,27 @@ static unsigned long tx_start_duration;
 static struct pt_sem mutex;
 //static unsigned long all_cpu;
 //static unsigned long all_lpm;
+
 // These functions will be passed to COAP_BLOCKING_REQUEST() to handle responses.
 void
 client_id_handler(void *response)
 {
   const uint8_t *buf;
   coap_packet_t* packet = response;
-  if ( REST.status.OK == packet->code ) {
-	  uint8_t len = coap_get_payload(response, &buf);
-	  init_strbuf(&url_id,id_str_buf,MAX_ID_SIZE);
-	  concat_strbuf(&url_id,(char *)buf,len);
+
+  if ( REST.status.CREATED == packet->code ) {
+	uint8_t len = coap_get_header_location_path(response, &buf); // the identifier is passed in the location path
+	init_strbuf(&url_id,id_str_buf,MAX_ID_SIZE);
+	concat_strbuf(&url_id,(char *)buf,len);
+	printf("CODE=%d\n", packet->code);
+	printf("ID: %s\n", id_str_buf);
   }
-  printf("ID: len=%d %s\n", url_id.len, (char *)(url_id.str));
-  printf("CODE=%d\n", packet->code);
 }
 
 void
 register_res_reply_handler(void *response) {
 	coap_packet_t* packet = response;
-	if ( REST.status.OK == packet->code ) {
+	if ( REST.status.CREATED == packet->code ) {
 		reg_resource_status[reg_resource_idx] = 1;
 	}
 	printf("IDX=%d CODE=%d\n",reg_resource_idx, packet->code);
@@ -269,7 +272,7 @@ client_dummy_handler(void *response) {}
 // Request builing auxiliary functions
 static coap_packet_t *build_coap_msg(str_buf_t* url, coap_method_t method, char *msg, uint8_t len, char* query, uint8_t query_len ) {
 	static coap_packet_t request[1]; // This way the packet can be treated as pointer as usual.
-	printf("--Requesting %s--\n", url->str);
+	//printf("--Requesting %s--\n", url->str);
 	// prepare request, TID is set by COAP_BLOCKING_REQUEST()
 	coap_init_message(request, COAP_TYPE_CON, method, 0 );
 	coap_set_header_uri_path(request, url->str);
@@ -277,16 +280,16 @@ static coap_packet_t *build_coap_msg(str_buf_t* url, coap_method_t method, char 
 		coap_set_header_uri_query(request,query);
 	coap_set_payload(request, (uint8_t *)msg, len);
 
-	PRINT6ADDR(&server_ipaddr);
-	PRINTF(" : %u\n", UIP_HTONS(REMOTE_PORT));
+	//PRINT6ADDR(&server_ipaddr);
+	//PRINTF(" : %u\n", UIP_HTONS(REMOTE_PORT));
 
-	printf("\n--Done--\n");
+	//printf("\n--Done--\n");
 	return request;
 }
 
 static void build_url( str_buf_t *url, char *res_name ) {
 	init_strbuf(&request_url,url_str_buf,MAX_URL_SIZE);
-	concat_strbuf(&request_url,service_fastprk_url,0);
+	concat_strbuf(&request_url,"",0);
 	concat_strbuf(&request_url,url_id.str,url_id.len);
 	concat_strbuf(&request_url,res_name,0);
 }
@@ -382,16 +385,20 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	etimer_set(&et, 30 * CLOCK_SECOND);
 
 	// register the node and obtain identifier
-	while (0==url_id.len) {
-	init_strbuf(&request_url,url_str_buf,MAX_URL_SIZE);
-	concat_strbuf(&request_url,service_fastprk_url,0);
-	pkt = build_coap_msg(&request_url, COAP_POST, NULL, 0,NULL,0);
-	COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_id_handler);
-	// retry until successful
-	if ( 0==url_id.len ) {
-		etimer_restart(&et);
-		do PROCESS_WAIT_EVENT(); while (ev != PROCESS_EVENT_TIMER);
-	}
+	while (1) {
+		PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
+		printf("Trying node registration at the server...");
+		init_strbuf(&request_url,url_str_buf,MAX_URL_SIZE);
+		concat_strbuf(&request_url,"/parking/",0);
+		pkt = build_coap_msg(&request_url, COAP_POST, NULL, 0, NULL, 0);
+		COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_id_handler);
+		// retry until successful
+		if ( 0==url_id.len ) {
+			etimer_restart(&et);
+		} else {
+			printf("Done\n");
+			break;
+		}
 	}
 
 	// register to each resource
@@ -425,6 +432,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 			build_url( &request_url, service_urls[DUTYCYCLE_RESOURCE_IDX] );
 			pkt = build_coap_msg(&request_url, COAP_PUT, stats.str, stats.len,NULL,0);
 			COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_dummy_handler);
+
 			printf("\n--Stats push Done--\n");
 			etimer_reset(&et);
 			PT_SEM_SIGNAL(process_pt, &mutex);

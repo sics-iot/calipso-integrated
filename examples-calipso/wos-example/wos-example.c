@@ -282,7 +282,6 @@ static coap_packet_t *build_coap_msg(str_buf_t* url, coap_method_t method, char 
 
 	//PRINT6ADDR(&server_ipaddr);
 	//PRINTF(" : %u\n", UIP_HTONS(REMOTE_PORT));
-
 	//printf("\n--Done--\n");
 	return request;
 }

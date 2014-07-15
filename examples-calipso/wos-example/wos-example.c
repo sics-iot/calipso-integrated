@@ -11,7 +11,7 @@
 #include "contiki.h"
 #include "contiki-net.h"
 
-#include "energest.h"
+#include "simple-energest.h"
 
 #if WITH_COAP == 3
 #include "er-coap-03-engine.h"
@@ -212,22 +212,22 @@ static cmd_t *get_cmd() {
 
 PROCESS(main_wos_process, "COAP Client Example");
 PROCESS(sigfox_process, "radio stack stats");
+PROCESS(simple_energest_process, "Simple Energest");
 AUTOSTART_PROCESSES(&main_wos_process);
 
 uip_ipaddr_t server_ipaddr;
 
-#define NUMBER_OF_RES 3
+#define NUMBER_OF_RES 4
 #define STATS_DATA_SIZE 16
 // Example URIs that can be queried.
 // leading and ending slashes only for demo purposes, get cropped automatically when setting the Uri-Path
 enum {
 	RPL_RESOURCE_IDX = 0,
 	FASTPRK_RESOURCE_IDX,
-	DUTYCYCLE_RESOURCE_IDX
+	DUTYCYCLE_RESOURCE_IDX,
+	PDR_RESOURCE_IDX
 };
-static char* service_urls[NUMBER_OF_RES] = {"/rpl", "/presence", "/dc"};
-//static char* service_fastprk_url = "/parking/";
-//static char* service_fastprk_url = "/leds";
+static char* service_urls[NUMBER_OF_RES] = {"/rpl", "/presence", "/dc", "/pdr"};
 static uint8_t reg_resource_idx;
 static uint8_t reg_resource_status[NUMBER_OF_RES];
 
@@ -235,11 +235,14 @@ static str_buf_t request_url;
 static str_buf_t url_id;
 static str_buf_t stats;
 static char stats_buf[STATS_DATA_SIZE];
-static unsigned long rx_start_duration;
-static unsigned long tx_start_duration;
 static struct pt_sem mutex;
-//static unsigned long all_cpu;
-//static unsigned long all_lpm;
+
+/*	Statistics CoAP	*/
+static uint32_t last_tx, last_rx, last_time;
+static uint32_t delta_tx, delta_rx, delta_time;
+static uint32_t curr_tx, curr_rx, curr_time;
+
+static uint32_t tx_pkts;
 
 // These functions will be passed to COAP_BLOCKING_REQUEST() to handle responses.
 void
@@ -283,6 +286,7 @@ static coap_packet_t *build_coap_msg(str_buf_t* url, coap_method_t method, char 
 	//PRINT6ADDR(&server_ipaddr);
 	//PRINTF(" : %u\n", UIP_HTONS(REMOTE_PORT));
 	//printf("\n--Done--\n");
+	tx_pkts++;
 	return request;
 }
 
@@ -294,7 +298,7 @@ static void build_url( str_buf_t *url, char *res_name ) {
 }
 
 // Theses functions retrieve the radio stack information to send to the server
-static void get_dutycycle_str( str_buf_t *strbuf ) {
+/*static void get_dutycycle_str( str_buf_t *strbuf ) {
 	uint32_t all_transmit = energest_type_time(ENERGEST_TYPE_TRANSMIT) - tx_start_duration;
 	uint32_t all_listen = energest_type_time(ENERGEST_TYPE_LISTEN) - rx_start_duration;
 	//uint32_t all_time = energest_type_time(ENERGEST_TYPE_CPU) + energest_type_time(ENERGEST_TYPE_LPM);
@@ -305,13 +309,18 @@ static void get_dutycycle_str( str_buf_t *strbuf ) {
 	// stats
 	init_strbuf(strbuf,stats_buf,STATS_DATA_SIZE);
 	concat_formated( strbuf, "%lu", energy_mj );
-}
+}*/
 
 static void get_rplstats_str( str_buf_t *strbuf ) {
 	uint32_t parentId = 10uL; // TODO get rpl data
 	uint32_t metric = 30uL;
 	init_strbuf(strbuf,stats_buf,STATS_DATA_SIZE);
 	concat_formated( strbuf, "%lu %lu", parentId , metric );
+}
+
+static void get_pdrstats_str( str_buf_t *strbuf ) {
+	init_strbuf(strbuf,stats_buf,STATS_DATA_SIZE);
+	concat_formated( strbuf, "%lu", tx_pkts );
 }
 
 PROCESS_THREAD(sigfox_process, ev, data) {
@@ -365,6 +374,60 @@ PROCESS_THREAD(sigfox_process, ev, data) {
 	PROCESS_END();
 }
 
+PROCESS_THREAD(simple_energest_process, ev, data)
+{
+  static struct etimer periodic;
+  static coap_packet_t *pkt;
+  static uint32_t fraction;
+  PROCESS_BEGIN();
+  //coap_receiver_init();
+  etimer_set(&periodic, 60 * CLOCK_SECOND);
+
+  while(1) {
+    PROCESS_WAIT_UNTIL(etimer_expired(&periodic));
+    etimer_reset(&periodic);
+    fraction = simple_energest_step();
+    printf("Duty Cycle: %lu permil\n", fraction);
+    init_strbuf(&stats,stats_buf,STATS_DATA_SIZE);
+    concat_formated( &stats, "%lu", fraction );
+    build_url( &request_url, service_urls[DUTYCYCLE_RESOURCE_IDX] );
+    pkt = build_coap_msg(&request_url, COAP_PUT, stats.str, stats.len,NULL,0);
+    COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_dummy_handler);
+  }
+
+  PROCESS_END();
+}
+/*---------------------------------------------------------------------------*/
+void simple_energest_start() {
+  energest_flush();
+  last_tx = energest_type_time(ENERGEST_TYPE_TRANSMIT);
+  last_rx = energest_type_time(ENERGEST_TYPE_LISTEN);
+  last_time = energest_type_time(ENERGEST_TYPE_CPU) + energest_type_time(ENERGEST_TYPE_LPM);
+  process_start(&simple_energest_process, NULL);
+}
+
+/*---------------------------------------------------------------------------*/
+static uint32_t simple_energest_step() {
+  static uint16_t cnt;
+  uint32_t fraction;
+
+  energest_flush();
+
+  curr_tx = energest_type_time(ENERGEST_TYPE_TRANSMIT);
+  curr_rx = energest_type_time(ENERGEST_TYPE_LISTEN);
+  curr_time = energest_type_time(ENERGEST_TYPE_CPU) + energest_type_time(ENERGEST_TYPE_LPM);
+
+  delta_tx = curr_tx - last_tx;
+  delta_rx = curr_rx - last_rx;
+  delta_time = curr_time - last_time;
+
+  last_tx = curr_tx;
+  last_rx = curr_rx;
+  last_time = curr_time;
+
+  return (1000ul*(delta_tx+delta_rx))/delta_time;
+}
+
 PROCESS_THREAD(main_wos_process, ev, data)
 {
 	static coap_packet_t *pkt;
@@ -373,11 +436,11 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	PROCESS_BEGIN();
 	memset( reg_resource_status, 0, NUMBER_OF_RES);
 	PT_SEM_INIT(&mutex, 1);
-	rx_start_duration = energest_type_time(ENERGEST_TYPE_LISTEN);
-	tx_start_duration = energest_type_time(ENERGEST_TYPE_TRANSMIT);
+	tx_pkts = 0;
 	init_strbuf(&url_id,id_str_buf,MAX_ID_SIZE);
 	SERVER_NODE(&server_ipaddr);
 	process_start(&sigfox_process,NULL);
+	simple_energest_start();
 
 	/* receives all CoAP messages */
 	coap_receiver_init();
@@ -413,12 +476,12 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	}
 
 	etimer_set(&et, PUSH_INTERVAL * CLOCK_SECOND);
-	printf("\n--start push process--\n");
+	printf("\n--start put process--\n");
 	while (1) {
 		PROCESS_WAIT_EVENT();
 		if (ev == PROCESS_EVENT_TIMER) {
 			PT_SEM_WAIT(process_pt, &mutex);
-			printf("--Stats push timer--\n");
+			printf("--Stats put timer--\n");
 	
 			// RPL STATS
 			get_rplstats_str( &stats );
@@ -426,13 +489,19 @@ PROCESS_THREAD(main_wos_process, ev, data)
 			pkt = build_coap_msg(&request_url, COAP_PUT, stats.str, stats.len,NULL,0);
 			COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_dummy_handler);
 	
-			// DUTY CYCLE
-			get_dutycycle_str( &stats );
-			build_url( &request_url, service_urls[DUTYCYCLE_RESOURCE_IDX] );
+			// DUTY CYCLE is handled by the simple-energest process
+			//get_dutycycle_str( &stats );
+			//build_url( &request_url, service_urls[DUTYCYCLE_RESOURCE_IDX] );
+			//pkt = build_coap_msg(&request_url, COAP_PUT, stats.str, stats.len,NULL,0);
+			//COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_dummy_handler);
+
+			// PDR
+			get_pdrstats_str( &stats );
+			build_url( &request_url, service_urls[PDR_RESOURCE_IDX] );
 			pkt = build_coap_msg(&request_url, COAP_PUT, stats.str, stats.len,NULL,0);
 			COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_dummy_handler);
 
-			printf("\n--Stats push Done--\n");
+			printf("\n--Stats put Done--\n");
 			etimer_reset(&et);
 			PT_SEM_SIGNAL(process_pt, &mutex);
 		}

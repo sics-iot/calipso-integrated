@@ -12,6 +12,7 @@
 #include "contiki-net.h"
 
 #include "simple-energest.h"
+#include "net/rpl/rpl.h"
 
 #if WITH_COAP == 3
 #include "er-coap-03-engine.h"
@@ -244,6 +245,8 @@ static uint32_t curr_tx, curr_rx, curr_time;
 
 static uint32_t tx_pkts;
 
+static uint8_t rpl_parentId;
+
 // These functions will be passed to COAP_BLOCKING_REQUEST() to handle responses.
 void
 client_id_handler(void *response)
@@ -312,10 +315,11 @@ static void build_url( str_buf_t *url, char *res_name ) {
 }*/
 
 static void get_rplstats_str( str_buf_t *strbuf ) {
-	uint32_t parentId = 10uL; // TODO get rpl data
-	uint32_t metric = 30uL;
+	rpl_parentId = (uint8_t) rpl_get_parent_ipaddr((rpl_parent_t *) rpl_get_any_dag()->preferred_parent)->u8[sizeof(uip_ipaddr_t)-1];
+	//uint32_t metric = 30uL;
 	init_strbuf(strbuf,stats_buf,STATS_DATA_SIZE);
-	concat_formated( strbuf, "%lu %lu", parentId , metric );
+	//concat_formated( strbuf, "%lu %lu", rpl_parentId , metric );
+	concat_formated( strbuf, "%u", rpl_parentId);
 }
 
 static void get_pdrstats_str( str_buf_t *strbuf ) {
@@ -387,7 +391,7 @@ PROCESS_THREAD(simple_energest_process, ev, data)
     PROCESS_WAIT_UNTIL(etimer_expired(&periodic));
     etimer_reset(&periodic);
     fraction = simple_energest_step();
-    printf("Duty Cycle: %lu permil\n", fraction);
+    printf("Duty Cycle: %lu\%\n", fraction);
     init_strbuf(&stats,stats_buf,STATS_DATA_SIZE);
     concat_formated( &stats, "%lu", fraction );
     build_url( &request_url, service_urls[DUTYCYCLE_RESOURCE_IDX] );
@@ -425,7 +429,8 @@ static uint32_t simple_energest_step() {
   last_rx = curr_rx;
   last_time = curr_time;
 
-  return (1000ul*(delta_tx+delta_rx))/delta_time;
+  //return (1000ul*(delta_tx+delta_rx))/delta_time;
+  return (100ul*(curr_tx+curr_rx))/curr_time;
 }
 
 PROCESS_THREAD(main_wos_process, ev, data)

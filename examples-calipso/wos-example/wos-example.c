@@ -13,6 +13,7 @@
 
 #include "simple-energest.h"
 #include "net/rpl/rpl.h"
+#include "net/uip-ds6-nbr.h"
 
 #if WITH_COAP == 3
 #include "er-coap-03-engine.h"
@@ -246,6 +247,7 @@ static uint32_t curr_tx, curr_rx, curr_time;
 static uint32_t tx_pkts;
 
 static uint8_t rpl_parentId;
+static uint16_t rpl_parentLinkMetric;
 
 // These functions will be passed to COAP_BLOCKING_REQUEST() to handle responses.
 void
@@ -316,10 +318,11 @@ static void build_url( str_buf_t *url, char *res_name ) {
 
 static void get_rplstats_str( str_buf_t *strbuf ) {
 	rpl_parentId = (uint8_t) rpl_get_parent_ipaddr((rpl_parent_t *) rpl_get_any_dag()->preferred_parent)->u8[sizeof(uip_ipaddr_t)-1];
-	//uint32_t metric = 30uL;
+	rpl_parentLinkMetric = (uint16_t) rpl_get_parent_link_metric((uip_lladdr_t *)
+		uip_ds6_nbr_lladdr_from_ipaddr((uip_ipaddr_t *) rpl_get_any_dag()->preferred_parent));
 	init_strbuf(strbuf,stats_buf,STATS_DATA_SIZE);
-	//concat_formated( strbuf, "%lu %lu", rpl_parentId , metric );
-	concat_formated( strbuf, "%u", rpl_parentId);
+	concat_formated( strbuf, "%u %u", rpl_parentId , rpl_parentLinkMetric);
+	//concat_formated( strbuf, "%u", rpl_parentId);
 }
 
 static void get_pdrstats_str( str_buf_t *strbuf ) {

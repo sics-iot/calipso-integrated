@@ -3,7 +3,9 @@
 
 #define PROCESS_CONF_NO_PROCESS_NAMES 1
 #define LOG_CONF_ENABLED 0
+// In deployments with real FastPark sensors, this flag needs to be defined
 //#define SIGFOX_SERIAL_ENABLED 1
+// To test with real HW, fake sensors, and debug messages enabled
 #define SIGFOX_SERIAL_TEST_EN 1
 
 #ifndef WITH_COMPOWER

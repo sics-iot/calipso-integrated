@@ -84,3 +84,7 @@ contiki-cc2530dk.lib
 
 #regression tests artifacts
 *.testlog
+
+#calipso-gateway
+*.class
+examples-calipso/wos-example/CALIPSO_GATEWAY/CALIPSO_CaliforniumCoAP18Server/bin/

@@ -1,14 +1,16 @@
 #ifndef __PROJECT_H__
 #define __PROJECT_H__
 
-#define RAWMAC 1
+#ifndef WITH_RAWMAC
+#define WITH_RAWMAC 1
+#endif
 
 // the rdc layer to be used: contikimac is the default
-#if RAWMAC
-#undef NETSTACK_CONF_RDC
-#define NETSTACK_CONF_RDC rawmac_driver
+//#if WITH_RAWMAC
+//#undef NETSTACK_CONF_RDC
+//#define NETSTACK_CONF_RDC rawmac_driver
 //#define NETSTACK_CONF_RDC contikimac_driver
-#endif /* RAWMAC */
+//#endif /* WITH_RAWMAC */
 
 /***** FIXED PARAMETERS ******/
 
@@ -36,7 +38,7 @@
 
 
 /*****	CONFIGURABLE PARAMETERS	*****/
-#if RAWMAC
+#if WITH_RAWMAC
 /* The phase offset Po of RAWMAC */
 #undef PHASE_OFFSET
 #define PHASE_OFFSET	40 * ((RTIMER_ARCH_SECOND / 1000) + 1)
@@ -44,7 +46,7 @@
 /* The delta phase offset dPo of RAWMAC */
 #undef DELTA_PHASE_OFFSET
 #define DELTA_PHASE_OFFSET	9 * ((RTIMER_ARCH_SECOND / 1000) + 1)
-#endif /* RAWMAC */
+#endif /* WITH_RAWMAC */
 
 /* The total number of queuebuf */
 //#undef QUEUEBUF_CONF_NUM

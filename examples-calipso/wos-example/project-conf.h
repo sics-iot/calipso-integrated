@@ -1,48 +1,23 @@
-#ifndef __PROJECT_WOS_INTEGRATED_CONF_H__
-#define __PROJECT_WOS_INTEGRATED_CONF_H__
+#ifndef __PROJECT_CONF_H__
+#define __PROJECT_CONF_H__
 
-#define PROCESS_CONF_NO_PROCESS_NAMES 1
-#define LOG_CONF_ENABLED 0
-// In deployments with real FastPark sensors, this flag needs to be defined
-//#define SIGFOX_SERIAL_ENABLED 1
-// To test with real HW, fake sensors, and debug messages enabled
-#define SIGFOX_SERIAL_TEST_EN 1
+#define CALIPSO_RPL_NULLRDC 0
+#define CALIPSO_RPL_CONTIKIMAC 1
+#define CALIPSO_ORPL_CONTIKIMAC 2
+#define CALIPSO_RPL_RAWMAC 3
 
-#ifndef WITH_COMPOWER
-#define WITH_COMPOWER 1
-#endif
-
-#ifdef SIGFOX_SERIAL_ENABLED
-#undef printf
-#define printf(...)
-#endif
-
-//#define RAWMAC 1
-//#define CONTIKIMAC 1
+/* Set to one of the above values to configure the CALIPSO stack */
+/* #define CALIPSO_CONFIG CALIPSO_RPL_NULLRDC */
+/* #define CALIPSO_CONFIG CALIPSO_RPL_CONTIKIMAC */
+#define CALIPSO_CONFIG CALIPSO_ORPL_CONTIKIMAC
+/* #define CALIPSO_CONFIG CALIPSO_RPL_RAWMAC */
 
 /* Some platforms have weird includes. */
 #undef IEEE802154_CONF_PANID
 
-/* Disabling RDC for demo purposes. Core updates often require more memory. */
-/* For projects, optimize memory and enable RDC again. */
-#undef NETSTACK_CONF_RDC
-#if RAWMAC
-#define NETSTACK_CONF_RDC	rawmac_driver
-#elif defined(CONTIKIMAC)
-#define NETSTACK_CONF_RDC   contikimac_driver
-#else
-#define NETSTACK_CONF_RDC   nullrdc_driver
-#endif /* RAWMAC */
-
 /* Increase rpl-border-router IP-buffer when using more than 64. */
 #undef REST_MAX_CHUNK_SIZE
 #define REST_MAX_CHUNK_SIZE    64
-
-/* Estimate your header size, especially when using Proxy-Uri. */
-/*
-#undef COAP_MAX_HEADER_SIZE
-#define COAP_MAX_HEADER_SIZE    70
-*/
 
 /* The IP buffer size must fit all other hops, in particular the border router. */
 /*
@@ -55,21 +30,21 @@
 #define COAP_MAX_OPEN_TRANSACTIONS   1
 
 /* Must be <= open transaction number, default is COAP_MAX_OPEN_TRANSACTIONS-1. */
-/*
 #undef COAP_MAX_OBSERVERS
-#define COAP_MAX_OBSERVERS      2
-*/
+#define COAP_MAX_OBSERVERS      0
 
 /* Filtering .well-known/core per query can be disabled to save space. */
-/*
 #undef COAP_LINK_FORMAT_FILTERING
 #define COAP_LINK_FORMAT_FILTERING      0
-*/
+
+/* Reduce 802.15.4 frame queue to save RAM. */
+#undef QUEUEBUF_CONF_NUM
+#define QUEUEBUF_CONF_NUM       2
 
 /* UIP_CONF_MAX_ROUTES specifies the maximum number of routes that each
    node will be able to handle. */
 #undef UIP_CONF_MAX_ROUTES
-#define UIP_CONF_MAX_ROUTES 6
+#define UIP_CONF_MAX_ROUTES 10
 
 /* Save some memory for the sky platform. */
 #undef NBR_TABLE_CONF_MAX_NEIGHBORS
@@ -88,19 +63,18 @@
 #undef UIP_CONF_ND6_SEND_RA
 #define UIP_CONF_ND6_SEND_RA 	0
 
-// channel check rate in Hz
-#undef NETSTACK_RDC_CHANNEL_CHECK_RATE
-#define NETSTACK_RDC_CHANNEL_CHECK_RATE 8
+#include "wos-conf-sigfox.h"
 
-/*****	CONFIGURABLE PARAMETERS	*****/
-#if RAWMAC
-/* The phase offset Po of RAWMAC */
-#undef PHASE_OFFSET
-#define PHASE_OFFSET	40 * ((RTIMER_ARCH_SECOND / 1000) + 1)
+#if CALIPSO_CONFIG == CALIPSO_RPL_NULLRDC
+#include "calipso-conf-rpl-nullrdc.h"
+#elif CALIPSO_CONFIG == CALIPSO_RPL_CONTIKIMAC
+#include "calipso-conf-rpl-contikimac.h"
+#elif CALIPSO_CONFIG == CALIPSO_ORPL_CONTIKIMAC
+#include "calipso-conf-orpl-contikimac.h"
+#elif CALIPSO_CONFIG == CALIPSO_RPL_RAWMAC
+#include "calipso-conf-rpl-rawmac.h"
+#else
+#error Unsupported CALIPSO configuration. Set the CALIPSO_CONFIG flag.
+#endif /* CALIPSO_CONFIG */
 
-/* The delta phase offset dPo of RAWMAC */
-#undef DELTA_PHASE_OFFSET
-#define DELTA_PHASE_OFFSET	9 * ((RTIMER_ARCH_SECOND / 1000) + 1)
-#endif /* RAWMAC */
-
-#endif /* __PROJECT_WOS_INTEGRATED_CONF_H__ */
+#endif /* __PROJECT_CONF_H__ */

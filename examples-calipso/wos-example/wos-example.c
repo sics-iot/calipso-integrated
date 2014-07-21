@@ -2,7 +2,6 @@
 #include "dev/watchdog.h"
 #include "dev/uart1.h"
 #include "lib/ringbuf.h"
-#include "pt-sem.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -48,11 +47,12 @@
 #define LOCAL_PORT      UIP_HTONS(COAP_DEFAULT_PORT+1)
 #define REMOTE_PORT     UIP_HTONS(COAP_DEFAULT_PORT)
 
-#define PUSH_INTERVAL   			30 // interval at which to send radio statistics (seconds)
+#define PUSH_INTERVAL   			300 // interval at which to send radio statistics (seconds)
 #define ENERGY_UPDATE_INTERVAL  	60 // simple ENERGEST step interval (seconds)
-#define MAX_URL_SIZE	128		// URL request max size (bytes)
+#define MAX_URL_SIZE	64		// URL request max size (bytes)
 #define MAX_ID_SIZE		15		// max length server generated ID string (bytes)
 static char url_str_buf[MAX_URL_SIZE];
+static char sfurl_str_buf[MAX_URL_SIZE];
 static char id_str_buf[MAX_ID_SIZE];
 
 typedef enum {
@@ -74,6 +74,12 @@ static void init_strbuf( str_buf_t *url, char *buf, uint8_t max_len ) {
 	url->len = 0;
 	url->max_len = max_len;
 	url->str = buf;
+	url->str[url->len] = 0x00;
+	url->str[url->max_len-1] = 0x00;
+}
+
+static void reset_strbuf( str_buf_t *url ) {
+	url->len = 0;
 	url->str[url->len] = 0x00;
 	url->str[url->max_len-1] = 0x00;
 }
@@ -202,8 +208,7 @@ static cmd_t *get_cmd() {
 						continue;
 					}
 				} else if ( CMD_AT_SFOXCONF == sigfox_cmd.cmd ) {
-					// AT$IF=868200000,200,20
-					// start parsing at rxBuf[16] = "200,20"
+					// start parsing at rxBuf[16] 2 comma separated integers
 					uint8_t idx = parse_user_value(&(rxBuf[16]),5,&(sigfox_cmd.cca_thres));
 					parse_user_value(&(rxBuf[idx+17]),3,&(sigfox_cmd.tx_pow));
 				}
@@ -267,11 +272,10 @@ static void (*service_str_builder[NUMBER_OF_RES])(str_buf_t*) = {
 static uint8_t reg_resource_idx;
 static uint8_t reg_resource_status[NUMBER_OF_RES]; // stores 1 iff the corresponding resource has been successfully registered
 // auxiliary string buffers
-static str_buf_t request_url;
+static str_buf_t request_url, sfreq_url;
 static str_buf_t url_id;
 static str_buf_t stats;
 static char stats_buf[STATS_DATA_SIZE];
-static struct pt_sem mutex;
 
 /*	Statistics CoAP	*/
 static uint32_t last_tx, last_rx, last_time;
@@ -293,10 +297,9 @@ client_id_handler(void *response)
 
   if ( REST.status.CREATED == packet->code ) {
 	uint8_t len = coap_get_header_location_path(response, (const char **)&buf); // the identifier is passed in the location path
-	init_strbuf(&url_id,id_str_buf,MAX_ID_SIZE);
+	reset_strbuf(&url_id);
 	concat_strbuf(&url_id,(char *)buf,len);
-	printf("CODE=%d\n", packet->code);
-	printf("ID: %s\n", id_str_buf);
+	printf("CODE=%d  ID: %s\n", packet->code, id_str_buf);
   }
 }
 
@@ -313,8 +316,7 @@ void
 client_dummy_handler(void *response) {}
 
 // Request builing auxiliary functions
-static coap_packet_t *build_coap_msg(str_buf_t* url, coap_method_t method, char *msg, uint8_t len, char* query, uint8_t query_len ) {
-	static coap_packet_t request[1]; // This way the packet can be treated as pointer as usual.
+static void build_coap_msg(coap_packet_t *request, str_buf_t* url, coap_method_t method, char *msg, uint8_t len, char* query, uint8_t query_len ) {
 	PRINTF("--Requesting %s-- payload: %s\n", url->str, msg);
 	// prepare request, TID is set by COAP_BLOCKING_REQUEST()
 	coap_init_message(request, COAP_TYPE_CON, method, 0 );
@@ -322,15 +324,13 @@ static coap_packet_t *build_coap_msg(str_buf_t* url, coap_method_t method, char 
 	if ( query_len > 0 )
 		coap_set_header_uri_query(request,query);
 	coap_set_payload(request, (uint8_t *)msg, len);
-	tx_pkts++;
-	return request;
+	if ( COAP_PUT == method ) tx_pkts++;
 }
 
 static void build_url( str_buf_t *url, char *res_name ) {
-	init_strbuf(&request_url,url_str_buf,MAX_URL_SIZE);
-	concat_strbuf(&request_url,"",0);
-	concat_strbuf(&request_url,url_id.str,url_id.len);
-	concat_strbuf(&request_url,res_name,0);
+	reset_strbuf(url);
+	concat_strbuf(url,url_id.str,url_id.len);
+	concat_strbuf(url,res_name,0);
 }
 
 // statistic data extraction functions
@@ -340,35 +340,35 @@ static void get_rplstats_str( str_buf_t *strbuf ) {
 	rpl_parentId = (uint8_t) rpl_get_parent_ipaddr((rpl_parent_t *) rpl_get_any_dag()->preferred_parent)->u8[sizeof(uip_ipaddr_t)-1];
 	rpl_parentLinkMetric = (uint16_t) rpl_get_parent_link_metric((uip_lladdr_t *)
 		uip_ds6_nbr_lladdr_from_ipaddr((uip_ipaddr_t *) rpl_get_any_dag()->preferred_parent));
-	init_strbuf(strbuf,stats_buf,STATS_DATA_SIZE);
-	concat_formated( strbuf, "%u %u", rpl_parentId , rpl_parentLinkMetric);
+	reset_strbuf(strbuf);
+	concat_formated( strbuf, "%u %u", rpl_parentId , rpl_parentLinkMetric );
 }
 
 static void get_dutycycle_str( str_buf_t *strbuf ) {
-	init_strbuf(strbuf,stats_buf,STATS_DATA_SIZE);
+	reset_strbuf(strbuf);
 	concat_formated( strbuf, "%u.%02u", (uint16_t)(dutycycle_per10k/100), (uint16_t)(dutycycle_per10k%100));
 }
 
 static void get_pdrstats_str( str_buf_t *strbuf ) {
-	init_strbuf(strbuf,stats_buf,STATS_DATA_SIZE);
+	reset_strbuf(strbuf);
 	concat_formated( strbuf, "%lu", tx_pkts );
 }
 
 static void get_ctime_str( str_buf_t *strbuf ) {
 	uint32_t ctime_s = 25uL; // TODO get convergence time data
-	init_strbuf(strbuf,stats_buf,STATS_DATA_SIZE);
+	reset_strbuf(strbuf);
 	concat_formated( strbuf, "%lu", ctime_s );
 }
 
 static void get_overhead_str( str_buf_t *strbuf ) {
 	uint32_t overhead = 21uL; // TODO get overhead packet count
-	init_strbuf(strbuf,stats_buf,STATS_DATA_SIZE);
+	reset_strbuf(strbuf);
 	concat_formated( strbuf, "%lu", overhead );
 }
 
 // procs
 PROCESS_THREAD(sigfox_process, ev, data) {
-	static coap_packet_t *pkt;
+	static coap_packet_t pkt[1];
 	PROCESS_BEGIN();
 
 	init_sigfox_com();
@@ -381,17 +381,15 @@ PROCESS_THREAD(sigfox_process, ev, data) {
 		cmd = get_cmd();
 		if ( CMD_SFSEND == cmd->cmd ) { // sensor message received
 			write_sfok();
-			PT_SEM_WAIT(process_pt, &mutex);
 			printf("\n--PARKING event START--\n");
 			if ( 1 == reg_resource_status[FASTPRK_RESOURCE_IDX] ) {
-				build_url( &request_url, service_urls[FASTPRK_RESOURCE_IDX] );
-				pkt = build_coap_msg(&request_url, COAP_PUT, cmd->payload, cmd->paylen,NULL,0);
+				build_url( &sfreq_url, service_urls[FASTPRK_RESOURCE_IDX] );
+				build_coap_msg(pkt, &sfreq_url, COAP_PUT, cmd->payload, cmd->paylen,NULL,0);
 				COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_dummy_handler);
 			}
 			write_sfsent();
 			cmd->cmd = CMD_NONE;
 			printf("\n--PARKING event END--\n");
-			PT_SEM_SIGNAL(process_pt, &mutex);
 		}
 
 		switch ( cmd->cmd ) {
@@ -453,23 +451,25 @@ static uint32_t simple_energest_step() {
   last_rx = curr_rx;
   last_time = curr_time;
   temp = (curr_tx+curr_rx)/(curr_time/10000uL);
-  PRINTF("tx=%lu rx=%lu time=%lu\n", curr_tx, curr_rx, curr_time);
+  //PRINTF("tx=%lu rx=%lu time=%lu\n", curr_tx, curr_rx, curr_time);
   if ( temp > 10000uL ) return 10000uL;
   return temp;
-  //return (1000ul*(delta_tx+delta_rx))/delta_time;
-  //return (100ul*(curr_tx+curr_rx))/curr_time;
 }
 
 PROCESS_THREAD(main_wos_process, ev, data)
 {
-	static coap_packet_t *pkt;
+	static coap_packet_t pkt[1];
 	static struct etimer et;
 
 	PROCESS_BEGIN();
 	memset( reg_resource_status, 0, NUMBER_OF_RES);
-	PT_SEM_INIT(&mutex, 1);
-	tx_pkts = 0;
+
+	init_strbuf(&request_url,url_str_buf,MAX_URL_SIZE);
+	init_strbuf(&sfreq_url,sfurl_str_buf,MAX_URL_SIZE);
+	init_strbuf(&stats,stats_buf,STATS_DATA_SIZE);
 	init_strbuf(&url_id,id_str_buf,MAX_ID_SIZE);
+
+	tx_pkts = 0;
 	SERVER_NODE(&server_ipaddr);
 	process_start(&sigfox_process,NULL);
 	simple_energest_start();
@@ -482,9 +482,9 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	while (1) {
 		PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
 		printf("Trying node registration at the server...");
-		init_strbuf(&request_url,url_str_buf,MAX_URL_SIZE);
+		reset_strbuf(&request_url);
 		concat_strbuf(&request_url,"/parking/",0);
-		pkt = build_coap_msg(&request_url, COAP_POST, NULL, 0, NULL, 0);
+		build_coap_msg(pkt, &request_url, COAP_POST, NULL, 0, NULL, 0);
 		COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_id_handler);
 		// retry until successful
 		if ( 0==url_id.len ) {
@@ -498,7 +498,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	// register to each resource
 	for (reg_resource_idx=0;reg_resource_idx<NUMBER_OF_RES;) {
 	  build_url( &request_url, service_urls[reg_resource_idx] );
-	  pkt = build_coap_msg(&request_url, COAP_POST, NULL, 0,NULL,0);
+	  build_coap_msg(pkt, &request_url, COAP_POST, NULL, 0,NULL,0);
 	  COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, register_res_reply_handler);
 	  // retry until successful
 	  if ( 0==reg_resource_status[reg_resource_idx] ) {
@@ -513,27 +513,20 @@ PROCESS_THREAD(main_wos_process, ev, data)
 		PROCESS_WAIT_EVENT();
 		if (ev == PROCESS_EVENT_TIMER) {
 			static uint8_t i;
-			// the request struct and payload buffer are shared
-			// therefore must be protected against concurrent modifications by other process
-			PT_SEM_WAIT(process_pt, &mutex);
-			printf("--Stats put timer--\n");
-	
+			PRINTF("\n--Stats put START--\n");
 			// periodic sending of declared statistic data
 			for (i=0;i<NUMBER_OF_RES;++i) {
 				// resources with NULL 'service_str_builder' entry are skipped
 				if ( NULL == service_str_builder[i] ) continue;
 				(*service_str_builder[i])(&stats);
 				build_url( &request_url, service_urls[i] );
-				pkt = build_coap_msg(&request_url, COAP_PUT, stats.str, stats.len,NULL,0);
+				build_coap_msg(pkt, &request_url, COAP_PUT, stats.str, stats.len,NULL,0);
 				COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_dummy_handler);
 			}
-
-			printf("\n--Stats put Done--\n");
+			PRINTF("\n--Stats put END--\n");
 			etimer_reset(&et);
-			PT_SEM_SIGNAL(process_pt, &mutex);
 		}
 	}
-
 	PROCESS_END();
 }
 

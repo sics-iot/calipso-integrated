@@ -7,9 +7,9 @@
 #define CALIPSO_RPL_RAWMAC 3
 
 /* Set to one of the above values to configure the CALIPSO stack */
-/* #define CALIPSO_CONFIG CALIPSO_RPL_NULLRDC */
+#define CALIPSO_CONFIG CALIPSO_RPL_NULLRDC
 /* #define CALIPSO_CONFIG CALIPSO_RPL_CONTIKIMAC */
-#define CALIPSO_CONFIG CALIPSO_ORPL_CONTIKIMAC
+/* #define CALIPSO_CONFIG CALIPSO_ORPL_CONTIKIMAC */
 /* #define CALIPSO_CONFIG CALIPSO_RPL_RAWMAC */
 
 /* Some platforms have weird includes. */

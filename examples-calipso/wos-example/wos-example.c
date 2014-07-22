@@ -2,6 +2,7 @@
 #include "dev/watchdog.h"
 #include "dev/uart1.h"
 #include "lib/ringbuf.h"
+#include "sys/pt.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,7 +30,7 @@
 #endif
 
 
-#define DEBUG 0
+#define DEBUG 1
 #if DEBUG
 #define PRINTF(...) printf(__VA_ARGS__)
 #define PRINT6ADDR(addr) PRINTF("[%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x]", ((uint8_t *)addr)[0], ((uint8_t *)addr)[1], ((uint8_t *)addr)[2], ((uint8_t *)addr)[3], ((uint8_t *)addr)[4], ((uint8_t *)addr)[5], ((uint8_t *)addr)[6], ((uint8_t *)addr)[7], ((uint8_t *)addr)[8], ((uint8_t *)addr)[9], ((uint8_t *)addr)[10], ((uint8_t *)addr)[11], ((uint8_t *)addr)[12], ((uint8_t *)addr)[13], ((uint8_t *)addr)[14], ((uint8_t *)addr)[15])
@@ -39,6 +40,48 @@
 #define PRINT6ADDR(addr)
 #define PRINTLLADDR(addr)
 #endif
+
+#define PROC_SEM_MAX_BLOCKED 4
+struct proc_sem {
+  unsigned int count;
+  struct process *blocked_p[PROC_SEM_MAX_BLOCKED];
+  uint8_t idx;
+};
+
+#define PROCESS_SEM_INIT(s, c) do {	\
+		(s)->count = c; \
+		(s)->idx = 0; \
+	} while(0)
+/*
+uint8_t process_sem_wait_aux(struct proc_sem *s, struct process *curr_proc) {
+	uint8_t flag = (s->count==0) && (s->idx<PROC_SEM_MAX_BLOCKED);
+	if ( flag ) s->blocked_p[s->idx++] = curr_proc;
+	else if (s->count>0) --s->count;
+	return flag;
+}
+#define PROCESS_SEM_WAIT(s)	 do {	\
+	  while (process_sem_wait_aux(s,PROCESS_CURRENT())) PROCESS_YIELD(); \
+  } while(0)*/
+
+#define PROCESS_SEM_WAIT(s)	 do {	\
+		while ((s)->count==0) {	\
+			(s)->blocked_p[(s)->idx++] = PROCESS_CURRENT();	\
+			PROCESS_YIELD(); 	\
+		}						\
+		--(s)->count;			\
+	} while(0)
+
+
+void process_sem_signal(struct proc_sem *s) {
+	uint8_t i;
+	++(s)->count;
+	for (i=0;i<(s)->idx;++i) {
+		process_post((s)->blocked_p[i], PROCESS_EVENT_CONTINUE, NULL);
+		(s)->idx = 0;
+	}
+}
+
+#define PROCESS_SEM_SIGNAL(s) process_sem_signal(s)
 
 // TODO: This server address is hard-coded as we do not have discovery.
 //#define SERVER_NODE(ipaddr)   uip_ip6addr(ipaddr, 0xaaaa, 0, 0, 0, 0x0212, 0x7403, 0x0003, 0x0303)
@@ -75,13 +118,13 @@ static void init_strbuf( str_buf_t *url, char *buf, uint8_t max_len ) {
 	url->max_len = max_len;
 	url->str = buf;
 	url->str[url->len] = 0x00;
-	url->str[url->max_len-1] = 0x00;
+	//url->str[url->max_len-1] = 0x00;
 }
 
 static void reset_strbuf( str_buf_t *url ) {
 	url->len = 0;
 	url->str[url->len] = 0x00;
-	url->str[url->max_len-1] = 0x00;
+	//url->str[url->max_len-1] = 0x00;
 }
 
 // concatenates the first 'len' chars of 'buf' to the string stored in the str_buf_t.
@@ -104,22 +147,27 @@ static void concat_formated( str_buf_t *url, const char *format, ...) {
   url->len += res;
   url->str[url->len] = 0x00;
 }
-
+#define SIGFOX_MSG_BUFFER_LEN 26
 typedef struct cmd_t {
 	sfox_cmd_t cmd;
-	char payload[24];
+	char payload[SIGFOX_MSG_BUFFER_LEN];
 	uint8_t paylen;
 	uint8_t tx_pow;
 	uint8_t cca_thres;
 } cmd_t;
 
+#define clear_cmd_msg_buffer(_cmd_ptr)  memset((_cmd_ptr)->payload,0x00,SIGFOX_MSG_BUFFER_LEN);
+
 static int sigofx_input_byte(unsigned char c);
+
+
 
 static unsigned char rxBuf[32];
 static uint16_t rxLen = 0; 
 static unsigned char serial_buf[32]; // ringbuffer internal buffer, may be oversized
 static struct ringbuf ringb;
 static cmd_t sigfox_cmd;
+static struct proc_sem mutex;
 
 /*---------------------------------------------------------------------------*/
 #define write_atok() write_sf("\r\nOK\r\n",6)
@@ -162,10 +210,10 @@ static void write_sf(char *data, uint8_t len) {
 }
 
 //#define H2C(_h) 		( ((_h)>9)?((_h)+'A'-10):((_h)+'0') )
+static const char hextable[16] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 #define H2C(_h) 		hextable[_h]
 #define HEX2CHAR_L(_h)	H2C((_h)&0x0F)
 #define HEX2CHAR_H(_h)	H2C(((unsigned char)(_h))>>4)
-static const char hextable[16] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'}; 
 
 static int hex2str(char *str_buf, unsigned char *data, uint8_t len) {
 	int i,j;
@@ -202,6 +250,7 @@ static cmd_t *get_cmd() {
 				if ( CMD_SFSEND == sigfox_cmd.cmd ) {
 					uint8_t len = rxBuf[3];
 					if ( (5+len) <= rxLen ) {
+						clear_cmd_msg_buffer(&sigfox_cmd);
 						sigfox_cmd.paylen = hex2str(sigfox_cmd.payload, &(rxBuf[4]), len);
 					} else {
 						sigfox_cmd.cmd = CMD_NONE;
@@ -299,7 +348,7 @@ client_id_handler(void *response)
 	uint8_t len = coap_get_header_location_path(response, (const char **)&buf); // the identifier is passed in the location path
 	reset_strbuf(&url_id);
 	concat_strbuf(&url_id,(char *)buf,len);
-	printf("CODE=%d  ID: %s\n", packet->code, id_str_buf);
+	PRINTF("CODE=%d  ID: %s\n", packet->code, id_str_buf);
   }
 }
 
@@ -309,7 +358,7 @@ register_res_reply_handler(void *response) {
 	if ( REST.status.CREATED == packet->code ) {
 		reg_resource_status[reg_resource_idx] = 1;
 	}
-	printf("IDX=%d CODE=%d\n",reg_resource_idx, packet->code);
+	PRINTF("IDX=%d CODE=%d\n",reg_resource_idx, packet->code);
 }
 
 void
@@ -381,15 +430,18 @@ PROCESS_THREAD(sigfox_process, ev, data) {
 		cmd = get_cmd();
 		if ( CMD_SFSEND == cmd->cmd ) { // sensor message received
 			write_sfok();
-			printf("\n--PARKING event START--\n");
+			write_sfsent();
+			PRINTF("\n--PARKING event START--\n");
+			PROCESS_SEM_WAIT(&mutex);
 			if ( 1 == reg_resource_status[FASTPRK_RESOURCE_IDX] ) {
 				build_url( &sfreq_url, service_urls[FASTPRK_RESOURCE_IDX] );
 				build_coap_msg(pkt, &sfreq_url, COAP_PUT, cmd->payload, cmd->paylen,NULL,0);
 				COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_dummy_handler);
 			}
-			write_sfsent();
+			//write_sfsent();
 			cmd->cmd = CMD_NONE;
-			printf("\n--PARKING event END--\n");
+			PROCESS_SEM_SIGNAL(&mutex);
+			PRINTF("\n--PARKING event END--\n");
 		}
 
 		switch ( cmd->cmd ) {
@@ -462,6 +514,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	static struct etimer et;
 
 	PROCESS_BEGIN();
+	PROCESS_SEM_INIT(&mutex,1);
 	memset( reg_resource_status, 0, NUMBER_OF_RES);
 
 	init_strbuf(&request_url,url_str_buf,MAX_URL_SIZE);
@@ -481,7 +534,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	// register the node and obtain identifier
 	while (1) {
 		PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
-		printf("Trying node registration at the server...");
+		PRINTF("Trying node registration at the server...");
 		reset_strbuf(&request_url);
 		concat_strbuf(&request_url,"/parking/",0);
 		build_coap_msg(pkt, &request_url, COAP_POST, NULL, 0, NULL, 0);
@@ -490,7 +543,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 		if ( 0==url_id.len ) {
 			etimer_restart(&et);
 		} else {
-			printf("Done\n");
+			PRINTF("Done\n");
 			break;
 		}
 	}
@@ -508,12 +561,13 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	}
 
 	etimer_set(&et, PUSH_INTERVAL * CLOCK_SECOND);
-	printf("\n--start put process--\n");
+	PRINTF("\n--start put process--\n");
 	while (1) {
 		PROCESS_WAIT_EVENT();
 		if (ev == PROCESS_EVENT_TIMER) {
 			static uint8_t i;
 			PRINTF("\n--Stats put START--\n");
+			PROCESS_SEM_WAIT(&mutex);
 			// periodic sending of declared statistic data
 			for (i=0;i<NUMBER_OF_RES;++i) {
 				// resources with NULL 'service_str_builder' entry are skipped
@@ -523,6 +577,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 				build_coap_msg(pkt, &request_url, COAP_PUT, stats.str, stats.len,NULL,0);
 				COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_dummy_handler);
 			}
+			PROCESS_SEM_SIGNAL(&mutex);
 			PRINTF("\n--Stats put END--\n");
 			etimer_reset(&et);
 		}

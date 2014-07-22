@@ -32,12 +32,13 @@
 #define __PROJECT_ROUTER_CONF_H__
 
 //#define RAWMAC 1
-//#define CONTIKIMAC 1
+#define CONTIKIMAC 1
 
 //#define NETSTACK_CONF_RDC   nullrdc_driver
 #undef NETSTACK_CONF_RDC
 #if RAWMAC
-#define NETSTACK_CONF_RDC	rawmac_driver
+#define WITH_RAWMAC
+#define NETSTACK_CONF_RDC rawmac_driver
 #elif defined(CONTIKIMAC)
 #define NETSTACK_CONF_RDC   contikimac_driver
 #else

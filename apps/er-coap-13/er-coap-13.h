@@ -46,7 +46,9 @@
 #include "dtls.h"
 #endif /* WITH_DTLS */
 
+#ifndef COAP_LINK_FORMAT_FILTERING
 #define COAP_LINK_FORMAT_FILTERING           1
+#endif /* COAP_LINK_FORMAT_FILTERING */
 
 #define COAP_DEFAULT_PORT                    5683
 

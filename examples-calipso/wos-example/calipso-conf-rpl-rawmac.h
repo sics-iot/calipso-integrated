@@ -5,6 +5,10 @@
 #define WITH_RAWMAC 1
 #endif
 
+//#include "net/mac/rawmac.h"
+#undef NETSTACK_CONF_RDC
+#define NETSTACK_CONF_RDC rawmac_driver
+
 /* The phase offset Po of RAWMAC */
 #undef PHASE_OFFSET
 #define PHASE_OFFSET	40 * ((RTIMER_ARCH_SECOND / 1000) + 1)

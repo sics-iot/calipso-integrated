@@ -38,9 +38,10 @@
  *         Niclas Finne <nfi@sics.se>
  *         Joakim Eriksson <joakime@sics.se>
  */
-#ifdef WITH_RAWMAC
 
 #include "contiki-conf.h"
+
+#ifdef WITH_RAWMAC
 #include "dev/leds.h"
 #include "dev/radio.h"
 #include "dev/watchdog.h"

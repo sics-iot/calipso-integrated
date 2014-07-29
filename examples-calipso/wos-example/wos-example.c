@@ -11,7 +11,6 @@
 #include "contiki.h"
 #include "contiki-net.h"
 
-#include "simple-energest.h"
 #include "net/rpl/rpl.h"
 #include "net/uip-ds6-nbr.h"
 
@@ -472,22 +471,8 @@ PROCESS_THREAD(sigfox_process, ev, data) {
 	PROCESS_END();
 }
 
-PROCESS_THREAD(simple_energest_process, ev, data)
-{
-  static struct etimer periodic;
-  PROCESS_BEGIN();
-  etimer_set(&periodic, ENERGY_UPDATE_INTERVAL * CLOCK_SECOND);
-
-  while(1) {
-    PROCESS_WAIT_UNTIL(etimer_expired(&periodic));
-    etimer_reset(&periodic);
-    dutycycle_per10k = simple_energest_step();
-  }
-
-  PROCESS_END();
-}
 /*---------------------------------------------------------------------------*/
-void simple_energest_start() {
+static void simple_energest_start() {
   energest_flush();
   last_tx = energest_type_time(ENERGEST_TYPE_TRANSMIT);
   last_rx = energest_type_time(ENERGEST_TYPE_LISTEN);
@@ -515,6 +500,22 @@ static uint32_t simple_energest_step() {
   //PRINTF("tx=%lu rx=%lu time=%lu\n", curr_tx, curr_rx, curr_time);
   if ( temp > 10000uL ) return 10000uL;
   return temp;
+}
+
+/*---------------------------------------------------------------------------*/
+PROCESS_THREAD(simple_energest_process, ev, data)
+{
+  static struct etimer periodic;
+  PROCESS_BEGIN();
+  etimer_set(&periodic, ENERGY_UPDATE_INTERVAL * CLOCK_SECOND);
+
+  while(1) {
+    PROCESS_WAIT_UNTIL(etimer_expired(&periodic));
+    etimer_reset(&periodic);
+    dutycycle_per10k = simple_energest_step();
+  }
+
+  PROCESS_END();
 }
 
 PROCESS_THREAD(main_wos_process, ev, data)

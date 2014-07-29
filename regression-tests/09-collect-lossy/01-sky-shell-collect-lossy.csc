@@ -19,7 +19,7 @@
       <success_ratio_rx>0.0</success_ratio_rx>
     </radiomedium>
     <events>
-      <logoutput>40000</logoutput>
+      <logoutput>50000</logoutput>
     </events>
     <motetype>
       se.sics.cooja.mspmote.SkyMoteType

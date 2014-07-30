@@ -590,7 +590,7 @@ compress_hdr_hc06(rimeaddr_t *rime_destaddr)
   /* Note that the payload length is always compressed */
 
   /* Next header. We compress it if UDP */
-#if UIP_CONF_UDP || UIP_CONF_ROUTER
+#if !WITH_ORPL && (UIP_CONF_UDP || UIP_CONF_ROUTER) /* ORPL: don't compress UDP */
   if(UIP_IP_BUF->proto == UIP_PROTO_UDP) {
     iphc0 |= SICSLOWPAN_IPHC_NH_C;
   }
@@ -818,7 +818,7 @@ parsing from interrupts */
   }
 #endif /* WITH_IPSEC_AH */
 
-#if UIP_CONF_UDP || UIP_CONF_ROUTER
+#if !WITH_ORPL && (UIP_CONF_UDP || UIP_CONF_ROUTER) /* ORPL: do not compress UDP */
   /* UDP header compression */
   if(UIP_IP_BUF->proto == UIP_PROTO_UDP) {
     PRINTF("IPHC: Uncompressed UDP ports on send side: %x, %x\n",

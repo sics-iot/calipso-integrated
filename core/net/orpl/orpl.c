@@ -54,7 +54,7 @@
 #include "net/uip-debug.h"
 
 /* The global IPv6 address in use */
-uip_ipaddr_t global_prefix;
+uip_ipaddr_t global_ipv6;
 
 /* Flag used to tell lower layers that the current UDP transmission
  * is a routing set, so that the desired callback function is called
@@ -141,6 +141,19 @@ static void broadcast_routing_set(void *ptr);
 /* Seqno of the next packet to be sent */
 static uint32_t current_seqno = 0;
 
+void
+init_global_ipv6()
+{
+  static init_done = 0;
+  if(!init_done) {
+    uip_ipaddr_t ipaddr;
+    if(get_global_addr(&ipaddr)) {
+      memcpy(&global_ipv6, &ipaddr, 16);
+      init_done = 1;
+    }
+  }
+}
+
 /* Set the 32-bit ORPL sequence number in packetbuf */
 void
 orpl_packetbuf_set_seqno(uint32_t seqno)
@@ -199,7 +212,7 @@ static void
 global_ipaddr_from_llipaddr(uip_ipaddr_t *gipaddr, const uip_ipaddr_t *llipaddr)
 {
   uip_ip6addr(gipaddr, 0, 0, 0, 0, 0, 0, 0, 0);
-  memcpy(gipaddr, &global_prefix, 8);
+  memcpy(gipaddr, &global_ipv6, 8);
   memcpy(gipaddr->u8+8, llipaddr->u8+8, 8);
 }
 
@@ -426,6 +439,9 @@ orpl_trickle_callback(rpl_instance_t *instance)
 {
   curr_instance = instance;
 
+  /* Needed after we have joing the DAG */
+  init_global_ipv6();
+
   if(orpl_are_routing_set_active()) {
 #if !FREEZE_TOPOLOGY
     /* Swap routing sets to implement ageing */
@@ -517,7 +533,7 @@ orpl_update_edc(rpl_rank_t edc)
 
 /* ORPL initialization */
 void
-orpl_init(const uip_ipaddr_t *prefix, int is_root, int up_only)
+orpl_init(int is_root, int up_only)
 {
   orpl_up_only = up_only;
   is_root_flag = is_root;
@@ -530,7 +546,7 @@ orpl_init(const uip_ipaddr_t *prefix, int is_root, int up_only)
   }
 
   /* Initialize global address */
-  memcpy(&global_prefix, ipaddr, 16);
+  init_global_ipv6();
 
   /* Initialize routing set module */
   orpl_anycast_init();

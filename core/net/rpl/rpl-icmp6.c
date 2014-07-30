@@ -96,7 +96,7 @@ void RPL_DEBUG_DAO_OUTPUT(rpl_parent_t *);
 extern rpl_of_t RPL_OF;
 
 /*---------------------------------------------------------------------------*/
-static int
+int
 get_global_addr(uip_ipaddr_t *addr)
 {
   int i;

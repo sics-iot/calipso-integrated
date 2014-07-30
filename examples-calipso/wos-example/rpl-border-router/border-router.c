@@ -373,7 +373,7 @@ PROCESS_THREAD(border_router_process, ev, data)
   }
 
 #if WITH_ORPL
-  orpl_init(&prefix, 1, 0);
+  orpl_init(1, 0);
 #endif /* WITH_ORPL */
 
   /* Now turn the radio on, but disable radio duty cycling.

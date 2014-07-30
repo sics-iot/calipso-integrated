@@ -544,10 +544,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	etimer_set(&et, (30) * CLOCK_SECOND);
 
 #if WITH_ORPL
-	/* Statically assume aaaa as prefix for now */
-  uip_ipaddr_t prefix;
-  uip_ip6addr(&prefix, 0xaaaa, 0, 0, 0, 0, 0, 0, 0);
-  orpl_init(&prefix, 0, 0);
+  orpl_init(0, 0);
 #endif /* WITH_ORPL */
 
 	// register the node and obtain identifier

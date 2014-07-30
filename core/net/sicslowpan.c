@@ -606,10 +606,16 @@ compress_hdr_hc06(rimeaddr_t *rime_destaddr)
     iphc0 |= SICSLOWPAN_IPHC_NH_C;
   }
 #endif
+#if !WITH_ORPL /* Don't compress next header for quicker
+parsing from interrupts */
   if ((iphc0 & SICSLOWPAN_IPHC_NH_C) == 0) {
     *hc06_ptr = UIP_IP_BUF->proto;
     hc06_ptr += 1;
   }
+#else /* WITH_ORPL */
+  *hc06_ptr = UIP_IP_BUF->proto;
+  hc06_ptr += 1;
+#endif /* !WITH_ORPL */
 
   /*
    * Hop limit

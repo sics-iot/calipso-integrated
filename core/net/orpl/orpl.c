@@ -183,10 +183,10 @@ orpl_get_curr_seqno()
 uint32_t
 orpl_get_new_seqno()
 {
-  if(current_seqno == 0) {
+  while(current_seqno == 0) {
     current_seqno = random_rand();
   }
-  return ++current_seqno;
+  return current_seqno++;
 }
 
 /* Set the current ORPL sequence number before sending */

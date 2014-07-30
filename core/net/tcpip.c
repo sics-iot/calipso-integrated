@@ -678,16 +678,19 @@ tcpip_ipv6_output(void)
       }
 #else /* !WITH_ORPL */
       /* Set ORPL sequence number */
-      uint32_t seqno = orpl_get_curr_seqno();
+      uint32_t seqno;
       if(uip_ds6_is_my_addr(&UIP_IP_BUF->srcipaddr)) {
-        /* We are originator of the data, check if there is
-         * a seqno already set by application layer */
-        if(seqno == 0) {
-          /* No seqno set, assign a new one */
-          seqno = orpl_get_new_seqno();
-        }
+        /* We are originator of the data, get seqno
+         * possibly set by application layer */
+    	seqno = orpl_get_curr_seqno();
       } else {
         seqno = orpl_packetbuf_seqno();
+      }
+      if(seqno == 0) {
+	    /* No seqno set, assign a new one
+	     * (happens either when we are originator but the application has not set a seqno
+	     * or when we are forwarder but the originator (outside the PAN) did not set a seqno) */
+	    seqno = orpl_get_new_seqno();
       }
       orpl_set_curr_seqno(seqno);
 

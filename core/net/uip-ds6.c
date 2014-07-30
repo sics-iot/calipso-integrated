@@ -92,7 +92,9 @@ uip_ds6_init(void)
 {
 
   uip_ds6_neighbors_init();
+#if !WITH_ORPL /* ORPL does not use routes */
   uip_ds6_route_init();
+#endif /* !WITH_ORPL */
 
   PRINTF("Init of IPv6 data structures\n");
   PRINTF("%u neighbors\n%u default routers\n%u prefixes\n%u routes\n%u unicast addresses\n%u multicast addresses\n%u anycast addresses\n",

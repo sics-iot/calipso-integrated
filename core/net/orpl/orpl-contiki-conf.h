@@ -115,4 +115,8 @@
 #undef CONTIKIMAC_CONF_WITH_CONTIKIMAC_HEADER
 #define CONTIKIMAC_CONF_WITH_CONTIKIMAC_HEADER 1
 
+/* ORPL does not use DIS */
+#undef RPL_DIS_SEND
+#define RPL_DIS_SEND                    0
+
 #endif /* __ORPL_CONTIKI_CONF_H__ */

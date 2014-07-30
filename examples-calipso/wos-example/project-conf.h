@@ -46,6 +46,10 @@
 #undef UIP_CONF_MAX_ROUTES
 #define UIP_CONF_MAX_ROUTES 10
 
+/* We do not use this feature */
+#undef UIP_CONF_UIP_DS6_NOTIFICATIONS
+#define UIP_CONF_UIP_DS6_NOTIFICATIONS 0
+
 /* Save some memory for the sky platform. */
 #undef NBR_TABLE_CONF_MAX_NEIGHBORS
 #define NBR_TABLE_CONF_MAX_NEIGHBORS     5
@@ -62,6 +66,9 @@
 
 #undef UIP_CONF_ND6_SEND_RA
 #define UIP_CONF_ND6_SEND_RA 	0
+
+#undef UIP_CONF_TCP
+#define UIP_CONF_TCP 0
 
 #include "wos-conf-sigfox.h"
 

@@ -148,11 +148,11 @@ set_rime_addr(void)
   }
 #endif
   rimeaddr_set_node_addr(&addr);
-  printf("Rime started with address ");
-  for(i = 0; i < sizeof(addr.u8) - 1; i++) {
-    printf("%d.", addr.u8[i]);
-  }
-  printf("%d\n", addr.u8[i]);
+//  printf("Rime started with address ");
+//  for(i = 0; i < sizeof(addr.u8) - 1; i++) {
+//    printf("%d.", addr.u8[i]);
+//  }
+//  printf("%d\n", addr.u8[i]);
 }
 /*---------------------------------------------------------------------------*/
 #if !PROCESS_CONF_NO_PROCESS_NAMES

@@ -474,9 +474,9 @@ PROCESS_THREAD(sigfox_process, ev, data) {
 /*---------------------------------------------------------------------------*/
 static void simple_energest_start() {
   energest_flush();
-  last_tx = energest_type_time(ENERGEST_TYPE_TRANSMIT);
-  last_rx = energest_type_time(ENERGEST_TYPE_LISTEN);
-  last_time = energest_type_time(ENERGEST_TYPE_CPU) + energest_type_time(ENERGEST_TYPE_LPM);
+//  last_tx = energest_type_time(ENERGEST_TYPE_TRANSMIT);
+//  last_rx = energest_type_time(ENERGEST_TYPE_LISTEN);
+//  last_time = energest_type_time(ENERGEST_TYPE_CPU) + energest_type_time(ENERGEST_TYPE_LPM);
   process_start(&simple_energest_process, NULL);
 }
 
@@ -489,13 +489,13 @@ static uint32_t simple_energest_step() {
   curr_rx = energest_type_time(ENERGEST_TYPE_LISTEN);
   curr_time = energest_type_time(ENERGEST_TYPE_CPU) + energest_type_time(ENERGEST_TYPE_LPM);
 
-  delta_tx = curr_tx - last_tx;
-  delta_rx = curr_rx - last_rx;
-  delta_time = curr_time - last_time;
-
-  last_tx = curr_tx;
-  last_rx = curr_rx;
-  last_time = curr_time;
+//  delta_tx = curr_tx - last_tx;
+//  delta_rx = curr_rx - last_rx;
+//  delta_time = curr_time - last_time;
+//
+//  last_tx = curr_tx;
+//  last_rx = curr_rx;
+//  last_time = curr_time;
   temp = (curr_tx+curr_rx)/(curr_time/10000uL);
   //PRINTF("tx=%lu rx=%lu time=%lu\n", curr_tx, curr_rx, curr_time);
   if ( temp > 10000uL ) return 10000uL;
@@ -542,6 +542,13 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	coap_receiver_init();
 
 	etimer_set(&et, (30) * CLOCK_SECOND);
+
+#if WITH_ORPL
+	/* Statically assume aaaa as prefix for now */
+  uip_ipaddr_t prefix;
+  uip_ip6addr(&prefix, 0xaaaa, 0, 0, 0, 0, 0, 0, 0);
+  orpl_init(&prefix, 0, 0);
+#endif /* WITH_ORPL */
 
 	// register the node and obtain identifier
 	while (1) {

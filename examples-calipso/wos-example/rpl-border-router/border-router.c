@@ -41,6 +41,9 @@
 #include "net/uip.h"
 #include "net/uip-ds6.h"
 #include "net/rpl/rpl.h"
+#if WITH_ORPL
+#include "net/orpl/orpl.h"
+#endif /* WITH_ORPL */
 
 #include "net/netstack.h"
 #include "dev/button-sensor.h"
@@ -370,14 +373,14 @@ PROCESS_THREAD(border_router_process, ev, data)
   }
 
 #if WITH_ORPL
-  orpl_init(&global_ipaddr, node_id == ROOT_ID, 0);
+  orpl_init(&prefix, 1, 0);
 #endif /* WITH_ORPL */
 
   /* Now turn the radio on, but disable radio duty cycling.
    * Since we are the DAG root, reception delays would constrain mesh throughbut.
    */
   NETSTACK_MAC.off(1);
-  
+
 #if DEBUG || 1
   print_local_addresses();
 #endif

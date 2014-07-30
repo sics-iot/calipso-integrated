@@ -150,7 +150,7 @@ void orpl_broadcast_done();
 /* Update the current EDC (rank of the node) */
 void orpl_update_edc(rpl_rank_t edc);
 /* ORPL initialization */
-void orpl_init(const uip_ipaddr_t *ipaddr, int is_root, int up_only);
+void orpl_init(int is_root, int up_only);
 /* Function that computes the metric EDC */
 rpl_rank_t orpl_calculate_edc(int verbose);
 

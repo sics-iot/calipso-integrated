@@ -96,7 +96,7 @@ void RPL_DEBUG_DAO_OUTPUT(rpl_parent_t *);
 extern rpl_of_t RPL_OF;
 
 /*---------------------------------------------------------------------------*/
-static int
+int
 get_global_addr(uip_ipaddr_t *addr)
 {
   int i;
@@ -885,6 +885,7 @@ uip_rpl_input(void)
   case RPL_CODE_DIO:
     dio_input();
     break;
+#if !WITH_ORPL
   case RPL_CODE_DIS:
     dis_input();
     break;
@@ -894,6 +895,7 @@ uip_rpl_input(void)
   case RPL_CODE_DAO_ACK:
     dao_ack_input();
     break;
+#endif /* !WITH_ORPL */
   default:
     PRINTF("RPL: received an unknown ICMP6 code (%u)\n", UIP_ICMP_BUF->icode);
     break;

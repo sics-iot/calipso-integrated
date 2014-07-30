@@ -105,7 +105,7 @@ PROCESS_THREAD(unicast_sender_process, ev, data)
   }
 
 #if WITH_ORPL
-  orpl_init(&global_ipaddr, node_id == ROOT_ID, 0);
+  orpl_init(node_id == ROOT_ID, 0);
 #endif /* WITH_ORPL */
 
   simple_udp_register(&unicast_connection, UDP_PORT,

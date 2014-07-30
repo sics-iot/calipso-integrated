@@ -141,15 +141,18 @@ static void broadcast_routing_set(void *ptr);
 /* Seqno of the next packet to be sent */
 static uint32_t current_seqno = 0;
 
+static init_done = 0;
+static clock_time_t init_time;
+
 void
 init_global_ipv6()
 {
-  static init_done = 0;
   if(!init_done) {
     uip_ipaddr_t ipaddr;
     if(get_global_addr(&ipaddr)) {
       memcpy(&global_ipv6, &ipaddr, 16);
       init_done = 1;
+      init_time = clock_seconds();
     }
   }
 }
@@ -216,18 +219,29 @@ global_ipaddr_from_llipaddr(uip_ipaddr_t *gipaddr, const uip_ipaddr_t *llipaddr)
   memcpy(gipaddr->u8+8, llipaddr->u8+8, 8);
 }
 
+static clock_time_t
+orpl_uptime()
+{
+  if(init_done) {
+    return clock_seconds() - init_time;
+  } else {
+    return 0;
+  }
+
+}
+
 /* Returns 1 if EDC is frozen, i.e. we are not allowed to change edc */
 int
 orpl_is_edc_frozen()
 {
-  return FREEZE_TOPOLOGY && orpl_up_only == 0 && clock_seconds() > UPDATE_EDC_MAX_TIME;
+  return FREEZE_TOPOLOGY && orpl_up_only == 0 && orpl_uptime() > UPDATE_EDC_MAX_TIME;
 }
 
 /* Returns 1 routing sets are active, i.e. we can start inserting and merging */
 int
 orpl_are_routing_set_active()
 {
-  return orpl_up_only == 0 && !(FREEZE_TOPOLOGY && clock_seconds() <= UPDATE_ROUTING_SET_MIN_TIME);
+  return orpl_up_only == 0 && !(FREEZE_TOPOLOGY && orpl_uptime() <= UPDATE_ROUTING_SET_MIN_TIME);
 }
 
 /* Returns 1 if the node is root of ORPL */

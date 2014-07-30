@@ -390,7 +390,7 @@ print_stats()
 	  " ms \n");
 }
 
-TIMEOUT(400000);
+TIMEOUT(500000);
 
 
 /* Conf. */

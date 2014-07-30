@@ -1,3 +1,0 @@
-CONTIKI_SOURCEFILES += loadng.c
-
-

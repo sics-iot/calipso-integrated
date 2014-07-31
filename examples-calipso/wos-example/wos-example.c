@@ -196,6 +196,7 @@ static uint8_t parse_user_value(unsigned char *buf, uint8_t len, uint8_t *result
 static cmd_t *get_cmd() {
 	int res;
 	
+	printf("rxBuf: %s\n", rxBuf);
 	sigfox_cmd.cmd = CMD_NONE;
     while ( (CMD_NONE==sigfox_cmd.cmd) && (res = ringbuf_get(&ringb)) != -1 ) {
 		char c =  ((char)res);
@@ -264,9 +265,9 @@ enum {
 static char* service_urls[NUMBER_OF_RES] = {
 		"/presence",
 		"/energy",
-		"/parent",
+		"/rpl", // was /parent
 		"/ctime",
-		"/pdr",
+		"/tx", // was /pdr
 		"/overhead" };
 static void (*service_str_builder[NUMBER_OF_RES])(str_buf_t*) = {
 		NULL, // handled by the sigfox proc

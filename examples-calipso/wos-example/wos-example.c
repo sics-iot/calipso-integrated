@@ -13,6 +13,9 @@
 
 #include "net/rpl/rpl.h"
 #include "net/uip-ds6-nbr.h"
+#if WITH_ORPL
+#include "net/orpl/orpl.h"
+#endif /* WITH_ORPL */
 
 #if WITH_COAP == 3
 #include "er-coap-03-engine.h"
@@ -40,48 +43,6 @@
 #define PRINTLLADDR(addr)
 #endif
 
-#define PROC_SEM_MAX_BLOCKED 4
-struct proc_sem {
-  unsigned int count;
-  struct process *blocked_p[PROC_SEM_MAX_BLOCKED];
-  uint8_t idx;
-};
-
-#define PROCESS_SEM_INIT(s, c) do {	\
-		(s)->count = c; \
-		(s)->idx = 0; \
-	} while(0)
-/*
-uint8_t process_sem_wait_aux(struct proc_sem *s, struct process *curr_proc) {
-	uint8_t flag = (s->count==0) && (s->idx<PROC_SEM_MAX_BLOCKED);
-	if ( flag ) s->blocked_p[s->idx++] = curr_proc;
-	else if (s->count>0) --s->count;
-	return flag;
-}
-#define PROCESS_SEM_WAIT(s)	 do {	\
-	  while (process_sem_wait_aux(s,PROCESS_CURRENT())) PROCESS_YIELD(); \
-  } while(0)*/
-
-#define PROCESS_SEM_WAIT(s)	 do {	\
-		while ((s)->count==0) {	\
-			(s)->blocked_p[(s)->idx++] = PROCESS_CURRENT();	\
-			PROCESS_YIELD(); 	\
-		}						\
-		--(s)->count;			\
-	} while(0)
-
-
-void process_sem_signal(struct proc_sem *s) {
-	uint8_t i;
-	++(s)->count;
-	for (i=0;i<(s)->idx;++i) {
-		process_post((s)->blocked_p[i], PROCESS_EVENT_CONTINUE, NULL);
-		(s)->idx = 0;
-	}
-}
-
-#define PROCESS_SEM_SIGNAL(s) process_sem_signal(s)
-
 // TODO: This server address is hard-coded as we do not have discovery.
 //#define SERVER_NODE(ipaddr)   uip_ip6addr(ipaddr, 0xaaaa, 0, 0, 0, 0x0212, 0x7403, 0x0003, 0x0303)
 #define SERVER_NODE(ipaddr)   uip_ip6addr(ipaddr, 0xaaaa, 0, 0, 0, 0, 0, 0, 0x0001)
@@ -91,10 +52,9 @@ void process_sem_signal(struct proc_sem *s) {
 
 #define PUSH_INTERVAL   			300 // interval at which to send radio statistics (seconds)
 #define ENERGY_UPDATE_INTERVAL  	60 // simple ENERGEST step interval (seconds)
-#define MAX_URL_SIZE	64		// URL request max size (bytes)
+#define MAX_URL_SIZE	32		// URL request max size (bytes)
 #define MAX_ID_SIZE		16		// max length server generated ID string (bytes)
 static char url_str_buf[MAX_URL_SIZE];
-static char sfurl_str_buf[MAX_URL_SIZE];
 static char id_str_buf[MAX_ID_SIZE];
 
 typedef enum {
@@ -116,14 +76,12 @@ static void init_strbuf( str_buf_t *url, char *buf, uint8_t max_len ) {
 	url->len = 0;
 	url->max_len = max_len;
 	url->str = buf;
-	url->str[url->len] = 0x00;
-	//url->str[url->max_len-1] = 0x00;
+	url->str[0] = 0x00;
 }
 
 static void reset_strbuf( str_buf_t *url ) {
 	url->len = 0;
-	url->str[url->len] = 0x00;
-	//url->str[url->max_len-1] = 0x00;
+	url->str[0] = 0x00;
 }
 
 // concatenates the first 'len' chars of 'buf' to the string stored in the str_buf_t.
@@ -167,12 +125,10 @@ static uint16_t rxLen = 0;
 static unsigned char serial_buf[32]; // ringbuffer internal buffer, may be oversized
 static struct ringbuf ringb;
 static cmd_t sigfox_cmd;
-static struct proc_sem mutex;
 
 /*---------------------------------------------------------------------------*/
 #define write_atok() write_sf("\r\nOK\r\n",6)
-#define write_sfok() write_sf("OK;",3)
-#define write_sfsent() write_sf("SENT;",5)
+#define write_sfsent() write_sf("OK;SENT;",8)
 
 static const char *sf_send_str = "SFM";
 static const char *at_fwver_str = "ATI13";
@@ -264,7 +220,7 @@ static cmd_t *get_cmd() {
 				}
 			}
 			rxLen = 0;
-		} else if (0==rxLen && (c<'A' || c>'Z') ) ;//ignore 
+		} else if (0==rxLen && (c<'A' || c>'Z') ) {}//ignore
 		else rxBuf[rxLen++] = c;
 	}
 	
@@ -322,14 +278,14 @@ static void (*service_str_builder[NUMBER_OF_RES])(str_buf_t*) = {
 static uint8_t reg_resource_idx;
 static uint8_t reg_resource_status[NUMBER_OF_RES]; // stores 1 iff the corresponding resource has been successfully registered
 // auxiliary string buffers
-static str_buf_t request_url, sfreq_url;
+static str_buf_t request_url;
 static str_buf_t url_id;
 static str_buf_t stats;
+static str_buf_t sfmsg;
 static char stats_buf[STATS_DATA_SIZE];
+static char sfmsg_buf[SIGFOX_MSG_BUFFER_LEN];
 
 /*	Statistics CoAP	*/
-static uint32_t last_tx, last_rx, last_time;
-static uint32_t delta_tx, delta_rx, delta_time;
 static uint32_t curr_tx, curr_rx, curr_time;
 static uint32_t dutycycle_per10k;
 
@@ -387,41 +343,35 @@ static void build_url( str_buf_t *url, char *res_name ) {
 }
 
 // statistic data extraction functions
-// each function must initialize and store in the string buffer given as parameter 'strbuf' the payload to send
+// each function must store in the string buffer given as parameter 'strbuf' the payload to send
 // to the COAP server for the corresponding resource
 static void get_rplstats_str( str_buf_t *strbuf ) {
 	rpl_parentId = (uint8_t) rpl_get_parent_ipaddr((rpl_parent_t *) rpl_get_any_dag()->preferred_parent)->u8[sizeof(uip_ipaddr_t)-1];
 	rpl_parentLinkMetric = (uint16_t) rpl_get_parent_link_metric((uip_lladdr_t *)
 		uip_ds6_nbr_lladdr_from_ipaddr((uip_ipaddr_t *) rpl_get_any_dag()->preferred_parent));
-	reset_strbuf(strbuf);
 	concat_formatted( strbuf, "%u %u", rpl_parentId , rpl_parentLinkMetric );
 }
 
 static void get_dutycycle_str( str_buf_t *strbuf ) {
-	reset_strbuf(strbuf);
 	concat_formatted( strbuf, "%u.%02u", (uint16_t)(dutycycle_per10k/100), (uint16_t)(dutycycle_per10k%100));
 }
 
 static void get_pdrstats_str( str_buf_t *strbuf ) {
-	reset_strbuf(strbuf);
 	concat_formatted( strbuf, "%lu", tx_pkts );
 }
 
 static void get_ctime_str( str_buf_t *strbuf ) {
 	uint32_t ctime_s = 25uL; // TODO get convergence time data
-	reset_strbuf(strbuf);
 	concat_formatted( strbuf, "%lu", ctime_s );
 }
 
 static void get_overhead_str( str_buf_t *strbuf ) {
 	uint32_t overhead = 21uL; // TODO get overhead packet count
-	reset_strbuf(strbuf);
 	concat_formatted( strbuf, "%lu", overhead );
 }
 
 // procs
 PROCESS_THREAD(sigfox_process, ev, data) {
-	static coap_packet_t pkt[1];
 	PROCESS_BEGIN();
 
 	init_sigfox_com();
@@ -433,23 +383,17 @@ PROCESS_THREAD(sigfox_process, ev, data) {
 
 		cmd = get_cmd();
 		if ( CMD_SFSEND == cmd->cmd ) { // sensor message received
-			write_sfok();
 			write_sfsent();
 			if ( 0==url_id.len ) {
 				reset_strbuf(&stats);
 				concat_formatted( &stats, "%u", cmd->nodeid );
 			}
-			PRINTF("\n--PARKING event START--\n");
-			PROCESS_SEM_WAIT(&mutex);
-			if ( 1 == reg_resource_status[FASTPRK_RESOURCE_IDX] ) {
-				build_url( &sfreq_url, service_urls[FASTPRK_RESOURCE_IDX] );
-				build_coap_msg(pkt, &sfreq_url, COAP_PUT, cmd->payload, cmd->paylen,NULL,0);
-				COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_dummy_handler);
+			if ( 1 == reg_resource_status[FASTPRK_RESOURCE_IDX] && sfmsg.len==0 ) {
+				PRINTF("Posting FP event\n");
+				concat_strbuf( &sfmsg, cmd->payload, cmd->paylen );
+				process_post(&main_wos_process, PROCESS_EVENT_MSG, NULL);
 			}
-			//write_sfsent();
 			cmd->cmd = CMD_NONE;
-			PROCESS_SEM_SIGNAL(&mutex);
-			PRINTF("\n--PARKING event END--\n");
 		}
 
 		switch ( cmd->cmd ) {
@@ -474,9 +418,6 @@ PROCESS_THREAD(sigfox_process, ev, data) {
 /*---------------------------------------------------------------------------*/
 static void simple_energest_start() {
   energest_flush();
-//  last_tx = energest_type_time(ENERGEST_TYPE_TRANSMIT);
-//  last_rx = energest_type_time(ENERGEST_TYPE_LISTEN);
-//  last_time = energest_type_time(ENERGEST_TYPE_CPU) + energest_type_time(ENERGEST_TYPE_LPM);
   process_start(&simple_energest_process, NULL);
 }
 
@@ -489,18 +430,34 @@ static uint32_t simple_energest_step() {
   curr_rx = energest_type_time(ENERGEST_TYPE_LISTEN);
   curr_time = energest_type_time(ENERGEST_TYPE_CPU) + energest_type_time(ENERGEST_TYPE_LPM);
 
-//  delta_tx = curr_tx - last_tx;
-//  delta_rx = curr_rx - last_rx;
-//  delta_time = curr_time - last_time;
-//
-//  last_tx = curr_tx;
-//  last_rx = curr_rx;
-//  last_time = curr_time;
   temp = (curr_tx+curr_rx)/(curr_time/10000uL);
-  //PRINTF("tx=%lu rx=%lu time=%lu\n", curr_tx, curr_rx, curr_time);
   if ( temp > 10000uL ) return 10000uL;
   return temp;
 }
+
+/*---------------------------------------------------------------------------*/
+
+typedef struct missed_ev_t {
+	process_event_t evs[4];
+	uint8_t idx;
+	uint8_t blockedFlag;
+	//struct process *p;
+} missed_ev_t;
+#define INIT_MISSED_EVS(_e) do { memset((_e),0,sizeof(missed_ev_t)); /*(_e)->p = PROCESS_CURRENT();*/ } while(0)
+
+#define BLOCK_EVENTS(_e) (_e)->blockedFlag = 1;
+
+void unblock_missed_events(missed_ev_t *evs) {
+	uint8_t i;
+	evs->blockedFlag = 0;
+	for (i=0;i<evs->idx;++i)
+		process_post(/*evs->p*/&main_wos_process, evs->evs[i], NULL);
+	evs->idx = 0;
+}
+#define UNBLOCK_EVENTS(_e) unblock_missed_events(_e)
+
+#define ADD_EVENT(_e, _ev) do { if ((_e)->blockedFlag  && ((_ev)==PROCESS_EVENT_MSG || (_ev)==PROCESS_EVENT_TIMER)) (_e)->evs[(_e)->idx++] = (_ev); } while(0)
+
 
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(simple_energest_process, ev, data)
@@ -522,16 +479,19 @@ PROCESS_THREAD(main_wos_process, ev, data)
 {
 	static coap_packet_t pkt[1];
 	static struct etimer et;
+	static missed_ev_t missed_evs;
+
+	ADD_EVENT(&missed_evs, ev);
 
 	PROCESS_BEGIN();
-	PROCESS_SEM_INIT(&mutex,1);
 	memset( reg_resource_status, 0, NUMBER_OF_RES);
 	memset( &sigfox_cmd, 0x00, sizeof(cmd_t) );
+	INIT_MISSED_EVS(&missed_evs);
 
 	init_strbuf(&request_url,url_str_buf,MAX_URL_SIZE);
-	init_strbuf(&sfreq_url,sfurl_str_buf,MAX_URL_SIZE);
 	init_strbuf(&stats,stats_buf,STATS_DATA_SIZE);
 	init_strbuf(&url_id,id_str_buf,MAX_ID_SIZE);
+	init_strbuf(&sfmsg,sfmsg_buf,SIGFOX_MSG_BUFFER_LEN);
 
 	tx_pkts = 0;
 	SERVER_NODE(&server_ipaddr);
@@ -585,19 +545,29 @@ PROCESS_THREAD(main_wos_process, ev, data)
 		if (ev == PROCESS_EVENT_TIMER) {
 			static uint8_t i;
 			PRINTF("\n--Stats put START--\n");
-			PROCESS_SEM_WAIT(&mutex);
 			// periodic sending of declared statistic data
 			for (i=0;i<NUMBER_OF_RES;++i) {
 				// resources with NULL 'service_str_builder' entry are skipped
 				if ( NULL == service_str_builder[i] ) continue;
+				reset_strbuf(&stats);
 				(*service_str_builder[i])(&stats);
 				build_url( &request_url, service_urls[i] );
 				build_coap_msg(pkt, &request_url, COAP_PUT, stats.str, stats.len,NULL,0);
+				BLOCK_EVENTS(&missed_evs);				
 				COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_dummy_handler);
+				UNBLOCK_EVENTS(&missed_evs);
 			}
-			PROCESS_SEM_SIGNAL(&mutex);
 			PRINTF("\n--Stats put END--\n");
 			etimer_reset(&et);
+		} else if (ev == PROCESS_EVENT_MSG && sfmsg.len>0) { // asynchronous Fastpark sensor messages
+			PRINTF("\n--PARKING event START--\n");
+			build_url( &request_url, service_urls[FASTPRK_RESOURCE_IDX] );
+			build_coap_msg(pkt, &request_url, COAP_PUT, sfmsg.str, sfmsg.len,NULL,0);
+			BLOCK_EVENTS(&missed_evs);
+			COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_dummy_handler);
+			UNBLOCK_EVENTS(&missed_evs);
+			reset_strbuf(&sfmsg);
+			PRINTF("\n--PARKING event END--\n");
 		}
 	}
 	PROCESS_END();

@@ -196,7 +196,6 @@ static uint8_t parse_user_value(unsigned char *buf, uint8_t len, uint8_t *result
 static cmd_t *get_cmd() {
 	int res;
 	
-	printf("rxBuf: %s\n", rxBuf);
 	sigfox_cmd.cmd = CMD_NONE;
     while ( (CMD_NONE==sigfox_cmd.cmd) && (res = ringbuf_get(&ringb)) != -1 ) {
 		char c =  ((char)res);
@@ -244,7 +243,7 @@ static void get_overhead_str( str_buf_t *strbuf );
 uip_ipaddr_t server_ipaddr;
 
 // maximum size of the statistic data payload sent to the COAP server
-#define STATS_DATA_SIZE 16
+#define STATS_DATA_SIZE 48
 
 // new resources should be declared here first in the index list
 // then the resource URL suffixes should be declared in the 'service_urls'
@@ -386,8 +385,10 @@ PROCESS_THREAD(sigfox_process, ev, data) {
 		if ( CMD_SFSEND == cmd->cmd ) { // sensor message received
 			write_sfsent();
 			if ( 0==url_id.len ) {
+				uip_ipaddr_t ipaddr;
+				get_global_addr(&ipaddr);
 				reset_strbuf(&stats);
-				concat_formatted( &stats, "%u", cmd->nodeid );
+				concat_formatted( &stats, "{\"id\":\"%u\",\"tree_id\":\"%u\"}", cmd->nodeid, ipaddr.u8[sizeof(uip_ipaddr_t)-1] );
 			}
 			if ( 1 == reg_resource_status[FASTPRK_RESOURCE_IDX] && sfmsg.len==0 ) {
 				PRINTF("Posting FP event\n");

@@ -50,6 +50,7 @@
 #include "net/rpl/rpl-private.h"
 #include "net/packetbuf.h"
 
+
 #include <limits.h>
 #include <string.h>
 
@@ -149,7 +150,8 @@ dis_input(void)
 {
   rpl_instance_t *instance;
   rpl_instance_t *end;
-
+  dis_count++;
+  //printf("dis count is %u\n",dis_count);
   /* DAG Information Solicitation */
   PRINTF("RPL: Received a DIS from ");
   PRINT6ADDR(&UIP_IP_BUF->srcipaddr);
@@ -214,7 +216,8 @@ dio_input(void)
   uip_ds6_nbr_t *nbr;
 
   memset(&dio, 0, sizeof(dio));
-
+  dio_count++;
+  //printf("dio count is %u\n",dio_count);
   /* Set default values in case the DIO configuration option is missing. */
   dio.dag_intdoubl = RPL_DIO_INTERVAL_DOUBLINGS;
   dio.dag_intmin = RPL_DIO_INTERVAL_MIN;
@@ -599,7 +602,8 @@ dao_input(void)
 
   buffer = UIP_ICMP_PAYLOAD;
   buffer_length = uip_len - uip_l3_icmp_hdr_len;
-
+  dao_count++;
+  //printf("dao is %u\n",dao_count);
   pos = 0;
   instance_id = buffer[pos++];
 

@@ -111,6 +111,10 @@ typedef struct rpl_metric_container rpl_metric_container_t;
 struct rpl_instance;
 struct rpl_dag;
 /*---------------------------------------------------------------------------*/
+uint16_t dio_count;
+uint16_t dao_count;
+uint16_t dis_count;
+
 struct rpl_parent {
   struct rpl_parent *next;
   struct rpl_dag *dag;

@@ -32,7 +32,7 @@
 #endif
 
 
-#define DEBUG 1
+#define DEBUG 0
 #if DEBUG
 #define PRINTF(...) printf(__VA_ARGS__)
 #define PRINT6ADDR(addr) PRINTF("[%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x:%02x%02x]", ((uint8_t *)addr)[0], ((uint8_t *)addr)[1], ((uint8_t *)addr)[2], ((uint8_t *)addr)[3], ((uint8_t *)addr)[4], ((uint8_t *)addr)[5], ((uint8_t *)addr)[6], ((uint8_t *)addr)[7], ((uint8_t *)addr)[8], ((uint8_t *)addr)[9], ((uint8_t *)addr)[10], ((uint8_t *)addr)[11], ((uint8_t *)addr)[12], ((uint8_t *)addr)[13], ((uint8_t *)addr)[14], ((uint8_t *)addr)[15])
@@ -236,7 +236,6 @@ AUTOSTART_PROCESSES(&main_wos_process);
 
 static void get_rplstats_str( str_buf_t *strbuf );
 static void get_dutycycle_str( str_buf_t *strbuf );
-static void get_ctime_str( str_buf_t *strbuf );
 static void get_pdrstats_str( str_buf_t *strbuf );
 static void get_overhead_str( str_buf_t *strbuf );
 
@@ -254,7 +253,6 @@ enum {
 	FASTPRK_RESOURCE_IDX = 0,
 	ENERGY_RESOURCE_IDX,
 	PARENT_RESOURCE_IDX,
-	CTIME_RESOURCE_IDX,
 	PDR_RESOURCE_IDX,
 	OVERHEAD_RESOURCE_IDX,
 	NUMBER_OF_RES	// must be always the last entry in the enum
@@ -265,14 +263,12 @@ static char* service_urls[NUMBER_OF_RES] = {
 		"/presence",
 		"/energy",
 		"/rpl", // was /parent
-		"/ctime",
 		"/tx", // was /pdr
 		"/overhead" };
 static void (*service_str_builder[NUMBER_OF_RES])(str_buf_t*) = {
 		NULL, // handled by the sigfox proc
 		get_dutycycle_str,
 		get_rplstats_str,
-		get_ctime_str,
 		get_pdrstats_str,
 		get_overhead_str };
 static uint8_t reg_resource_idx;
@@ -333,7 +329,7 @@ static void build_coap_msg(coap_packet_t *request, str_buf_t* url, coap_method_t
 	if ( query_len > 0 )
 		coap_set_header_uri_query(request,query);
 	coap_set_payload(request, (uint8_t *)msg, len);
-	if ( COAP_PUT == method ) tx_pkts++;
+	if ( COAP_PUT == method || COAP_POST==method ) tx_pkts++;
 }
 
 static void build_url( str_buf_t *url, char *res_name ) {
@@ -360,14 +356,9 @@ static void get_pdrstats_str( str_buf_t *strbuf ) {
 	concat_formatted( strbuf, "%lu", tx_pkts );
 }
 
-static void get_ctime_str( str_buf_t *strbuf ) {
-	uint32_t ctime_s = 25uL; // TODO get convergence time data
-	concat_formatted( strbuf, "%lu", ctime_s );
-}
-
 static void get_overhead_str( str_buf_t *strbuf ) {
-	uint32_t overhead = 21uL; // TODO get overhead packet count
-	concat_formatted( strbuf, "%lu", overhead );
+	printf("Overhead: %u %u %u\n", dio_count, dao_count, dis_count);
+	concat_formatted( strbuf, "%u %u %u", dio_count, dao_count, dis_count);
 }
 
 // procs
@@ -513,7 +504,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	while (1) {
 		PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
 		if ( 0 != stats.len ) {
-			PRINTF("Trying node registration at the server...");
+			printf("Trying node registration at the server...");
 			reset_strbuf(&request_url);
 			concat_strbuf(&request_url,"/parking/",0);
 			build_coap_msg(pkt, &request_url, COAP_POST, stats.str, stats.len, NULL, 0);
@@ -541,7 +532,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	}
 
 	etimer_set(&et, PUSH_INTERVAL * CLOCK_SECOND);
-	PRINTF("\n--start put process--\n");
+	printf("\n--start put process--\n");
 	while (1) {
 		PROCESS_WAIT_EVENT();
 		if (ev == PROCESS_EVENT_TIMER) {

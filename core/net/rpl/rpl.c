@@ -226,6 +226,11 @@ rpl_init(void)
   rpl_dag_init();
   rpl_reset_periodic_timer();
 
+
+  dio_count=0;
+  dao_count=0;
+  dis_count=0;
+
   /* add rpl multicast address */
   uip_create_linklocal_rplnodes_mcast(&rplmaddr);
   uip_ds6_maddr_add(&rplmaddr);

@@ -326,6 +326,7 @@ static void build_coap_msg(coap_packet_t *request, str_buf_t* url, coap_method_t
 	// prepare request, TID is set by COAP_BLOCKING_REQUEST()
 	coap_init_message(request, COAP_TYPE_CON, method, 0 );
 	coap_set_header_uri_path(request, url->str);
+	printf("uri %s\n",url->str);
 	if ( query_len > 0 )
 		coap_set_header_uri_query(request,query);
 	coap_set_payload(request, (uint8_t *)msg, len);
@@ -342,10 +343,14 @@ static void build_url( str_buf_t *url, char *res_name ) {
 // each function must store in the string buffer given as parameter 'strbuf' the payload to send
 // to the COAP server for the corresponding resource
 static void get_rplstats_str( str_buf_t *strbuf ) {
+#if WITH_ORPL
+	concat_formatted( strbuf, "ORPL (no parent)");
+#else
 	rpl_parentId = (uint8_t) rpl_get_parent_ipaddr((rpl_parent_t *) rpl_get_any_dag()->preferred_parent)->u8[sizeof(uip_ipaddr_t)-1];
 	rpl_parentLinkMetric = (uint16_t) rpl_get_parent_link_metric((uip_lladdr_t *)
 		uip_ds6_nbr_lladdr_from_ipaddr((uip_ipaddr_t *) rpl_get_any_dag()->preferred_parent));
 	concat_formatted( strbuf, "%u %u", rpl_parentId , rpl_parentLinkMetric );
+#endif
 }
 
 static void get_dutycycle_str( str_buf_t *strbuf ) {
@@ -357,7 +362,7 @@ static void get_pdrstats_str( str_buf_t *strbuf ) {
 }
 
 static void get_overhead_str( str_buf_t *strbuf ) {
-	printf("Overhead: %u %u %u\n", dio_count, dao_count, dis_count);
+	//printf("Overhead: %u %u %u\n", dio_count, dao_count, dis_count);
 	concat_formatted( strbuf, "%u %u %u", dio_count, dao_count, dis_count);
 }
 
@@ -379,7 +384,7 @@ PROCESS_THREAD(sigfox_process, ev, data) {
 				uip_ipaddr_t ipaddr;
 				get_global_addr(&ipaddr);
 				reset_strbuf(&stats);
-				concat_formatted( &stats, "{\"id\":\"%u\",\"tree_id\":\"%u\"}", cmd->nodeid, ipaddr.u8[sizeof(uip_ipaddr_t)-1] );
+				concat_formatted( &stats, "{\"id\":\"%u\",\"treeId\":\"%u\"}", cmd->nodeid, ipaddr.u8[sizeof(uip_ipaddr_t)-1] );
 			}
 			if ( 1 == reg_resource_status[FASTPRK_RESOURCE_IDX] && sfmsg.len==0 ) {
 				PRINTF("Posting FP event\n");
@@ -399,7 +404,8 @@ PROCESS_THREAD(sigfox_process, ev, data) {
 				cc2420_set_cca_threshold(cmd->cca_thres);
 				cc2420_set_txpower(cmd->tx_pow);
 			} // FALLTHROUGH
-			case CMD_ATCMD: write_atok(); break;
+			case CMD_ATCMD: write_atok();
+				break;
 			default:
 			case CMD_NONE: break;
 		}
@@ -504,7 +510,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	while (1) {
 		PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
 		if ( 0 != stats.len ) {
-			printf("Trying node registration at the server...");
+			PRINTF("Trying node registration at the server...");
 			reset_strbuf(&request_url);
 			concat_strbuf(&request_url,"/parking/",0);
 			build_coap_msg(pkt, &request_url, COAP_POST, stats.str, stats.len, NULL, 0);
@@ -522,6 +528,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	// register to each resource
 	for (reg_resource_idx=0;reg_resource_idx<NUMBER_OF_RES;) {
 	  build_url( &request_url, service_urls[reg_resource_idx] );
+	  printf("here the url is %s\n",request_url);
 	  build_coap_msg(pkt, &request_url, COAP_POST, NULL, 0,NULL,0);
 	  COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, register_res_reply_handler);
 	  // retry until successful
@@ -532,12 +539,12 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	}
 
 	etimer_set(&et, PUSH_INTERVAL * CLOCK_SECOND);
-	printf("\n--start put process--\n");
+	PRINTF("\n--start put process--\n");
 	while (1) {
 		PROCESS_WAIT_EVENT();
 		if (ev == PROCESS_EVENT_TIMER) {
 			static uint8_t i;
-			PRINTF("\n--Stats put START--\n");
+			printf("\n--Stats put START--\n");
 			// periodic sending of declared statistic data
 			for (i=0;i<NUMBER_OF_RES;++i) {
 				// resources with NULL 'service_str_builder' entry are skipped

@@ -12,6 +12,7 @@ import it.unipr.iot.calipso.coap.server.util.NodeInfo;
 import it.unipr.iot.calipso.coap.server.util.NodeManager;
 import it.unipr.iot.calipso.coap.server.util.ResourceManager;
 import it.unipr.iot.calipso.util.IPAddress;
+import it.unipr.iot.calipso.coap.server.data.NodeRegistrationData;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -61,7 +62,7 @@ public class CalipsoSmartParkingResource extends ResourceBase implements CoAPEve
 			String res = "/" + name + "/0";
 			String localIP = "::1";
 			int localPort = 5683;
-			NodeInfo nodeInfo = new NodeInfo(res, localIP, localPort, System.currentTimeMillis(), null);
+			NodeInfo nodeInfo = new NodeInfo(res, "0", localIP, localPort, System.currentTimeMillis(), null);
 			this.onNewNode("0", nodeInfo); // the CoAP server is the first node in the network
 		}
 	}
@@ -106,16 +107,21 @@ public class CalipsoSmartParkingResource extends ResourceBase implements CoAPEve
 			if(this.getName().equals(CalipsoSmartParkingServer.SENT_MESSAGES_SERVICE)){
 				logger.debug("*** New PDR data for {}", sender);
 				String payload = exchange.getRequestText();
-				int tx = Integer.parseInt(payload);
+				int tx = 0;
+			    if(payload != null && payload.length() > 0) tx = Integer.parseInt(payload);
 				PDRData data = new PDRData(tx, rx);
 				RedisStorage.getInstance().store(sender + "/" + CalipsoSmartParkingServer.PDR_MESSAGES_SERVICE, new Gson().toJson(data));
 				TimeDatabaseStorage.getInstance().store(sender + "/" + CalipsoSmartParkingServer.PDR_MESSAGES_SERVICE, new Gson().toJson(data));
 			}
 			else if(this.getName().equals(CalipsoSmartParkingServer.RPL_INFO_SERVICE)){
-				String payload = exchange.getRequestText();
-				RPLData data = new Gson().fromJson(payload, RPLData.class);
-				SmartDisplayClientManager.getInstance().updateTree(sender, data.getParentId(), data.getLQI());
-			}
+			    String payload = exchange.getRequestText();
+			    if(payload != null){
+			     RPLData data = new Gson().fromJson(payload, RPLData.class);
+			     if(data != null){
+			      SmartDisplayClientManager.getInstance().updateTree(sender, data.getParentId(), data.getLQI());
+			     }
+			    }
+			   }
 			else{
 				String payload = exchange.getRequestText();
 				SmartDisplayClientManager.getInstance().updateResource(sender + "/" + this.getName(), payload);
@@ -137,9 +143,10 @@ public class CalipsoSmartParkingResource extends ResourceBase implements CoAPEve
 		String path = options.getURIPathString();
 		logger.debug("[" + this.getName() + "]\tRECV POST " + path + " - Payload: " + exchange.getRequestText());
 		if(path.equals(this.getName())){
-			String id = exchange.getRequestText();
-			logger.debug("\tA new node has joined the network: " + id);
-			s.add(id);
+			String payload = exchange.getRequestText();
+			NodeRegistrationData regData = new Gson().fromJson(payload, NodeRegistrationData.class);
+			   logger.debug("\tA new node has joined the network: " + regData.getId());
+			   s.add(regData.getId());
 			CalipsoSmartParkingResource resource = create(s);
 			resource.content = exchange.getRequestText();
 			resource.listeners = this.listeners;
@@ -148,15 +155,16 @@ public class CalipsoSmartParkingResource extends ResourceBase implements CoAPEve
 			exchange.respond(response);
 			if(this.isParent){
 				String nodeIp = "";
-				try{
-					nodeIp = IPAddress.getIpAddress(exchange.getSourceAddress().getAddress());
-				} catch (Exception e){
-					logger.error("Invalid IP - {}", e.getMessage());
-				}
+				 try{
+				     logger.info("Sender IP address: {}", exchange.getSourceAddress());
+				     nodeIp = IPAddress.getIpAddress(exchange.getSourceAddress().getAddress());
+				    } catch (Exception e){
+				     logger.error("Invalid IP - {}", e.getMessage());
+				    }
 				long now = System.currentTimeMillis();
-				NodeInfo nodeInfo = new NodeInfo(resource.getURI(), nodeIp, exchange.getSourcePort(), now, null);
-				logger.debug(now + ":\tA new node has joined the network: " + id + " with IP " + nodeIp);
-				this.onNewNode(id, nodeInfo);
+				NodeInfo nodeInfo = new NodeInfo(resource.getURI(), regData.getTreeId(), nodeIp, exchange.getSourcePort(), now, null);
+			    logger.debug(now + ":\tA new node has joined the network: " + regData.getId() + " with IP " + nodeIp);
+			    this.onNewNode(regData.getId(), nodeInfo);
 				MessageCountManager.getInstance().incrementMessageCountForNode(resource.getURI());
 			}
 
@@ -245,3 +253,4 @@ public class CalipsoSmartParkingResource extends ResourceBase implements CoAPEve
 		return resource.create(path);
 	}
 }
+

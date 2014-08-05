@@ -112,10 +112,9 @@ output(void)
     PRINT6ADDR(&UIP_IP_BUF->destipaddr);
     PRINTF("\n");
   } else {
-    PRINTF("Hop count: %u", 64 - UIP_IP_BUF->ttl);
-    PRINTF(" src = ");
+    PRINTF("HOPCOUNT\t");
     PRINT6ADDR(&UIP_IP_BUF->srcipaddr);
-    PRINTF("\n");
+    PRINTF("\t%u\n", 64 - UIP_IP_BUF->ttl);
     slip_send();
   }
 }

@@ -60,7 +60,7 @@
 #define LOCAL_PORT      UIP_HTONS(COAP_DEFAULT_PORT+1)
 #define REMOTE_PORT     UIP_HTONS(COAP_DEFAULT_PORT)
 
-#define PUSH_INTERVAL   			300 // interval at which to send radio statistics (seconds)
+#define PUSH_INTERVAL   			150 // interval at which to send radio statistics (seconds)
 #define ENERGY_UPDATE_INTERVAL  	60 // simple ENERGEST step interval (seconds)
 #define MAX_URL_SIZE	32		// URL request max size (bytes)
 #define MAX_ID_SIZE		16		// max length server generated ID string (bytes)
@@ -138,7 +138,7 @@ static cmd_t sigfox_cmd;
 
 /*---------------------------------------------------------------------------*/
 #define write_atok() write_sf("\r\nOK\r\n",6)
-#define write_sfsent() write_sf("OK;SENT;",8)
+#define write_sfsent() write_sf("\nOK;SENT;\n",8)
 
 static const char *sf_send_str = "SFM";
 static const char *at_fwver_str = "ATI13";
@@ -263,8 +263,8 @@ enum {
 	FASTPRK_RESOURCE_IDX = 0,
 	ENERGY_RESOURCE_IDX,
 	PARENT_RESOURCE_IDX,
-	PDR_RESOURCE_IDX,
 	OVERHEAD_RESOURCE_IDX,
+	PDR_RESOURCE_IDX,
 	NUMBER_OF_RES	// must be always the last entry in the enum
 };
 // URI suffixes of the available resources
@@ -273,14 +273,15 @@ static char* service_urls[NUMBER_OF_RES] = {
 		"/presence",
 		"/energy",
 		"/rpl", // was /parent
-		"/tx", // was /pdr
-		"/overhead" };
+		"/overhead", // was /pdr
+		"/tx"};
 static void (*service_str_builder[NUMBER_OF_RES])(str_buf_t*) = {
 		NULL, // handled by the sigfox proc
 		get_dutycycle_str,
 		get_rplstats_str,
-		get_pdrstats_str,
-		get_overhead_str };
+		get_overhead_str,
+		get_pdrstats_str
+};
 static uint8_t reg_resource_idx;
 static uint8_t reg_resource_status[NUMBER_OF_RES]; // stores 1 iff the corresponding resource has been successfully registered
 // auxiliary string buffers
@@ -340,7 +341,9 @@ static void build_coap_msg(coap_packet_t *request, str_buf_t* url, coap_method_t
 	if ( query_len > 0 )
 		coap_set_header_uri_query(request,query);
 	coap_set_payload(request, (uint8_t *)msg, len);
-	if ( COAP_PUT == method || COAP_POST==method ) tx_pkts++;
+	//if ( COAP_PUT == method || COAP_POST==method )
+	tx_pkts++;
+	printf ("when incremented is %lu\n", tx_pkts);
 }
 
 static void build_url( str_buf_t *url, char *res_name ) {
@@ -370,7 +373,8 @@ static void get_dutycycle_str( str_buf_t *strbuf ) {
 }
 
 static void get_pdrstats_str( str_buf_t *strbuf ) {
-	concat_formatted( strbuf, "%lu", tx_pkts );
+	printf("tx packets %lu\n", tx_pkts);
+	concat_formatted( strbuf, "%lu", tx_pkts+1);
 }
 
 static void get_overhead_str( str_buf_t *strbuf ) {
@@ -423,7 +427,7 @@ PROCESS_THREAD(sigfox_process, ev, data) {
 				cc2420_set_txpower(cmd->tx_pow);
 			} // FALLTHROUGH
 			case CMD_ATCMD:
-				//write_atok();
+				write_atok();
 				break;
 			default:
 			case CMD_NONE: break;
@@ -525,6 +529,8 @@ PROCESS_THREAD(main_wos_process, ev, data)
 
 #if WITH_ORPL
   orpl_init(0, 0);
+#elif WITH_RRPL
+  rrpl_init();
 #endif /* WITH_ORPL */
 
 	// register the node and obtain identifier
@@ -560,12 +566,12 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	}
 
 	etimer_set(&et, PUSH_INTERVAL * CLOCK_SECOND);
-	printf("start put process\n");
+	printf("\nstart put process\n");
 	while (1) {
 		PROCESS_WAIT_EVENT();
 		if (ev == PROCESS_EVENT_TIMER) {
 			static uint8_t i;
-			PRINTF("\n--Stats put START--\n");
+			printf("\n--Stats put START--\n");
 			// periodic sending of declared statistic data
 			for (i=0;i<NUMBER_OF_RES;++i) {
 				// resources with NULL 'service_str_builder' entry are skipped

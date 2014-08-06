@@ -38,7 +38,7 @@ public class ConvergenceTimeDataSource {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		String inFile = "input/log.dat";
+		String inFile = "input/log2.dat";
 		String outFile = "input/log.dat.RELAYED";
 		FileInputStream fis = new FileInputStream(inFile);
 		ConvergenceTimeDataSource analyzer = new ConvergenceTimeDataSource(fis,outFile);

@@ -115,7 +115,9 @@ public class CalipsoSmartParkingResource extends ResourceBase implements CoAPEve
 			}
 			else if(this.getName().equals(CalipsoSmartParkingServer.RPL_INFO_SERVICE)){
 			    String payload = exchange.getRequestText();
-			    if(payload != null){
+			    
+			    if(payload != null && payload.length() > 0){
+			    	//logger.info("RECEIVED PAYLOAD: {}",payload);
 			     RPLData data = new Gson().fromJson(payload, RPLData.class);
 			     if(data != null){
 			      SmartDisplayClientManager.getInstance().updateTree(sender, data.getParentId(), data.getLQI());

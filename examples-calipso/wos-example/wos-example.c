@@ -7,12 +7,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include "net/uip.h"
+#include "net/uip-ds6.h"
 #include "contiki.h"
 #include "contiki-net.h"
-
 #include "net/rpl/rpl.h"
 #include "net/uip-ds6-nbr.h"
+
+#if WITH_RRPL
+#include "net/rrpl/rrpl.h"
+#endif
+
 #if WITH_ORPL
 #include "net/orpl/orpl.h"
 #endif /* WITH_ORPL */
@@ -31,6 +36,11 @@
 #error "CoAP version defined by WITH_COAP not implemented"
 #endif
 
+#if WITH_RRPL
+#define RRPL_CONF_IS_SINK 0
+#define RRPL_CONF_IS_COORDINATOR() 0
+#define UIP_CONF_ROUTER 1
+#endif
 
 #define DEBUG 0
 #if DEBUG
@@ -287,7 +297,7 @@ static uint32_t dutycycle_per10k;
 
 static uint32_t tx_pkts;
 
-#if !WITH_ORPL
+#if !WITH_ORPL && !WITH_RRPL
 static uint8_t rpl_parentId;
 static uint16_t rpl_parentLinkMetric;
 #endif
@@ -345,11 +355,13 @@ static void build_url( str_buf_t *url, char *res_name ) {
 static void get_rplstats_str( str_buf_t *strbuf ) {
 #if WITH_ORPL
 	concat_formatted( strbuf, "ORPL (no parent)");
+#elif WITH_RRPL
+	concat_formatted( strbuf, "RRPL (to do)");
 #else
 	rpl_parentId = (uint8_t) rpl_get_parent_ipaddr((rpl_parent_t *) rpl_get_any_dag()->preferred_parent)->u8[sizeof(uip_ipaddr_t)-1];
 	rpl_parentLinkMetric = (uint16_t) rpl_get_parent_link_metric((uip_lladdr_t *)
 		uip_ds6_nbr_lladdr_from_ipaddr((uip_ipaddr_t *) rpl_get_any_dag()->preferred_parent));
-	concat_formatted( strbuf, "%u %u", rpl_parentId , rpl_parentLinkMetric );
+	concat_formatted( strbuf, "{\"parentId\":\"%u\",\"LQI\":%u}", rpl_parentId , rpl_parentLinkMetric );
 #endif
 }
 
@@ -365,6 +377,8 @@ static void get_overhead_str( str_buf_t *strbuf ) {
 	//printf("Overhead: %u %u %u\n", dio_count, dao_count, dis_count);
 #if WITH_ORPL
 	concat_formatted( strbuf, "%u %u", dio_count, orpl_broadcast_count);
+#elif WITH_RRPL
+	concat_formatted( strbuf, "ciao");
 #else
 	concat_formatted( strbuf, "%u %u %u", dio_count, dao_count, dis_count);
 #endif
@@ -488,6 +502,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	ADD_EVENT(&missed_evs, ev);
 
 	PROCESS_BEGIN();
+//	process_start(&rrpl_process, NULL);
 	memset( reg_resource_status, 0, NUMBER_OF_RES);
 	memset( &sigfox_cmd, 0x00, sizeof(cmd_t) );
 	INIT_MISSED_EVS(&missed_evs);
@@ -500,6 +515,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	tx_pkts = 0;
 	SERVER_NODE(&server_ipaddr);
 	process_start(&sigfox_process,NULL);
+
 	simple_energest_start();
 
 	/* receives all CoAP messages */

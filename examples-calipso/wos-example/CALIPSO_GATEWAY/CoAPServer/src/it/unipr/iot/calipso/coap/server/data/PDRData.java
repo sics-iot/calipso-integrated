@@ -20,7 +20,7 @@ public class PDRData {
 		super();
 		this.TX = tx;
 		this.RX = rx;
-		this.PDR = (double) tx / (double) rx;
+		if(this.TX != 0) this.PDR = (double) rx / (double) tx;
 	}
 
 	public int getTX() {

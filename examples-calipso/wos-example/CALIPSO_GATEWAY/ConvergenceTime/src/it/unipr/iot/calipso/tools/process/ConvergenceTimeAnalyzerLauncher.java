@@ -11,7 +11,7 @@ public class ConvergenceTimeAnalyzerLauncher {
 	private static final Logger logger = LoggerFactory.getLogger(ConvergenceTimeAnalyzerLauncher.class);
 
 	public static void main(String[] args) throws IOException {
-		String logFile = "input/log.dat.RELAYED";
+		String logFile = "/home/paolomeda/calipso-integrated/examples-calipso/wos-example/CALIPSO_GATEWAY/ConvergenceTime/input/log.dat.RELAYED";
 		File f = new File(logFile);
 		if(args.length > 0){
 			logFile = args[0];

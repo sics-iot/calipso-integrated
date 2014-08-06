@@ -74,7 +74,7 @@ public abstract class PingClient {
 				logger.debug("{}", line);
 				sb.append(line);
 				pingResult += line;
-				if(counter < count){
+				/*if(counter < count){
 					sb.append("\n");
 				}
 				if(line.indexOf("time=") >= 0){
@@ -82,7 +82,7 @@ public abstract class PingClient {
 					String time = line.substring(start, start + 5);
 					sum += Double.parseDouble(time);
 					rows++;
-				}
+				}*/
 				if(stats == true){
 					statsb.append(line + "\n");
 				}
@@ -130,19 +130,19 @@ public abstract class PingClient {
 	}
 
 	public double getPacketLoss() {
-		if(this.statistics != null){
-			Scanner scanner = new Scanner(this.statistics);
-			scanner.nextInt();
-			scanner.next();
-			scanner.next();
-			scanner.nextInt();
-			scanner.next();
-			scanner.next();
-			String res = scanner.next();
-			return Double.parseDouble(res.substring(0, res.indexOf("%")));
-		}
-		return 0;
-	}
+		  if(this.statistics != null){
+		   Scanner scanner = new Scanner(this.statistics);
+		   scanner.nextInt(); // read {number}
+		   scanner.next();  // read "packets"
+		   scanner.next();  // read "transmitted,"
+		   scanner.nextInt(); // read {number}
+		   //scanner.next();  // read "packets" -> comment this line if running on Linux
+		   scanner.next();  // read "received," 
+		   String res = scanner.next(); // read "{number}%"
+		   return Double.parseDouble(res.substring(0, res.indexOf("%")));
+		  }
+		  return 0;
+		 }
 
 	public double getMin() {
 		if(this.statistics != null){

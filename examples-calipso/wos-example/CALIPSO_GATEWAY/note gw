@@ -1,6 +1,25 @@
+GATEWAY
+--------------------------------------------------------------------------
+In order to collect statistics launch in the following order these classes:
 TimeDatabaseServerLauncher.java
 SmartDisplayProxyLauncher.java
 CalipsoSmartParkingServer.java
 
-PingDelayMeter.java
+Once they are running you can execute cooja or start the nodes (NOTE: not launch the tunslip yet)
 
+In ConvergenceTimeAnalyzerLauncher.java it is specified a logFile path that is used to parse the output of the border router and measure the convergence time and the hop count
+Create a an empty file named log.dat.RELAYED in the folder ~/workspace/ConvergenceTime/input/ (be careful with the path). This will allow the analyzer to process the tunslip output
+Launch the ConvergenceTimeAnalyzerLauncher.java class
+
+Launch the tunslip with output redirection to the file previously created (e.g., sudo ./tunslip6 -a localhost -p 60003 aaaa::1/64 > ~/workspace/ConvergenceTime/input/log.dat.RELAYED
+
+Once the tree is created, eventually launch the generate_msgs.sh script to assign the ids (if in Cooja)
+
+Launch PingDelayMeter.java to periodically ping the nodes and collect the statistics on delay
+
+
+COLLECT RESULTS
+--------------------------------------------------------------------------
+In order to stop the hop and convergence measurements, kill the tunslip process (CTRL^C). ConvergenceTimeAnalyzerLauncher will calculate the statistics about these indicators.
+
+Kill the other running java processes to save statistics. The gateway will create a timedb-TIME.txt file in the ~/workspace/TimeDatabase/saves folder with all the performance indicators.

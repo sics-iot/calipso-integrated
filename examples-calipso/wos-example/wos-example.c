@@ -287,9 +287,10 @@ static uint32_t dutycycle_per10k;
 
 static uint32_t tx_pkts;
 
+#if !WITH_ORPL
 static uint8_t rpl_parentId;
 static uint16_t rpl_parentLinkMetric;
-
+#endif
 // These functions will be passed to COAP_BLOCKING_REQUEST() to handle responses.
 void
 client_id_handler(void *response)
@@ -326,7 +327,6 @@ static void build_coap_msg(coap_packet_t *request, str_buf_t* url, coap_method_t
 	// prepare request, TID is set by COAP_BLOCKING_REQUEST()
 	coap_init_message(request, COAP_TYPE_CON, method, 0 );
 	coap_set_header_uri_path(request, url->str);
-	printf("uri %s\n",url->str);
 	if ( query_len > 0 )
 		coap_set_header_uri_query(request,query);
 	coap_set_payload(request, (uint8_t *)msg, len);
@@ -363,7 +363,11 @@ static void get_pdrstats_str( str_buf_t *strbuf ) {
 
 static void get_overhead_str( str_buf_t *strbuf ) {
 	//printf("Overhead: %u %u %u\n", dio_count, dao_count, dis_count);
+#if WITH_ORPL
+	concat_formatted( strbuf, "%u %u", dio_count, orpl_broadcast_count);
+#else
 	concat_formatted( strbuf, "%u %u %u", dio_count, dao_count, dis_count);
+#endif
 }
 
 // procs
@@ -404,7 +408,8 @@ PROCESS_THREAD(sigfox_process, ev, data) {
 				cc2420_set_cca_threshold(cmd->cca_thres);
 				cc2420_set_txpower(cmd->tx_pow);
 			} // FALLTHROUGH
-			case CMD_ATCMD: write_atok();
+			case CMD_ATCMD:
+				//write_atok();
 				break;
 			default:
 			case CMD_NONE: break;
@@ -528,7 +533,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	// register to each resource
 	for (reg_resource_idx=0;reg_resource_idx<NUMBER_OF_RES;) {
 	  build_url( &request_url, service_urls[reg_resource_idx] );
-	  printf("here the url is %s\n",request_url);
+
 	  build_coap_msg(pkt, &request_url, COAP_POST, NULL, 0,NULL,0);
 	  COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, register_res_reply_handler);
 	  // retry until successful
@@ -539,12 +544,12 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	}
 
 	etimer_set(&et, PUSH_INTERVAL * CLOCK_SECOND);
-	PRINTF("\n--start put process--\n");
+	printf("start put process\n");
 	while (1) {
 		PROCESS_WAIT_EVENT();
 		if (ev == PROCESS_EVENT_TIMER) {
 			static uint8_t i;
-			printf("\n--Stats put START--\n");
+			PRINTF("\n--Stats put START--\n");
 			// periodic sending of declared statistic data
 			for (i=0;i<NUMBER_OF_RES;++i) {
 				// resources with NULL 'service_str_builder' entry are skipped

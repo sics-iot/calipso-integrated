@@ -41,9 +41,13 @@
 #include "net/uip.h"
 #include "net/uip-ds6.h"
 #include "net/rpl/rpl.h"
+#if WITH_RRPL
+#include "net/rrpl/rrpl.h"
+#endif
 #if WITH_ORPL
 #include "net/orpl/orpl.h"
 #endif /* WITH_ORPL */
+
 
 #include "net/netstack.h"
 #include "dev/button-sensor.h"
@@ -80,6 +84,11 @@ AUTOSTART_PROCESSES(&border_router_process,&webserver_nogui_process);
 /* The internal webserver can provide additional information if
  * enough program flash is available.
  */
+/*#if WITH_RRPL
+#define RRPL_CONF_IS_SINK 1
+#define RRPL_CONF_IS_COORDINATOR() 1
+#define UIP_CONF_ROUTER 1
+#endif*/
 #define WEBSERVER_CONF_LOADTIME 0
 #define WEBSERVER_CONF_FILESTATS 0
 #define WEBSERVER_CONF_NEIGHBOR_STATUS 0
@@ -334,8 +343,9 @@ set_prefix_64(uip_ipaddr_t *prefix_64)
 PROCESS_THREAD(border_router_process, ev, data)
 {
   static struct etimer et;
-  rpl_dag_t *dag;
 
+  rpl_dag_t *dag;
+  //process_start(&rrpl_process,NULL);
   PROCESS_BEGIN();
 
 /* While waiting for the prefix to be sent through the SLIP connection, the future
@@ -358,7 +368,7 @@ PROCESS_THREAD(border_router_process, ev, data)
      cpu will interfere with establishing the SLIP connection */
   NETSTACK_MAC.off(1);
 #endif
- 
+ // process_start(&rrpl_process, NULL);
   /* Request prefix until it has been received */
   while(!prefix_set) {
     etimer_set(&et, CLOCK_SECOND);
@@ -374,7 +384,9 @@ PROCESS_THREAD(border_router_process, ev, data)
 
 #if WITH_ORPL
   orpl_init(1, 0);
-#endif /* WITH_ORPL */
+#elif WITH_RRPL
+  rrpl_init();
+#endif
 
   /* Now turn the radio on, but disable radio duty cycling.
    * Since we are the DAG root, reception delays would constrain mesh throughbut.

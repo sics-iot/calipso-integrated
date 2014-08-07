@@ -1166,6 +1166,12 @@ uint8_t rrpl_is_my_global_address(uip_ipaddr_t *addr){
   return 0;
 }
 
+void rrpl_init(void)
+{
+	process_start(&rrpl_process,NULL);
+}
+
+
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(rrpl_process, ev, data)
 {

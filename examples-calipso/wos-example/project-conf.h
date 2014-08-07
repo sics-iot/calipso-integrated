@@ -5,13 +5,14 @@
 #define CALIPSO_RPL_CONTIKIMAC 1
 #define CALIPSO_ORPL_CONTIKIMAC 2
 #define CALIPSO_RPL_RAWMAC 3
+#define CALIPSO_RRPL_CONTIKIMAC 4
 
 /* Set to one of the above values to configure the CALIPSO stack */
-/* #define CALIPSO_CONFIG CALIPSO_RPL_NULLRDC */
+//#define CALIPSO_CONFIG CALIPSO_RPL_NULLRDC
 #define CALIPSO_CONFIG CALIPSO_RPL_CONTIKIMAC
-/* #define CALIPSO_CONFIG CALIPSO_ORPL_CONTIKIMAC */
-/* #define CALIPSO_CONFIG CALIPSO_RPL_RAWMAC */
-
+//#define CALIPSO_CONFIG CALIPSO_ORPL_CONTIKIMAC
+// #define CALIPSO_CONFIG CALIPSO_RPL_RAWMAC
+//#define CALIPSO_CONFIG CALIPSO_RRPL_CONTIKIMAC
 /* Some platforms have weird includes. */
 #undef IEEE802154_CONF_PANID
 
@@ -44,7 +45,7 @@
 /* UIP_CONF_MAX_ROUTES specifies the maximum number of routes that each
    node will be able to handle. */
 #undef UIP_CONF_MAX_ROUTES
-#define UIP_CONF_MAX_ROUTES 10
+#define UIP_CONF_MAX_ROUTES 6
 
 /* We do not use this feature */
 #undef UIP_CONF_UIP_DS6_NOTIFICATIONS
@@ -52,14 +53,14 @@
 
 /* Save some memory for the sky platform. */
 #undef NBR_TABLE_CONF_MAX_NEIGHBORS
-#define NBR_TABLE_CONF_MAX_NEIGHBORS     5
+#define NBR_TABLE_CONF_MAX_NEIGHBORS     4
 
 /* Reduce 802.15.4 frame queue to save RAM. */
 #undef QUEUEBUF_CONF_NUM
 #define QUEUEBUF_CONF_NUM       4
 
 #undef SICSLOWPAN_CONF_FRAG
-#define SICSLOWPAN_CONF_FRAG	0
+#define SICSLOWPAN_CONF_FRAG	1
 
 #undef UIP_CONF_ND6_SEND_NA
 #define UIP_CONF_ND6_SEND_NA 	0
@@ -80,6 +81,8 @@
 #include "calipso-conf-orpl-contikimac.h"
 #elif CALIPSO_CONFIG == CALIPSO_RPL_RAWMAC
 #include "calipso-conf-rpl-rawmac.h"
+#elif CALIPSO_CONFIG == CALIPSO_RRPL_CONTIKIMAC
+#include "calipso-conf-rrpl-contikimac.h"
 #else
 #error Unsupported CALIPSO configuration. Set the CALIPSO_CONFIG flag.
 #endif /* CALIPSO_CONFIG */

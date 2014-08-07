@@ -11,6 +11,7 @@
 #include "net/uip-ds6.h"
 #include "contiki.h"
 #include "contiki-net.h"
+
 #include "net/rpl/rpl.h"
 #include "net/uip-ds6-nbr.h"
 
@@ -36,11 +37,11 @@
 #error "CoAP version defined by WITH_COAP not implemented"
 #endif
 
-#if WITH_RRPL
+/*#if WITH_RRPL
 #define RRPL_CONF_IS_SINK 0
 #define RRPL_CONF_IS_COORDINATOR() 0
 #define UIP_CONF_ROUTER 1
-#endif
+#endif*/
 
 #define DEBUG 0
 #if DEBUG
@@ -52,6 +53,7 @@
 #define PRINT6ADDR(addr)
 #define PRINTLLADDR(addr)
 #endif
+
 
 // TODO: This server address is hard-coded as we do not have discovery.
 //#define SERVER_NODE(ipaddr)   uip_ip6addr(ipaddr, 0xaaaa, 0, 0, 0, 0x0212, 0x7403, 0x0003, 0x0303)
@@ -533,11 +535,12 @@ PROCESS_THREAD(main_wos_process, ev, data)
   rrpl_init();
 #endif /* WITH_ORPL */
 
+
 	// register the node and obtain identifier
 	while (1) {
 		PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
 		if ( 0 != stats.len ) {
-			PRINTF("Trying node registration at the server...");
+			printf("Trying node registration at the server...");
 			reset_strbuf(&request_url);
 			concat_strbuf(&request_url,"/parking/",0);
 			build_coap_msg(pkt, &request_url, COAP_POST, stats.str, stats.len, NULL, 0);
@@ -547,7 +550,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 		if ( 0==url_id.len ) {
 			etimer_restart(&et);
 		} else {
-			PRINTF("Done\n");
+			printf("Done\n");
 			break;
 		}
 	}

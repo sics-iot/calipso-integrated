@@ -4,6 +4,7 @@ all: wos-example wos-server
 # variable for this Makefile
 # configure CoAP implementation (3|7|12|13) (er-coap-07 also supports CoAP draft 08)
 WITH_COAP=13
+RRPL = 0
 
 # variable for Makefile.include
 WITH_UIP6=1
@@ -15,6 +16,17 @@ CFLAGS += -DUIP_CONF_IPV6=1
 CONTIKI=../..
 CFLAGS += -DPROJECT_CONF_H=\"project-conf.h\"
 
+ifeq ($(RRPL), 1)
+CFLAGS += -DUIP_CONF_IPV6_RPL=0
+CFLAGS += -DWITH_IPV6_RRPL=1 
+CFLAGS += -DUSE_OPT=1 
+CFLAGS += -DRRPL_CONF_SND_QRY=1 
+CFLAGS += -DRRPL_CONF_IS_SINK=0
+#CFLAGS += -DUIP_CONF_ND6_SEND_NA=0 
+CFLAGS += -RRPL_RANDOM_WAIT=1 
+CFLAGS += -DRESOLV_CONF_SUPPORTS_MDNS=0 
+
+else
 # variable for Makefile.include
 ifneq ($(TARGET), minimal-net)
 CFLAGS += -DUIP_CONF_IPV6_RPL=1
@@ -28,7 +40,7 @@ CFLAGS += -DUIP_CONF_BUFFER_SIZE=2048
 CFLAGS += -DREST_MAX_CHUNK_SIZE=1024
 CFLAGS += -DCOAP_MAX_HEADER_SIZE=640
 endif
-
+endif
 # linker optimizations
 SMALL=1
 
@@ -71,7 +83,15 @@ APPS += erbium
 #CUSTOM_RULE_C_TO_OBJECTDIR_O = 1
 #CUSTOM_RULE_S_TO_OBJECTDIR_O = 1
 
+ifeq ($(RRPL), 1)
+CFLAGS += -DRRPL_CONF_IS_SINK=0 
+CFLAGS += -DRESOLV_CONF_SUPPORTS_MDNS=0 
+CFLAGS += -DUIP_CONF_ROUTER=1
+endif
+
 include $(CONTIKI)/Makefile.include
+
+
 
 # optional rules to get assembly
 #$(OBJECTDIR)/%.o: asmdir/%.S

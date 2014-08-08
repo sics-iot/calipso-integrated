@@ -1015,8 +1015,10 @@ rpl_add_dag(uip_ipaddr_t *from, rpl_dio_t *dio)
 {
   rpl_instance_t *instance;
   rpl_dag_t *dag, *previous_dag;
-  rpl_parent_t *p;
+  rpl_parent_t *p = NULL;
+#if !WITH_ORPL
   rpl_of_t *of;
+#endif
 
   dag = rpl_alloc_dag(dio->instance_id, &dio->dag_id);
   if(dag == NULL) {

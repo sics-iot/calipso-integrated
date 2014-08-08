@@ -189,7 +189,7 @@ orpl_calculate_edc(int verbose)
       rpl_rank_t tentative_edc;
 
       if(verbose) {
-        printf("ORPL: EDC -> node %3u rank: %5u ack %u/%u ", curr_id, curr_p_rank, curr_p_ackcount, orpl_broadcast_count);
+        printf("ORPL: EDC -> node %3u rank: %5u ack %u/%lu ", curr_id, curr_p_rank, curr_p_ackcount, orpl_broadcast_count);
       }
 
       tentative_edc = add_to_forwarder_set(curr_p, curr_p_rank, curr_p_ackcount,

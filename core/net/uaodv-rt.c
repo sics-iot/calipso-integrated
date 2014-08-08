@@ -37,7 +37,7 @@
  *         Adam Dunkels <adam@sics.se>
  */
 
-
+#include <string.h>
 #include "net/uaodv-rt.h"
 #include "contiki-net.h"
 

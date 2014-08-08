@@ -141,7 +141,7 @@ static void broadcast_routing_set(void *ptr);
 /* Seqno of the next packet to be sent */
 static uint32_t current_seqno = 0;
 
-static init_done = 0;
+static uint8_t init_done = 0;
 static clock_time_t init_time;
 
 void

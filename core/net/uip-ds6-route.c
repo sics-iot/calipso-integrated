@@ -74,6 +74,7 @@ static int num_routes = 0;
 #include "net/uip-debug.h"
 
 static void rm_routelist_callback(nbr_table_item_t *ptr);
+void print_addr(const uip_ipaddr_t *addr);
 /*---------------------------------------------------------------------------*/
 #if DEBUG != DEBUG_NONE
 static void

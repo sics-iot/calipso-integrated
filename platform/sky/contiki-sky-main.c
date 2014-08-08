@@ -137,13 +137,13 @@ static void
 set_rime_addr(void)
 {
   rimeaddr_t addr;
-  int i;
 
   memset(&addr, 0, sizeof(rimeaddr_t));
 #if UIP_CONF_IPV6
   memcpy(addr.u8, ds2411_id, sizeof(addr.u8));
 #else
   if(node_id == 0) {
+	int i;
     for(i = 0; i < sizeof(rimeaddr_t); ++i) {
       addr.u8[i] = ds2411_id[7 - i];
     }

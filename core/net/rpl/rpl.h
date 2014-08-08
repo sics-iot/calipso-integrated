@@ -262,6 +262,8 @@ void rpl_dag_init(void);
 rpl_parent_t *rpl_get_parent(const uip_lladdr_t *addr);
 void rpl_set_parent_rank(const uip_lladdr_t *addr, rpl_rank_t rank);
 int get_global_addr(uip_ipaddr_t *addr);
+#elif defined(CALIPSO_CONFIG)
+int get_global_addr(uip_ipaddr_t *addr);
 #endif /* WITH_ORPL */
 /*---------------------------------------------------------------------------*/
 #endif /* RPL_H */

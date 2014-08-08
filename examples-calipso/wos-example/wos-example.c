@@ -140,7 +140,7 @@ static cmd_t sigfox_cmd;
 
 /*---------------------------------------------------------------------------*/
 #define write_atok() write_sf("\r\nOK\r\n",6)
-#define write_sfsent() write_sf("\nOK;SENT;\n",8)
+#define write_sfsent() write_sf("\nOK;SENT;\n",10)
 
 static const char *sf_send_str = "SFM";
 static const char *at_fwver_str = "ATI13";
@@ -330,8 +330,7 @@ register_res_reply_handler(void *response) {
 
 void
 client_dummy_handler(void *response) {
-	coap_packet_t* packet = response;
-	PRINTF("RES CODE=%d\n",packet->code);
+	PRINTF("RES CODE=%d\n",((coap_packet_t*)response)->code);
 }
 
 // Request builing auxiliary functions

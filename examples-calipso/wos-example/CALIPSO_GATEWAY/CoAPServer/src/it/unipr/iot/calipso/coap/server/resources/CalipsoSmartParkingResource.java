@@ -11,12 +11,20 @@ import it.unipr.iot.calipso.coap.server.util.MessageCountManager;
 import it.unipr.iot.calipso.coap.server.util.NodeInfo;
 import it.unipr.iot.calipso.coap.server.util.NodeManager;
 import it.unipr.iot.calipso.coap.server.util.ResourceManager;
+import it.unipr.iot.calipso.tools.tunslip.BorderRouterTunslipAnalyzer;
+import it.unipr.iot.calipso.tools.tunslip.BorderRouterTunslipAnalyzerListener;
+import it.unipr.iot.calipso.tools.tunslip.ConvergenceTimeAnalyzer;
+import it.unipr.iot.calipso.tools.tunslip.HopCountAnalyzer;
 import it.unipr.iot.calipso.util.IPAddress;
 import it.unipr.iot.calipso.coap.server.data.NodeRegistrationData;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +45,7 @@ import com.google.gson.Gson;
  * 
  */
 
-public class CalipsoSmartParkingResource extends ResourceBase implements CoAPEventListener {
+public class CalipsoSmartParkingResource extends ResourceBase implements CoAPEventListener, BorderRouterTunslipAnalyzerListener {
 
 	private final static Logger logger = LoggerFactory.getLogger(CalipsoSmartParkingResource.class);
 
@@ -49,6 +57,8 @@ public class CalipsoSmartParkingResource extends ResourceBase implements CoAPEve
 	private String content;
 	private boolean isParent;
 	private List<CoAPEventListener> listeners;
+	
+	private Map<String,Long> cTimeForNodes;
 
 	public CalipsoSmartParkingResource(String name) {
 		this(name, true);
@@ -65,6 +75,26 @@ public class CalipsoSmartParkingResource extends ResourceBase implements CoAPEve
 			NodeInfo nodeInfo = new NodeInfo(res, "0", localIP, localPort, System.currentTimeMillis(), null);
 			this.onNewNode("0", nodeInfo); // the CoAP server is the first node in the network
 		}
+		this.cTimeForNodes = new HashMap<String,Long>();
+	}
+	
+	public void startConvergenceTimeAnalyzer(final String cTimeLogFile, final BorderRouterTunslipAnalyzerListener l){
+		new Thread(new Runnable(){
+			public void run(){
+				try {
+					BorderRouterTunslipAnalyzer analyzer = BorderRouterTunslipAnalyzer.createAnalyzerWithFile(cTimeLogFile, l);
+					analyzer.addListener("CTIME", l);
+					ConvergenceTimeAnalyzer cTimeAnalyzer = new ConvergenceTimeAnalyzer();
+					analyzer.addListener(ConvergenceTimeAnalyzer.START_PREFIX, cTimeAnalyzer);
+					analyzer.addListener(ConvergenceTimeAnalyzer.CTIME_PREFIX, cTimeAnalyzer);
+					HopCountAnalyzer hopCountAnalyzer = new HopCountAnalyzer();
+					analyzer.addListener(HopCountAnalyzer.HOPCOUNT_PREFIX, hopCountAnalyzer);
+					analyzer.analyze();
+				} catch (IOException e) {
+					logger.error(e.getMessage());
+				}
+			}
+		}).start();
 	}
 	
 	public void addListener(CoAPEventListener listener){
@@ -164,8 +194,10 @@ public class CalipsoSmartParkingResource extends ResourceBase implements CoAPEve
 				     logger.error("Invalid IP - {}", e.getMessage());
 				    }
 				long now = System.currentTimeMillis();
-				NodeInfo nodeInfo = new NodeInfo(resource.getURI(), regData.getTreeId(), nodeIp, exchange.getSourcePort(), now, null);
-			    logger.debug(now + ":\tA new node has joined the network: " + regData.getId() + " with IP " + nodeIp);
+				Long cTimeEventForNode = this.cTimeForNodes.get(nodeIp);
+				if(cTimeEventForNode == null) cTimeEventForNode = now;				
+				NodeInfo nodeInfo = new NodeInfo(resource.getURI(), regData.getTreeId(), nodeIp, exchange.getSourcePort(), now, cTimeEventForNode);
+			    logger.debug(now + ":\tA new node has joined the network: " + regData.getId() + " with IP " + nodeIp + " @ " + new java.util.Date(cTimeEventForNode));
 			    this.onNewNode(regData.getId(), nodeInfo);
 				MessageCountManager.getInstance().incrementMessageCountForNode(resource.getURI());
 			}
@@ -254,4 +286,29 @@ public class CalipsoSmartParkingResource extends ResourceBase implements CoAPEve
 		logger.debug("\tCreated resource: " + resource.getURI());
 		return resource.create(path);
 	}
+	
+	public void onAnalysisTerminated(BorderRouterTunslipAnalyzer analyzer) {
+		logger.info("****Stopped analyzing...");
+	}
+	
+	public void onAnalysisStarted(BorderRouterTunslipAnalyzer analyzer) {
+		logger.info("****Started analyzing...");
+	}
+
+	public void onTunslipEvent(BorderRouterTunslipAnalyzer analyzer, Long timestamp, String line) {
+		if(line.startsWith("CTIME")){
+			Scanner scanner = new Scanner(line);
+			scanner.next();
+			String node = scanner.next();
+			synchronized(this.cTimeForNodes){
+				if(this.cTimeForNodes.get(node) == null){
+					logger.info("****CTIME: {} joined at {}", node, timestamp);
+					this.cTimeForNodes.put(node, timestamp);
+				}
+			}
+		}
+	}
+	
+	
+	
 }

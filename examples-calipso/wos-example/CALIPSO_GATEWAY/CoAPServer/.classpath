@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="/CALIPSO_common/lib/spring-core-4.0.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/CALIPSO_common/lib/spring-web-4.0.3.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/CALIPSO_common/lib/gson-2.2.3.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/TunslipAnalyzer"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

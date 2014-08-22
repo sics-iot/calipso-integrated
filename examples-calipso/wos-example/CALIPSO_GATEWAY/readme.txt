@@ -1,7 +1,6 @@
 --- Instructions for running the Java-based Calipso Gateway ----
 
 1. Install required software in Instant Contiki
-	- Redis: you can follow the quick start guide at redis.io/topics/quickstart
 	- java openjdk 6 or greater: should be already installed in Instant Contiki
 	- Eclipse IDE: you can type in a terminal > sudo apt-get install eclipse
 

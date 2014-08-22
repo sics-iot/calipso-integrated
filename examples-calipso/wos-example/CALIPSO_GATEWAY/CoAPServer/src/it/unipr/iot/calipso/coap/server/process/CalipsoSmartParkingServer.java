@@ -65,6 +65,7 @@ public class CalipsoSmartParkingServer {
 		server.setExecutor(Executors.newScheduledThreadPool(10));
 		CalipsoSmartParkingResource resource = new CalipsoSmartParkingResource("parking");
 		resource.addListener(new PDRListener());
+		resource.startConvergenceTimeAnalyzer("/tmp/calipso/log_ctime.txt", resource);
 		server.add(resource);
 		server.start();
 

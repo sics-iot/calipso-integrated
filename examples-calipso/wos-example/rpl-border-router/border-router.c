@@ -58,7 +58,9 @@
 #include <string.h>
 #include <ctype.h>
 
-#define DEBUG DEBUG_NONE
+#include "net/uip-ds6.h"
+
+#define DEBUG DEBUG_PRINT
 #include "net/uip-debug.h"
 
 uint16_t dag_id[] = {0x1111, 0x1100, 0, 0, 0, 0, 0, 0x0011};
@@ -340,6 +342,40 @@ set_prefix_64(uip_ipaddr_t *prefix_64)
   uip_ds6_addr_add(&ipaddr, 0, ADDR_AUTOCONF);
 }
 /*---------------------------------------------------------------------------*/
+#if UIP_CONF_UIP_DS6_NOTIFICATIONS
+void CTIME_callback(int event, uip_ipaddr_t *ipaddr, uip_ipaddr_t *nexthop, int num_routes){
+  if(event == UIP_DS6_NOTIFICATION_ROUTE_ADD){
+	  PRINTF("CTIME\t");
+	  print_full_ipv6_addr(ipaddr);
+	  PRINTF("\t");
+	  print_full_ipv6_addr(nexthop);
+	  PRINTF("\t");
+	  PRINTF("Node ");
+	  print_full_ipv6_addr(ipaddr);
+	  PRINTF(" has parent ");
+	  print_full_ipv6_addr(nexthop);
+	  PRINTF(")\n");
+	  /*
+	  PRINTF("CTIME\t%u\t%u\tNode %u (", 
+		ipaddr->u8[sizeof(uip_ipaddr_t) - 1],
+		nexthop->u8[sizeof(uip_ipaddr_t) - 1],
+		ipaddr->u8[sizeof(uip_ipaddr_t) - 1]);
+	  print_addr(ipaddr);
+	  PRINTF(") has parent %u (", nexthop->u8[sizeof(uip_ipaddr_t) - 1]);
+	  print_addr(nexthop);
+	  PRINTF(")\n");
+	  */
+  }
+}
+
+void print_full_ipv6_addr(uip_ipaddr_t *ipaddr){
+  int i;
+  for(i = 0; i < 7; ++i)
+      printf("%02x%02x:", ipaddr->u8[i * 2], ipaddr->u8[i * 2 + 1]);
+  printf("%02x%02x", ipaddr->u8[14], ipaddr->u8[15]);
+}
+#endif
+/*---------------------------------------------------------------------------*/
 PROCESS_THREAD(border_router_process, ev, data)
 {
   static struct etimer et;
@@ -386,6 +422,11 @@ PROCESS_THREAD(border_router_process, ev, data)
   orpl_init(1, 0);
 #elif WITH_RRPL
   rrpl_init();
+#endif
+
+#if UIP_CONF_UIP_DS6_NOTIFICATIONS
+  struct uip_ds6_notification *n = malloc(sizeof(struct uip_ds6_notification));
+  uip_ds6_notification_add(n, CTIME_callback);
 #endif
 
   /* Now turn the radio on, but disable radio duty cycling.

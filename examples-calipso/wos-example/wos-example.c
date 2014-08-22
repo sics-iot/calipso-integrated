@@ -365,7 +365,8 @@ static void get_rplstats_str( str_buf_t *strbuf ) {
 	rpl_parentId = (uint8_t) rpl_get_parent_ipaddr((rpl_parent_t *) rpl_get_any_dag()->preferred_parent)->u8[sizeof(uip_ipaddr_t)-1];
 	rpl_parentLinkMetric = (uint16_t) rpl_get_parent_link_metric((uip_lladdr_t *)
 		uip_ds6_nbr_lladdr_from_ipaddr((uip_ipaddr_t *) rpl_get_any_dag()->preferred_parent));
-	concat_formatted( strbuf, "{\"parentId\":\"%u\",\"LQI\":%u}", rpl_parentId , rpl_parentLinkMetric );
+	//concat_formatted( strbuf, "{\"parentId\":\"%u\",\"LQI\":%u}", rpl_parentId , rpl_parentLinkMetric );
+	concat_formatted( strbuf, "{\"parentId\":\"%u\"}", rpl_parentId);
 #endif
 }
 

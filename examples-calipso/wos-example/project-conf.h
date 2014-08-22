@@ -49,7 +49,7 @@
 
 /* We do not use this feature */
 #undef UIP_CONF_UIP_DS6_NOTIFICATIONS
-#define UIP_CONF_UIP_DS6_NOTIFICATIONS 0
+#define UIP_CONF_UIP_DS6_NOTIFICATIONS 1
 
 /* Save some memory for the sky platform. */
 #undef NBR_TABLE_CONF_MAX_NEIGHBORS
@@ -60,7 +60,7 @@
 #define QUEUEBUF_CONF_NUM       4
 
 #undef SICSLOWPAN_CONF_FRAG
-#define SICSLOWPAN_CONF_FRAG	1
+#define SICSLOWPAN_CONF_FRAG	0
 
 #undef UIP_CONF_ND6_SEND_NA
 #define UIP_CONF_ND6_SEND_NA 	0

@@ -340,11 +340,13 @@ uip_ds6_route_add(uip_ipaddr_t *ipaddr, uint8_t length,
   memset(&r->state, 0, sizeof(UIP_DS6_ROUTE_STATE_TYPE));
 #endif
 
-  printf("CTIME\t%u\t%u\tNode %u (", ipaddr->u8[sizeof(uip_ipaddr_t) - 1], nexthop->u8[sizeof(uip_ipaddr_t) - 1],ipaddr->u8[sizeof(uip_ipaddr_t) - 1]);
-  print_addr(ipaddr);
-  printf(") has parent %u (", nexthop->u8[sizeof(uip_ipaddr_t) - 1]);
-  print_addr(nexthop);
-  printf(")\n");
+  PRINTF("uip_ds6_route_add: adding route: ");
+  PRINT6ADDR(ipaddr);
+  PRINTF(" via ");
+  PRINT6ADDR(nexthop);
+  PRINTF(" prefix len:%u", r->length);
+  PRINTF("\n");
+  ANNOTATE("#L %u 1;blue\n", nexthop->u8[sizeof(uip_ipaddr_t) - 1]);
 
 #if UIP_DS6_NOTIFICATIONS
   call_route_callback(UIP_DS6_NOTIFICATION_ROUTE_ADD, ipaddr, nexthop);

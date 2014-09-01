@@ -447,7 +447,7 @@ send_qry()
   PRINTF("RRPL: Send QRY from ");
   PRINT6ADDR(&myipaddr);
   PRINTF("\n"); 
-
+  qry_count++;
   struct rrpl_msg_qry *rm = (struct rrpl_msg_qry *)buf;
 
   rm->type = RRPL_QRY_TYPE;
@@ -481,7 +481,7 @@ send_opt()
     enable_qry();
     return; //wait for sink OPT
   }
-
+  opt_count++;
   PRINTF("RRPL: Send OPT from ");
   PRINT6ADDR(&myipaddr);
   PRINTF("\n"); 
@@ -534,7 +534,7 @@ send_rreq()
   PRINTF(" from ");
   PRINT6ADDR(&myipaddr);
   PRINTF("\n"); 
-
+  rreq_count++;
   struct rrpl_msg_rreq *rm = (struct rrpl_msg_rreq *)buf;
 
   rm->type = RRPL_RREQ_TYPE;
@@ -564,6 +564,8 @@ send_rrep(uip_ipaddr_t *dest, uip_ipaddr_t *nexthop, uip_ipaddr_t *orig,
 { 
   char buf[MAX_PAYLOAD_LEN];
   struct rrpl_msg_rrep *rm = (struct rrpl_msg_rrep *)buf;
+
+  rrep_count++;
   PRINTF("RRPL: Send RREP for orig ");
   PRINT6ADDR(orig);
   PRINTF(" dest ");
@@ -596,6 +598,7 @@ send_rerr(uip_ipaddr_t *src, uip_ipaddr_t *dest, uip_ipaddr_t *nexthop)
 { 
   char buf[MAX_PAYLOAD_LEN];
   struct rrpl_msg_rerr *rm = (struct rrpl_msg_rerr *)buf;
+  rerr_count++;
   PRINTF("RRPL: Send RERR towards src: ");
   PRINT6ADDR(src);
   PRINTF(" for address in error: ");
@@ -619,8 +622,10 @@ send_rerr(uip_ipaddr_t *src, uip_ipaddr_t *dest, uip_ipaddr_t *nexthop)
 static void
 send_rack(uip_ipaddr_t *src, uip_ipaddr_t *nexthop, uint16_t seqno)
 { 
+
   char buf[MAX_PAYLOAD_LEN];
   struct rrpl_msg_rack *rm = (struct rrpl_msg_rack *)buf;
+  rack_count++;
   PRINTF("RRPL: Send RACK for src ");
   PRINT6ADDR(src);
   PRINTF(" nexthop ");
@@ -1229,6 +1234,13 @@ PROCESS_THREAD(rrpl_process, ev, data)
   my_parent_rssi = -126;
 #endif
   PRINTF("RRPL is sink:%d \n",(int)RRPL_IS_SINK);
+
+  opt_count = 0;
+  qry_count = 0;
+  rerr_count = 0;
+  rack_count = 0;
+  rreq_count = 0;
+  rrep_count = 0;
 
   my_hseqno = 1;
   print_local_addresses();

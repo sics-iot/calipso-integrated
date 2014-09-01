@@ -56,8 +56,8 @@ typedef struct rrpl_route_entry {
 
 #include "net/uip-ds6.h"
 
+uint16_t opt_count, rreq_count, rrep_count, rack_count, qry_count, rerr_count;
 
-void rrpl_init(void);
 void send_opt(void);
 
 void

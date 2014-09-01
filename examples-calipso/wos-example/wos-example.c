@@ -338,7 +338,7 @@ static void build_coap_msg(coap_packet_t *request, str_buf_t* url, coap_method_t
 	coap_set_payload(request, (uint8_t *)msg, len);
 	//if ( COAP_PUT == method || COAP_POST==method )
 	tx_pkts++;
-	printf ("when incremented is %lu\n", tx_pkts);
+	//printf ("when incremented is %lu\n", tx_pkts);
 }
 
 static void build_url( str_buf_t *url, char *res_name ) {
@@ -378,7 +378,7 @@ static void get_overhead_str( str_buf_t *strbuf ) {
 #if WITH_ORPL
 	concat_formatted( strbuf, "%u %u", dio_count, orpl_broadcast_count);
 #elif WITH_RRPL
-	concat_formatted( strbuf, "ciao");
+	concat_formatted( strbuf, "%u %u %u %u %u %u",opt_count,qry_count,qry_count,rerr_count,rreq_count,rrep_count,rack_count);
 #else
 	concat_formatted( strbuf, "%u %u %u", dio_count, dao_count, dis_count);
 #endif

@@ -131,11 +131,14 @@ public class CalipsoSmartParkingResource extends ResourceBase implements CoAPEve
 		if(exchange.getRequestOptions().getURIPathCount() == 3){
 			List<String> parts = exchange.getRequestOptions().getURIPaths();
 			String sender = "/" + parts.get(0) + "/" + parts.get(1);
-			MessageCountManager.getInstance().incrementMessageCountForNode(sender);
+			if(!this.getName().equals("delay")){
+				MessageCountManager.getInstance().incrementMessageCountForNode(sender);
+			}
 			Integer rx = MessageCountManager.getInstance().getMessageCountForNode(sender);
 			logger.info("New MESSAGE from {} ({}) - {}", sender, rx, exchange.getRequestOptions().getURIPathString());
 			if(this.getName().equals(CalipsoSmartParkingServer.SENT_MESSAGES_SERVICE)){
-				logger.debug("*** New PDR data for {}", sender);
+				logger.info("*** New PDR data for {}", sender);
+				logger.info("*** tx = {}; rx ={};", exchange.getRequestText(), rx);
 				String payload = exchange.getRequestText();
 				int tx = 0;
 			    if(payload != null && payload.length() > 0) tx = Integer.parseInt(payload);

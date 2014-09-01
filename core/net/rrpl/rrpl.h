@@ -70,6 +70,9 @@ void
 rrpl_set_local_prefix(uip_ipaddr_t *prefix, uint8_t len);
 uint8_t rrpl_addr_matches_local_prefix(uip_ipaddr_t *host);
 uint8_t rrpl_is_my_global_address(uip_ipaddr_t *addr);
+
+void print_6_addr(uip_ipaddr_t *addr);
+
 PROCESS_NAME(rrpl_process);
 #endif /* __RRPL_H__ */
 

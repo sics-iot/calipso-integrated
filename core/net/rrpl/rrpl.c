@@ -53,7 +53,7 @@
 
 #if WITH_IPV6_RRPL
 
-#define DEBUG 1
+#define DEBUG 0
 #include "net/uip-debug.h"
 
 #define QRY_INTERVAL 5 * CLOCK_SECOND
@@ -97,6 +97,7 @@ static uint16_t local_prefix_len;
 static uint8_t opt_seq_skip_counter;
 uip_ipaddr_t local_prefix;
 uip_ipaddr_t ipaddr, myipaddr, mcastipaddr;
+
 uip_ipaddr_t orig_addr, dest_addr, rreq_addr, def_rt_addr, my_sink_id;
 static struct uip_udp_conn *udpconn;
 static uip_ipaddr_t rerr_bad_addr, rerr_src_addr, rerr_next_addr;
@@ -108,7 +109,29 @@ static uint8_t qry_left_to_send=0 ;
 PROCESS(rrpl_process, "RRPL process");
 /*---------------------------------------------------------------------------*/
 
+void
+print_6_addr(uip_ipaddr_t *addr)
+{
+  uint16_t a;
+  unsigned int i;
+  int f;
+  for(i = 0, f = 0; i < sizeof(uip_ipaddr_t); i += 2) {
+    a = (addr->u8[i] << 8) + addr->u8[i + 1];
+    if(a == 0 && f >= 0) {
+      if(f++ == 0) {
+        printf("::");
+      }
+    } else {
+      if(f > 0) {
+        f = -1;
+      } else if(i > 0) {
+        printf(":");
+      }
+      printf("%x", a);
+    }
+  }
 
+}
 /* Route lookup without triggering RREQ ! */
 /*---------------------------------------------------------------------------*/
 static uip_ds6_route_t *
@@ -371,6 +394,19 @@ static uip_ds6_route_t* uip_rrpl_route_add(uip_ipaddr_t* orig_addr, uint8_t leng
   PRINT6ADDR(orig_addr);
   PRINTF(" \n ");
   uip_rrpl_nbr_add(next_hop);
+
+
+
+  printf("CTIME\t");
+  print_6_addr(orig_addr);
+  printf("\t");
+  print_6_addr(next_hop);
+  printf("\t");
+  printf("Node ");
+  print_6_addr(orig_addr);
+  printf(" has parent ");
+  print_6_addr(next_hop);
+  printf(")\n");
  
   rt = uip_ds6_route_add(orig_addr, length, next_hop);
   PRINTF("passed add route\n");

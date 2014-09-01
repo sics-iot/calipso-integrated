@@ -150,7 +150,7 @@ dis_input(void)
 {
   rpl_instance_t *instance;
   rpl_instance_t *end;
-  dis_count++;
+
   //printf("dis count is %u\n",dis_count);
   /* DAG Information Solicitation */
   PRINTF("RPL: Received a DIS from ");
@@ -180,7 +180,7 @@ dis_output(uip_ipaddr_t *addr)
 {
   unsigned char *buffer;
   uip_ipaddr_t tmpaddr;
-
+  dis_count++;
   /* DAG Information Solicitation  - 2 bytes reserved      */
   /*      0                   1                   2        */
   /*      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3  */
@@ -216,7 +216,7 @@ dio_input(void)
   uip_ds6_nbr_t *nbr;
 
   memset(&dio, 0, sizeof(dio));
-  dio_count++;
+
   //printf("dio count is %u\n",dio_count);
   /* Set default values in case the DIO configuration option is missing. */
   dio.dag_intdoubl = RPL_DIO_INTERVAL_DOUBLINGS;
@@ -433,7 +433,7 @@ dio_output(rpl_instance_t *instance, uip_ipaddr_t *uc_addr)
     return;
   }
 #endif /* RPL_LEAF_ONLY */
-
+  dio_count++;
   /* DAG Information Object */
   pos = 0;
 
@@ -602,7 +602,7 @@ dao_input(void)
 
   buffer = UIP_ICMP_PAYLOAD;
   buffer_length = uip_len - uip_l3_icmp_hdr_len;
-  dao_count++;
+
   //printf("dao is %u\n",dao_count);
   pos = 0;
   instance_id = buffer[pos++];
@@ -743,7 +743,7 @@ dao_output(rpl_parent_t *parent, uint8_t lifetime)
 {
   /* Destination Advertisement Object */
   uip_ipaddr_t prefix;
-
+  dao_count++;
   if(get_global_addr(&prefix) == 0) {
     PRINTF("RPL: No global address set for this node - suppressing DAO\n");
     return;

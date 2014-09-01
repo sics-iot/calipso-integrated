@@ -73,6 +73,8 @@ uint8_t rrpl_is_my_global_address(uip_ipaddr_t *addr);
 
 void print_6_addr(uip_ipaddr_t *addr);
 
+uip_ipaddr_t *get_parent(void);
+
 PROCESS_NAME(rrpl_process);
 #endif /* __RRPL_H__ */
 

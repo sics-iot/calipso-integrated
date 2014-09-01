@@ -1138,6 +1138,13 @@ rrpl_request_route_to(uip_ipaddr_t *host)
   timer_set(&next_time, CLOCK_SECOND/RRPL_RREQ_RATELIMIT); 
 #endif
 }
+
+
+uip_ipaddr_t *
+get_parent(void)
+{
+return &def_rt_addr;
+}
 /*---------------------------------------------------------------------------*/
 void
 rrpl_no_route(uip_ipaddr_t *dest, uip_ipaddr_t *src)

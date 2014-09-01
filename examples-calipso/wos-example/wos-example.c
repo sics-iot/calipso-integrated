@@ -298,6 +298,9 @@ static uint32_t tx_pkts;
 static uint8_t rpl_parentId;
 static uint16_t rpl_parentLinkMetric;
 #endif
+#if WITH_RRPL
+static uint8_t parentId;
+#endif
 // These functions will be passed to COAP_BLOCKING_REQUEST() to handle responses.
 void
 client_id_handler(void *response)
@@ -354,7 +357,8 @@ static void get_rplstats_str( str_buf_t *strbuf ) {
 #if WITH_ORPL
 	concat_formatted( strbuf, "{\"parentId\":\"%u\"}", 0);
 #elif WITH_RRPL
-	concat_formatted( strbuf, "{\"parentId\":\"%u\"}", 1);
+	parentId = (uint8_t) get_parent()->u8[sizeof(uip_ipaddr_t)-1];
+	concat_formatted( strbuf, "{\"parentId\":\"%u\"}", parentId);
 #else
 	rpl_parentId = (uint8_t) rpl_get_parent_ipaddr((rpl_parent_t *) rpl_get_any_dag()->preferred_parent)->u8[sizeof(uip_ipaddr_t)-1];
 	rpl_parentLinkMetric = (uint16_t) rpl_get_parent_link_metric((uip_lladdr_t *)

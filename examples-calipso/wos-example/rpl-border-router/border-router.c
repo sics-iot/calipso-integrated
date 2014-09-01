@@ -406,6 +406,7 @@ PROCESS_THREAD(border_router_process, ev, data)
 #endif
  // process_start(&rrpl_process, NULL);
   /* Request prefix until it has been received */
+#ifndef WITH_RRPL
   while(!prefix_set) {
     etimer_set(&et, CLOCK_SECOND);
     request_prefix();
@@ -417,11 +418,10 @@ PROCESS_THREAD(border_router_process, ev, data)
     rpl_set_prefix(dag, &prefix, 64);
     PRINTF("created a new RPL dag\n");
   }
+#endif
 
 #if WITH_ORPL
   orpl_init(1, 0);
-#elif WITH_RRPL
-  rrpl_init();
 #endif
 
 #if UIP_CONF_UIP_DS6_NOTIFICATIONS

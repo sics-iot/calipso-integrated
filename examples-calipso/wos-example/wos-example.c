@@ -37,12 +37,6 @@
 #error "CoAP version defined by WITH_COAP not implemented"
 #endif
 
-/*#if WITH_RRPL
-#define RRPL_CONF_IS_SINK 0
-#define RRPL_CONF_IS_COORDINATOR() 0
-#define UIP_CONF_ROUTER 1
-#endif*/
-
 #define DEBUG 0
 #if DEBUG
 #define PRINTF(...) printf(__VA_ARGS__)
@@ -62,7 +56,7 @@
 #define LOCAL_PORT      UIP_HTONS(COAP_DEFAULT_PORT+1)
 #define REMOTE_PORT     UIP_HTONS(COAP_DEFAULT_PORT)
 
-#define PUSH_INTERVAL   			150 // interval at which to send radio statistics (seconds)
+#define PUSH_INTERVAL   			75 // interval at which to send radio statistics (seconds)
 #define ENERGY_UPDATE_INTERVAL  	60 // simple ENERGEST step interval (seconds)
 #define MAX_URL_SIZE	32		// URL request max size (bytes)
 #define MAX_ID_SIZE		16		// max length server generated ID string (bytes)
@@ -358,9 +352,9 @@ static void build_url( str_buf_t *url, char *res_name ) {
 // to the COAP server for the corresponding resource
 static void get_rplstats_str( str_buf_t *strbuf ) {
 #if WITH_ORPL
-	concat_formatted( strbuf, "ORPL (no parent)");
+	concat_formatted( strbuf, "{\"parentId\":\"%u\"}", 0);
 #elif WITH_RRPL
-	concat_formatted( strbuf, "RRPL (to do)");
+	concat_formatted( strbuf, "{\"parentId\":\"%u\"}", 1);
 #else
 	rpl_parentId = (uint8_t) rpl_get_parent_ipaddr((rpl_parent_t *) rpl_get_any_dag()->preferred_parent)->u8[sizeof(uip_ipaddr_t)-1];
 	rpl_parentLinkMetric = (uint16_t) rpl_get_parent_link_metric((uip_lladdr_t *)
@@ -531,8 +525,6 @@ PROCESS_THREAD(main_wos_process, ev, data)
 
 #if WITH_ORPL
   orpl_init(0, 0);
-#elif WITH_RRPL
-  rrpl_init();
 #endif /* WITH_ORPL */
 
 

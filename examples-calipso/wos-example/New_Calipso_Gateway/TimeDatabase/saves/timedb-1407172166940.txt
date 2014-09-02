@@ -1,0 +1,13 @@
+# TimeDatabase saved on Mon Aug 04 19:09:26 CEST 2014
+# saves/timedb-1407172166940.txt
+# 
+_nodes	1407171852646	["/parking/0"]
+_nodes	1407171868095	["/parking/0","/parking/12680"]
+_nodes	1407171907603	["/parking/0","/parking/12680","/parking/12704"]
+_nodes	1407171993919	["/parking/0","/parking/12680","/parking/12704","/parking/12713"]
+_nodes	1407172028038	["/parking/0","/parking/12680","/parking/12704","/parking/12707","/parking/12713"]
+_nodeinfo	1407171852725	[{"id":"/parking/0","port":5683,"ip":"::1","arrivedAt":1407171852642}]
+_nodeinfo	1407171868204	[{"id":"/parking/0","port":5683,"ip":"::1","arrivedAt":1407171852642},{"id":"/parking/12680","port":53718,"ip":"127.0.0.1","arrivedAt":1407171868095}]
+_nodeinfo	1407171907786	[{"id":"/parking/0","port":5683,"ip":"::1","arrivedAt":1407171852642},{"id":"/parking/12680","port":53718,"ip":"127.0.0.1","arrivedAt":1407171868095},{"id":"/parking/12704","port":53718,"ip":"127.0.0.1","arrivedAt":1407171907603}]
+_nodeinfo	1407171993983	[{"id":"/parking/0","port":5683,"ip":"::1","arrivedAt":1407171852642},{"id":"/parking/12680","port":53718,"ip":"127.0.0.1","arrivedAt":1407171868095},{"id":"/parking/12704","port":53718,"ip":"127.0.0.1","arrivedAt":1407171907603},{"id":"/parking/12713","port":53718,"ip":"127.0.0.1","arrivedAt":1407171993919}]
+_nodeinfo	1407172028077	[{"id":"/parking/0","port":5683,"ip":"::1","arrivedAt":1407171852642},{"id":"/parking/12680","port":53718,"ip":"127.0.0.1","arrivedAt":1407171868095},{"id":"/parking/12704","port":53718,"ip":"127.0.0.1","arrivedAt":1407171907603},{"id":"/parking/12707","port":53718,"ip":"127.0.0.1","arrivedAt":1407172028038},{"id":"/parking/12713","port":53718,"ip":"127.0.0.1","arrivedAt":1407171993919}]

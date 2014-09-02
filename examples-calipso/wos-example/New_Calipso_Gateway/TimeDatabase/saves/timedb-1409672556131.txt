@@ -1,0 +1,137 @@
+# TimeDatabase saved on Tue Sep 02 17:42:36 CEST 2014
+# saves/timedb-1409672556131.txt
+# 
+/parking/12678/tx	1409672510046	10
+/parking/12678/tx	1409672518006	14
+/parking/12678/tx	1409672526398	18
+/parking/12678/tx	1409672534586	23
+/parking/12678/tx	1409672542642	27
+/parking/12678/tx	1409672550722	31
+/parking/12679/rpl	1409672510858	{"parentId":"2"}
+/parking/12679/rpl	1409672518934	{"parentId":"2"}
+/parking/12679/rpl	1409672527222	{"parentId":"2"}
+/parking/12679/rpl	1409672535370	{"parentId":"2"}
+/parking/12679/rpl	1409672543488	{"parentId":"2"}
+/parking/12679/rpl	1409672551463	{"parentId":"2"}
+/parking/12679/overhead	1409672511007	5 5 0
+/parking/12679/overhead	1409672519091	5 6 0
+/parking/12679/overhead	1409672527379	6 6 0
+/parking/12679/overhead	1409672535520	6 6 0
+/parking/12679/overhead	1409672543691	6 7 0
+/parking/12679/overhead	1409672551611	7 7 0
+/parking/12679/energy	1409672510680	1.60
+/parking/12679/energy	1409672518731	1.50
+/parking/12679/energy	1409672527035	1.40
+/parking/12679/energy	1409672535204	1.25
+/parking/12679/energy	1409672543335	1.23
+/parking/12679/energy	1409672551310	1.22
+/parking/12679/tx	1409672511229	10
+/parking/12679/tx	1409672519350	14
+/parking/12679/tx	1409672527569	18
+/parking/12679/tx	1409672535692	23
+/parking/12679/tx	1409672543869	27
+/parking/12679/tx	1409672551804	31
+/parking/12680/tx	1409672511947	10
+/parking/12680/tx	1409672520111	14
+/parking/12680/tx	1409672528275	18
+/parking/12680/tx	1409672536454	22
+/parking/12680/tx	1409672544608	27
+/parking/12680/tx	1409672552500	31
+/parking/12679/presence	1409672532400	883187010000FFFF
+/parking/12680/pdr	1409672511915	{"TX":10,"RX":8,"PDR":0.8}
+/parking/12680/pdr	1409672520083	{"TX":14,"RX":11,"PDR":0.7857142857142857}
+/parking/12680/pdr	1409672528247	{"TX":18,"RX":14,"PDR":0.7777777777777778}
+/parking/12680/pdr	1409672536432	{"TX":22,"RX":17,"PDR":0.7727272727272727}
+/parking/12680/pdr	1409672544587	{"TX":27,"RX":21,"PDR":0.7777777777777778}
+/parking/12680/pdr	1409672552479	{"TX":31,"RX":24,"PDR":0.7741935483870968}
+_resources	1409672434333	["/parking/1/pdr"]
+_resources	1409672499758	["/parking/1/pdr","/parking/12678/pdr"]
+_resources	1409672499853	["/parking/1/pdr","/parking/12678/pdr","/parking/12678/presence"]
+_resources	1409672499966	["/parking/1/pdr","/parking/12678/pdr","/parking/12678/presence","/parking/12679/pdr"]
+_resources	1409672500062	["/parking/1/pdr","/parking/12678/energy","/parking/12678/pdr","/parking/12678/presence","/parking/12679/pdr"]
+_resources	1409672500235	["/parking/1/pdr","/parking/12678/energy","/parking/12678/pdr","/parking/12678/presence","/parking/12679/pdr","/parking/12679/presence"]
+_resources	1409672500273	["/parking/1/pdr","/parking/12678/energy","/parking/12678/pdr","/parking/12678/presence","/parking/12678/rpl","/parking/12679/pdr","/parking/12679/presence"]
+_resources	1409672500278	["/parking/1/pdr","/parking/12678/energy","/parking/12678/pdr","/parking/12678/presence","/parking/12678/rpl","/parking/12679/pdr","/parking/12679/presence","/parking/12680/pdr"]
+_resources	1409672500403	["/parking/1/pdr","/parking/12678/energy","/parking/12678/overhead","/parking/12678/pdr","/parking/12678/presence","/parking/12678/rpl","/parking/12679/pdr","/parking/12679/presence","/parking/12680/pdr"]
+_resources	1409672500498	["/parking/1/pdr","/parking/12678/energy","/parking/12678/overhead","/parking/12678/pdr","/parking/12678/presence","/parking/12678/rpl","/parking/12678/tx","/parking/12679/pdr","/parking/12679/presence","/parking/12680/pdr"]
+_resources	1409672501040	["/parking/1/pdr","/parking/12678/energy","/parking/12678/overhead","/parking/12678/pdr","/parking/12678/presence","/parking/12678/rpl","/parking/12678/tx","/parking/12679/energy","/parking/12679/pdr","/parking/12679/presence","/parking/12680/pdr"]
+_resources	1409672501140	["/parking/1/pdr","/parking/12678/energy","/parking/12678/overhead","/parking/12678/pdr","/parking/12678/presence","/parking/12678/rpl","/parking/12678/tx","/parking/12679/energy","/parking/12679/pdr","/parking/12679/presence","/parking/12680/pdr","/parking/12680/presence"]
+_resources	1409672501620	["/parking/1/pdr","/parking/12678/energy","/parking/12678/overhead","/parking/12678/pdr","/parking/12678/presence","/parking/12678/rpl","/parking/12678/tx","/parking/12679/energy","/parking/12679/pdr","/parking/12679/presence","/parking/12679/rpl","/parking/12680/pdr","/parking/12680/presence"]
+_resources	1409672501631	["/parking/1/pdr","/parking/12678/energy","/parking/12678/overhead","/parking/12678/pdr","/parking/12678/presence","/parking/12678/rpl","/parking/12678/tx","/parking/12679/energy","/parking/12679/pdr","/parking/12679/presence","/parking/12679/rpl","/parking/12680/energy","/parking/12680/pdr","/parking/12680/presence"]
+_resources	1409672502289	["/parking/1/pdr","/parking/12678/energy","/parking/12678/overhead","/parking/12678/pdr","/parking/12678/presence","/parking/12678/rpl","/parking/12678/tx","/parking/12679/energy","/parking/12679/overhead","/parking/12679/pdr","/parking/12679/presence","/parking/12679/rpl","/parking/12680/energy","/parking/12680/pdr","/parking/12680/presence"]
+_resources	1409672502488	["/parking/1/pdr","/parking/12678/energy","/parking/12678/overhead","/parking/12678/pdr","/parking/12678/presence","/parking/12678/rpl","/parking/12678/tx","/parking/12679/energy","/parking/12679/overhead","/parking/12679/pdr","/parking/12679/presence","/parking/12679/rpl","/parking/12679/tx","/parking/12680/energy","/parking/12680/pdr","/parking/12680/presence"]
+_resources	1409672502541	["/parking/1/pdr","/parking/12678/energy","/parking/12678/overhead","/parking/12678/pdr","/parking/12678/presence","/parking/12678/rpl","/parking/12678/tx","/parking/12679/energy","/parking/12679/overhead","/parking/12679/pdr","/parking/12679/presence","/parking/12679/rpl","/parking/12679/tx","/parking/12680/energy","/parking/12680/pdr","/parking/12680/presence","/parking/12680/rpl"]
+_resources	1409672502778	["/parking/1/pdr","/parking/12678/energy","/parking/12678/overhead","/parking/12678/pdr","/parking/12678/presence","/parking/12678/rpl","/parking/12678/tx","/parking/12679/energy","/parking/12679/overhead","/parking/12679/pdr","/parking/12679/presence","/parking/12679/rpl","/parking/12679/tx","/parking/12680/energy","/parking/12680/overhead","/parking/12680/pdr","/parking/12680/presence","/parking/12680/rpl"]
+_resources	1409672503012	["/parking/1/pdr","/parking/12678/energy","/parking/12678/overhead","/parking/12678/pdr","/parking/12678/presence","/parking/12678/rpl","/parking/12678/tx","/parking/12679/energy","/parking/12679/overhead","/parking/12679/pdr","/parking/12679/presence","/parking/12679/rpl","/parking/12679/tx","/parking/12680/energy","/parking/12680/overhead","/parking/12680/pdr","/parking/12680/presence","/parking/12680/rpl","/parking/12680/tx"]
+/parking/12678/pdr	1409672509996	{"TX":10,"RX":8,"PDR":0.8}
+/parking/12678/pdr	1409672517975	{"TX":14,"RX":11,"PDR":0.7857142857142857}
+/parking/12678/pdr	1409672526364	{"TX":18,"RX":14,"PDR":0.7777777777777778}
+/parking/12678/pdr	1409672534556	{"TX":23,"RX":18,"PDR":0.782608695652174}
+/parking/12678/pdr	1409672542615	{"TX":27,"RX":21,"PDR":0.7777777777777778}
+/parking/12678/pdr	1409672550691	{"TX":31,"RX":24,"PDR":0.7741935483870968}
+/parking/12680/presence	1409672537457	883188010101FFFF
+/parking/12678/energy	1409672509590	1.70
+/parking/12678/energy	1409672517662	1.60
+/parking/12678/energy	1409672526052	1.55
+/parking/12678/energy	1409672534215	1.35
+/parking/12678/energy	1409672542350	1.33
+/parking/12678/energy	1409672550292	1.34
+/parking/12679/pdr	1409672511171	{"TX":10,"RX":8,"PDR":0.8}
+/parking/12679/pdr	1409672519313	{"TX":14,"RX":11,"PDR":0.7857142857142857}
+/parking/12679/pdr	1409672527539	{"TX":18,"RX":14,"PDR":0.7777777777777778}
+/parking/12679/pdr	1409672535652	{"TX":23,"RX":18,"PDR":0.782608695652174}
+/parking/12679/pdr	1409672543835	{"TX":27,"RX":21,"PDR":0.7777777777777778}
+/parking/12679/pdr	1409672551771	{"TX":31,"RX":24,"PDR":0.7741935483870968}
+/parking/12678/presence	1409672533371	883186010101FFFF
+/parking/12680/overhead	1409672511727	5 5 1
+/parking/12680/overhead	1409672519879	5 5 1
+/parking/12680/overhead	1409672528064	6 6 1
+/parking/12680/overhead	1409672536220	6 6 1
+/parking/12680/overhead	1409672544339	6 6 1
+/parking/12680/overhead	1409672552275	7 7 1
+/parking/12678/rpl	1409672509724	{"parentId":"3"}
+/parking/12678/rpl	1409672517797	{"parentId":"3"}
+/parking/12678/rpl	1409672526166	{"parentId":"3"}
+/parking/12678/rpl	1409672534337	{"parentId":"3"}
+/parking/12678/rpl	1409672542448	{"parentId":"3"}
+/parking/12678/rpl	1409672550462	{"parentId":"3"}
+/parking/12680/rpl	1409672511547	{"parentId":"4"}
+/parking/12680/rpl	1409672519676	{"parentId":"4"}
+/parking/12680/rpl	1409672527862	{"parentId":"4"}
+/parking/12680/rpl	1409672536039	{"parentId":"4"}
+/parking/12680/rpl	1409672544157	{"parentId":"4"}
+/parking/12680/rpl	1409672552069	{"parentId":"4"}
+_nodeinfo	1409672434227	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220}]
+_nodeinfo	1409672499620	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473}]
+_nodeinfo	1409672499801	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691}]
+_nodeinfo	1409672500225	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672509692	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672510844	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672511536	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672517782	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672518922	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672519660	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672526156	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672527208	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672527848	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672534308	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672535360	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672536029	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672542439	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672543476	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672544148	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672550453	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672551456	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+_nodeinfo	1409672552060	[{"id":"/parking/0","treeId":"1","port":5683,"ip":"::1","arrivedAt":1409672434220},{"id":"/parking/12678","treeId":"2","parentId":"3","port":5683,"ip":"aaaa:0000:0000:0000:0212:7402:0002:0202","arrivedAt":1409672499615,"parentReadyTime":1409672492473},{"id":"/parking/12679","treeId":"4","parentId":"2","port":5683,"ip":"aaaa:0000:0000:0000:0212:7404:0004:0404","arrivedAt":1409672499797,"parentReadyTime":1409672494691},{"id":"/parking/12680","treeId":"5","parentId":"4","port":5683,"ip":"aaaa:0000:0000:0000:0212:7405:0005:0505","arrivedAt":1409672500224,"parentReadyTime":1409672494926}]
+/parking/12680/energy	1409672511271	1.39
+/parking/12680/energy	1409672519396	1.20
+/parking/12680/energy	1409672527616	1.15
+/parking/12680/energy	1409672535675	1.01
+/parking/12680/energy	1409672543867	0.98
+/parking/12680/energy	1409672551871	0.96
+/parking/12678/overhead	1409672509827	5 4 1
+/parking/12678/overhead	1409672517888	6 4 1
+/parking/12678/overhead	1409672526255	6 5 1
+/parking/12678/overhead	1409672534455	6 5 1
+/parking/12678/overhead	1409672542531	7 5 1
+/parking/12678/overhead	1409672550556	7 6 1

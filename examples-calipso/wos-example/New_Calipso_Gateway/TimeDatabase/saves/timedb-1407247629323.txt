@@ -1,0 +1,15 @@
+# TimeDatabase saved on Tue Aug 05 16:07:09 CEST 2014
+# saves/timedb-1407247629323.txt
+# 
+_nodes	1407247574601	["/parking/0"]
+_nodes	1407247582707	["/parking/0","/parking/12680"]
+_nodes	1407247587528	["/parking/0","/parking/12680","/parking/12704"]
+_nodes	1407247591508	["/parking/0","/parking/12680","/parking/12704","/parking/12713"]
+_nodes	1407247622100	["/parking/0","/parking/12680","/parking/12704","/parking/12707","/parking/12713"]
+_nodes	1407247622106	["/parking/0","/parking/12680","/parking/12704","/parking/12707","/parking/12713","/parking/12717"]
+_nodeinfo	1407247574885	[{"id":"/parking/0","treeId":"0","port":5683,"ip":"::1","arrivedAt":1407247574581}]
+_nodeinfo	1407247582898	[{"id":"/parking/0","treeId":"0","port":5683,"ip":"::1","arrivedAt":1407247574581},{"id":"/parking/12680","treeId":"12680","port":54089,"ip":"127.0.0.1","arrivedAt":1407247582706}]
+_nodeinfo	1407247587699	[{"id":"/parking/0","treeId":"0","port":5683,"ip":"::1","arrivedAt":1407247574581},{"id":"/parking/12680","treeId":"12680","port":54089,"ip":"127.0.0.1","arrivedAt":1407247582706},{"id":"/parking/12704","treeId":"12704","port":54089,"ip":"127.0.0.1","arrivedAt":1407247587527}]
+_nodeinfo	1407247591598	[{"id":"/parking/0","treeId":"0","port":5683,"ip":"::1","arrivedAt":1407247574581},{"id":"/parking/12680","treeId":"12680","port":54089,"ip":"127.0.0.1","arrivedAt":1407247582706},{"id":"/parking/12704","treeId":"12704","port":54089,"ip":"127.0.0.1","arrivedAt":1407247587527},{"id":"/parking/12713","treeId":"12713","port":54089,"ip":"127.0.0.1","arrivedAt":1407247591497}]
+_nodeinfo	1407247622179	[{"id":"/parking/0","treeId":"0","port":5683,"ip":"::1","arrivedAt":1407247574581},{"id":"/parking/12680","treeId":"12680","port":54089,"ip":"127.0.0.1","arrivedAt":1407247582706},{"id":"/parking/12704","treeId":"12704","port":54089,"ip":"127.0.0.1","arrivedAt":1407247587527},{"id":"/parking/12707","treeId":"12707","port":54089,"ip":"127.0.0.1","arrivedAt":1407247622100},{"id":"/parking/12713","treeId":"12713","port":54089,"ip":"127.0.0.1","arrivedAt":1407247591497},{"id":"/parking/12717","treeId":"12717","port":54089,"ip":"127.0.0.1","arrivedAt":1407247622106}]
+_nodeinfo	1407247622170	[{"id":"/parking/0","treeId":"0","port":5683,"ip":"::1","arrivedAt":1407247574581},{"id":"/parking/12680","treeId":"12680","port":54089,"ip":"127.0.0.1","arrivedAt":1407247582706},{"id":"/parking/12704","treeId":"12704","port":54089,"ip":"127.0.0.1","arrivedAt":1407247587527},{"id":"/parking/12707","treeId":"12707","port":54089,"ip":"127.0.0.1","arrivedAt":1407247622100},{"id":"/parking/12713","treeId":"12713","port":54089,"ip":"127.0.0.1","arrivedAt":1407247591497},{"id":"/parking/12717","treeId":"12717","port":54089,"ip":"127.0.0.1","arrivedAt":1407247622106}]

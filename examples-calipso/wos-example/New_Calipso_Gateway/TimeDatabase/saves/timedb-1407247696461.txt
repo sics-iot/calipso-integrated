@@ -1,0 +1,9 @@
+# TimeDatabase saved on Tue Aug 05 16:08:16 CEST 2014
+# saves/timedb-1407247696461.txt
+# 
+_nodes	1407247655377	["/parking/0"]
+_nodes	1407247667853	["/parking/0","/parking/12680"]
+_nodes	1407247683407	["/parking/0","/parking/12680","/parking/12704"]
+_nodeinfo	1407247655559	[{"id":"/parking/0","treeId":"0","port":5683,"ip":"::1","arrivedAt":1407247655312}]
+_nodeinfo	1407247667964	[{"id":"/parking/0","treeId":"0","port":5683,"ip":"::1","arrivedAt":1407247655312},{"id":"/parking/12680","treeId":"0","port":60217,"ip":"127.0.0.1","arrivedAt":1407247667853}]
+_nodeinfo	1407247683549	[{"id":"/parking/0","treeId":"0","port":5683,"ip":"::1","arrivedAt":1407247655312},{"id":"/parking/12680","treeId":"0","port":60217,"ip":"127.0.0.1","arrivedAt":1407247667853},{"id":"/parking/12704","treeId":"1","port":60217,"ip":"127.0.0.1","arrivedAt":1407247683407}]

@@ -1,0 +1,5 @@
+# TimeDatabase saved on Mon Aug 04 19:03:18 CEST 2014
+# saves/timedb-1407171798311.txt
+# 
+_nodes	1407171708140	["/parking/0"]
+_nodeinfo	1407171708202	[{"id":"/parking/0","port":5683,"ip":"::1","arrivedAt":1407171708105}]

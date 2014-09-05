@@ -29,10 +29,16 @@ for e in ${experimentationlist[@]} ; do
 		#Arrival time
 		arr_time=$(cat results.$e | grep "_nodeinfo" |sed -e 's/\"/ /g' | sed -e 's/:/ /g' | sed -e 's/,/ /g' | sed -e 's/\// /g' | sed -e 's/\}/ /g' | sed -e 's/\[/ /g' | sed -e 's/\]/ /g'  | tr '\{' '\n' |grep $s | awk '{print $20}'| tail -1)
 	
-		#Energy for each node over time
+		#Energy instantaneous for each node over time
 		cat results.$e | grep "energy" | sed -e 's/\// /g' | awk '($2=='"$s"') {print ($4-'"$arr_time"')/1000 " " $5}'  > $res/energy.$e.$s
 		$scriptDir/plot.sh $res/enerygy.$e.$s $res/energy.$e.$s "time" "energy"
 		echo "<center><img src='$res/enerygy.$e.$s.png'/></center>" >> $res/index.html
+
+		#Consumed energy		
+		cat results.$e | grep "energy" | sed -e 's/\// /g' | awk '($2=='"$s"') {print ($4-'"$arr_time"')/1000 " " $5*($4-'"$arr_time"')/1000 *3*0.02 }'  > $res/energy_int.$e.$s
+		$scriptDir/plot.sh $res/enerygy_int.$e.$s $res/energy_int.$e.$s "time" "energy"
+		echo "<center><img src='$res/enerygy.$e.$s.png'/></center>" >> $res/index.html
+
 
 		#PDR  for each node over time
 		cat results.$e | grep "pdr" | sed -e 's/\"/ /g' | sed -e 's/:/ /g' | sed -e 's/,/ /g' | sed -e 's/\// /g' | sed -e 's/\}/ /g' | awk '($2=='"$s"'){print ($4-'"$arr_time"')/1000 " " $NF}' > $res/pdr.$e.$s #| sort -n -k 1 #> $res/pdr.$e.$s

@@ -1,0 +1,25 @@
+[main] INFO it.unipr.iot.calipso.tools.test.BorderRouterTunslipAnalyzerLauncher - BorderRouterTunslipAnalyzer exited
+Average Hop Count [adimensional]
+aaaa::212:7402:2:202 = 1.0
+aaaa::212:7407:7:707 = 2.0
+aaaa::212:7403:3:303 = 0.0
+aaaa::212:7405:5:505 = 2.0
+aaaa::212:7404:4:404 = 4.0
+aaaa::212:7408:8:808 = 3.0
+aaaa::212:7406:6:606 = 1.0
+Overall Hop Count [adimensional] = 2.242351046698873
+
+Convergence Time [ms]
+Node	CTIME
+aaaa:0000:0000:0000:0212:7404:0004:0404	58251
+aaaa::212:7402:2:202	33183
+aaaa::212:7407:7:707	39899
+aaaa:0000:0000:0000:0212:7402:0002:0202	33207
+aaaa::212:7405:5:505	33548
+aaaa::212:7404:4:404	58250
+aaaa::212:7408:8:808	34457
+aaaa:0000:0000:0000:0212:7405:0005:0505	33572
+aaaa:0000:0000:0000:0212:7406:0006:0606	35062
+aaaa:0000:0000:0000:0212:7407:0007:0707	39924
+aaaa:0000:0000:0000:0212:7408:0008:0808	34458
+aaaa::212:7406:6:606	35038

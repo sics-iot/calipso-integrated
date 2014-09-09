@@ -1,0 +1,1852 @@
+ifconfig tun0 inet `hostname` up
+ifconfig tun0 add aaaa::1/64
+ifconfig tun0 add fe80::0:0:0:1/64
+ifconfig tun0
+
+tun0      Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  
+          inet adr:127.0.1.1  P-t-P:127.0.1.1  Masque:255.255.255.255
+          adr inet6: fe80::1/64 Scope:Lien
+          adr inet6: aaaa::1/64 Scope:Global
+          UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:1500  Metric:1
+          Packets reçus:0 erreurs:0 :0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 lg file transmission:500 
+          Octets reçus:0 (0.0 B) Octets transmis:0 (0.0 B)
+
+Got configuration message of type P
+Setting prefix aaaa::
+created a new RPL dag
+Server IPv6 addresses:
+ aaaa::212:7403:3:303
+ fe80::212:7403:3:303
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7402:2:202	1
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7402:2:202
+HOPCOUNT	aaaa::212:7406:6:606	1
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7406:6:606
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7406:6:606	1
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7406:6:606
+HOPCOUNT	aaaa::212:7402:2:202	1
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7402:2:202
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7402:2:202	1
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7402:2:202
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7406:6:606	1
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7406:6:606
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7402:2:202	1
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7402:2:202
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7406:6:606	1
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7406:6:606
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7406:6:606	1
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7402:2:202	1
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7406:6:606	1
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7407:7:707
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7405:5:505
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7404:4:404	4
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7404:4:404
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+slip-bridge: Destination off-link but no route src=aaaa::1 dst=aaaa::212:7408:8:808
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7402:2:202	1
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7404:4:404	4
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7408:8:808	3
+HOPCOUNT	aaaa::212:7406:6:606	1
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7407:7:707	2
+HOPCOUNT	aaaa::212:7405:5:505	2
+HOPCOUNT	aaaa::212:7402:2:202	1
+ifconfig tun0 down
+netstat -nr | awk '{ if ($2 == "tun0") print "route delete -net "$1; }' | sh

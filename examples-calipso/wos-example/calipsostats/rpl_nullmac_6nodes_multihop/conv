@@ -1,0 +1,37 @@
+Node	CTIME
+aaaa:0000:0000:0000:0212:7404:0004:0404	25676
+aaaa:0000:0000:0000:0212:7402:0002:0202	7346
+aaaa:0000:0000:0000:0212:7405:0005:0505	17168
+aaaa:0000:0000:0000:0212:7406:0006:0606	7506
+aaaa:0000:0000:0000:0212:7408:0008:0808	23540
+aaaa:0000:0000:0000:0212:7407:0007:0707	15273
+
+[main] INFO it.unipr.iot.calipso.tools.tunslip.HopCountAnalyzer - it.unipr.iot.calipso.tools.tunslip.HopCountAnalyzer tunslip log analysis terminated
+Convergence Time [ms]
+Node	CTIME
+aaaa:0000:0000:0000:0212:7404:0004:0404	25676
+aaaa:0000:0000:0000:0212:7402:0002:0202	7346
+aaaa:0000:0000:0000:0212:7405:0005:0505	17168
+aaaa:0000:0000:0000:0212:7406:0006:0606	7506
+aaaa:0000:0000:0000:0212:7408:0008:0808	23540
+aaaa:0000:0000:0000:0212:7407:0007:0707	15273
+
+[main] INFO it.unipr.iot.calipso.tools.tunslip.HopCountAnalyzer - Average Hop Count [adimensional]
+aaaa::212:7402:2:202 = 1.0
+aaaa::212:7407:7:707 = 2.0
+aaaa::212:7405:5:505 = 2.0
+aaaa::212:7404:4:404 = 4.0
+aaaa::212:7408:8:808 = 3.0
+aaaa::212:7406:6:606 = 1.0
+Overall Hop Count [adimensional] = 2.168247628557164
+
+[main] INFO it.unipr.iot.calipso.tools.test.BorderRouterTunslipAnalyzerLauncher - BorderRouterTunslipAnalyzer exited
+Average Hop Count [adimensional]
+aaaa::212:7402:2:202 = 1.0
+aaaa::212:7407:7:707 = 2.0
+aaaa::212:7405:5:505 = 2.0
+aaaa::212:7404:4:404 = 4.0
+aaaa::212:7408:8:808 = 3.0
+aaaa::212:7406:6:606 = 1.0
+Overall Hop Count [adimensional] = 2.168247628557164
+

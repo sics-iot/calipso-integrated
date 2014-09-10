@@ -16,9 +16,10 @@ rm -rf $res/index.html
 echo "<html><body><h1>Results</h1><br>" > $res/index.html
 #parameters
 experimentationlist=(rpl)
-nodelist=(12638 28320 12652 12669 32357 32340)
-
-
+#old topology
+#nodelist=(12638 28320 12652 12669 32357 32340)
+#new topology
+nodelist=(12638 12681 32340 32357 12669 28320)
 
 for e in ${experimentationlist[@]} ; do
 	list="plot "

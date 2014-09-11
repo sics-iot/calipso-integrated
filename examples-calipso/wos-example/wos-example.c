@@ -373,14 +373,14 @@ static void get_dutycycle_str( str_buf_t *strbuf ) {
 }
 
 static void get_pdrstats_str( str_buf_t *strbuf ) {
-	printf("tx packets %lu\n", tx_pkts);
+	//printf("tx packets %lu\n", tx_pkts);
 	concat_formatted( strbuf, "%lu", tx_pkts+1);
 }
 
 static void get_overhead_str( str_buf_t *strbuf ) {
 	//printf("Overhead: %u %u %u\n", dio_count, dao_count, dis_count);
 #if WITH_ORPL
-	concat_formatted( strbuf, "%u %u", dio_count, orpl_broadcast_count);
+	concat_formatted( strbuf, "%u %u %u %u",  orpl_broadcast_count, dio_count, dao_count, dis_count);
 #elif WITH_RRPL
 	concat_formatted( strbuf, "%u %u %u %u %u %u",opt_count,qry_count,qry_count,rerr_count,rreq_count,rrep_count,rack_count);
 #else
@@ -536,7 +536,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	while (1) {
 		PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
 		if ( 0 != stats.len ) {
-			printf("Trying node registration at the server...");
+			//printf("Trying node registration at the server...");
 			reset_strbuf(&request_url);
 			concat_strbuf(&request_url,"/parking/",0);
 			build_coap_msg(pkt, &request_url, COAP_POST, stats.str, stats.len, NULL, 0);
@@ -546,7 +546,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 		if ( 0==url_id.len ) {
 			etimer_restart(&et);
 		} else {
-			printf("Done\n");
+			//printf("Done\n");
 			break;
 		}
 	}
@@ -565,12 +565,12 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	}
 
 	etimer_set(&et, PUSH_INTERVAL * CLOCK_SECOND);
-	printf("\nstart put process\n");
+	//printf("\nstart put process\n");
 	while (1) {
 		PROCESS_WAIT_EVENT();
 		if (ev == PROCESS_EVENT_TIMER) {
 			static uint8_t i;
-			printf("\n--Stats put START--\n");
+			//printf("\n--Stats put START--\n");
 			// periodic sending of declared statistic data
 			for (i=0;i<NUMBER_OF_RES;++i) {
 				// resources with NULL 'service_str_builder' entry are skipped

@@ -1,0 +1,1007 @@
+# Grace project file
+#
+@version 50123
+@page size 842, 595
+@page scroll 5%
+@page inout 5%
+@link page off
+@map font 8 to "Courier", "Courier"
+@map font 10 to "Courier-Bold", "Courier-Bold"
+@map font 11 to "Courier-BoldOblique", "Courier-BoldOblique"
+@map font 9 to "Courier-Oblique", "Courier-Oblique"
+@map font 14 to "Courier-Regular", "Courier-Regular"
+@map font 15 to "Dingbats-Regular", "Dingbats-Regular"
+@map font 4 to "Helvetica", "Helvetica"
+@map font 6 to "Helvetica-Bold", "Helvetica-Bold"
+@map font 7 to "Helvetica-BoldOblique", "Helvetica-BoldOblique"
+@map font 5 to "Helvetica-Oblique", "Helvetica-Oblique"
+@map font 20 to "NimbusMonoL-Bold", "NimbusMonoL-Bold"
+@map font 21 to "NimbusMonoL-BoldOblique", "NimbusMonoL-BoldOblique"
+@map font 22 to "NimbusMonoL-Regular", "NimbusMonoL-Regular"
+@map font 23 to "NimbusMonoL-RegularOblique", "NimbusMonoL-RegularOblique"
+@map font 24 to "NimbusRomanNo9L-Medium", "NimbusRomanNo9L-Medium"
+@map font 25 to "NimbusRomanNo9L-MediumItalic", "NimbusRomanNo9L-MediumItalic"
+@map font 26 to "NimbusRomanNo9L-Regular", "NimbusRomanNo9L-Regular"
+@map font 27 to "NimbusRomanNo9L-RegularItalic", "NimbusRomanNo9L-RegularItalic"
+@map font 28 to "NimbusSansL-Bold", "NimbusSansL-Bold"
+@map font 29 to "NimbusSansL-BoldCondensed", "NimbusSansL-BoldCondensed"
+@map font 30 to "NimbusSansL-BoldCondensedItalic", "NimbusSansL-BoldCondensedItalic"
+@map font 31 to "NimbusSansL-BoldItalic", "NimbusSansL-BoldItalic"
+@map font 32 to "NimbusSansL-Regular", "NimbusSansL-Regular"
+@map font 33 to "NimbusSansL-RegularCondensed", "NimbusSansL-RegularCondensed"
+@map font 34 to "NimbusSansL-RegularCondensedItalic", "NimbusSansL-RegularCondensedItalic"
+@map font 35 to "NimbusSansL-RegularItalic", "NimbusSansL-RegularItalic"
+@map font 36 to "StandardSymbolsL-Regular", "StandardSymbolsL-Regular"
+@map font 12 to "Symbol", "Symbol"
+@map font 38 to "Symbol-Regular", "Symbol-Regular"
+@map font 2 to "Times-Bold", "Times-Bold"
+@map font 3 to "Times-BoldItalic", "Times-BoldItalic"
+@map font 1 to "Times-Italic", "Times-Italic"
+@map font 0 to "Times-Roman", "Times-Roman"
+@map font 43 to "URWBookmanL-DemiBold", "URWBookmanL-DemiBold"
+@map font 44 to "URWBookmanL-DemiBoldItalic", "URWBookmanL-DemiBoldItalic"
+@map font 45 to "URWBookmanL-Light", "URWBookmanL-Light"
+@map font 46 to "URWBookmanL-LightItalic", "URWBookmanL-LightItalic"
+@map font 47 to "URWChanceryL-MediumItalic", "URWChanceryL-MediumItalic"
+@map font 48 to "URWGothicL-Book", "URWGothicL-Book"
+@map font 49 to "URWGothicL-BookOblique", "URWGothicL-BookOblique"
+@map font 50 to "URWGothicL-Demi", "URWGothicL-Demi"
+@map font 51 to "URWGothicL-DemiOblique", "URWGothicL-DemiOblique"
+@map font 52 to "URWPalladioL-Bold", "URWPalladioL-Bold"
+@map font 53 to "URWPalladioL-BoldItalic", "URWPalladioL-BoldItalic"
+@map font 54 to "URWPalladioL-Italic", "URWPalladioL-Italic"
+@map font 55 to "URWPalladioL-Roman", "URWPalladioL-Roman"
+@map font 56 to "Utopia-Bold", "Utopia-Bold"
+@map font 57 to "Utopia-BoldItalic", "Utopia-BoldItalic"
+@map font 58 to "Utopia-Italic", "Utopia-Italic"
+@map font 59 to "Utopia-Regular", "Utopia-Regular"
+@map font 13 to "ZapfDingbats", "ZapfDingbats"
+@map color 0 to (255, 255, 255), "white"
+@map color 1 to (0, 0, 0), "black"
+@map color 2 to (255, 0, 0), "red"
+@map color 3 to (0, 255, 0), "green"
+@map color 4 to (0, 0, 255), "blue"
+@map color 5 to (255, 255, 0), "yellow"
+@map color 6 to (188, 143, 143), "brown"
+@map color 7 to (220, 220, 220), "grey"
+@map color 8 to (148, 0, 211), "violet"
+@map color 9 to (0, 255, 255), "cyan"
+@map color 10 to (255, 0, 255), "magenta"
+@map color 11 to (255, 165, 0), "orange"
+@map color 12 to (114, 33, 188), "indigo"
+@map color 13 to (103, 7, 72), "maroon"
+@map color 14 to (64, 224, 208), "turquoise"
+@map color 15 to (0, 139, 0), "green4"
+@reference date 0
+@date wrap off
+@date wrap year 1950
+@default linewidth 1.0
+@default linestyle 1
+@default color 1
+@default pattern 1
+@default font 0
+@default char size 1.000000
+@default symbol size 1.000000
+@default sformat "%.8g"
+@background color 0
+@page background fill on
+@timestamp off
+@timestamp 0.03, 0.03
+@timestamp color 1
+@timestamp rot 0
+@timestamp font 0
+@timestamp char size 1.000000
+@timestamp def "Wed Sep 10 21:41:26 2014"
+@r0 off
+@link r0 to g0
+@r0 type above
+@r0 linestyle 1
+@r0 linewidth 1.0
+@r0 color 1
+@r0 line 0, 0, 0, 0
+@r1 off
+@link r1 to g0
+@r1 type above
+@r1 linestyle 1
+@r1 linewidth 1.0
+@r1 color 1
+@r1 line 0, 0, 0, 0
+@r2 off
+@link r2 to g0
+@r2 type above
+@r2 linestyle 1
+@r2 linewidth 1.0
+@r2 color 1
+@r2 line 0, 0, 0, 0
+@r3 off
+@link r3 to g0
+@r3 type above
+@r3 linestyle 1
+@r3 linewidth 1.0
+@r3 color 1
+@r3 line 0, 0, 0, 0
+@r4 off
+@link r4 to g0
+@r4 type above
+@r4 linestyle 1
+@r4 linewidth 1.0
+@r4 color 1
+@r4 line 0, 0, 0, 0
+@g0 on
+@g0 hidden false
+@g0 type XY
+@g0 stacked false
+@g0 bar hgap 0.000000
+@g0 fixedpoint off
+@g0 fixedpoint type 0
+@g0 fixedpoint xy 0.000000, 0.000000
+@g0 fixedpoint format general general
+@g0 fixedpoint prec 6, 6
+@with g0
+@    world 0, 0, 10000, 1
+@    stack world 0, 0, 0, 0
+@    znorm 1
+@    view 0.053922, 0.059269, 1.360656, 0.922794
+@    title ""
+@    title font 0
+@    title size 1.500000
+@    title color 1
+@    subtitle ""
+@    subtitle font 0
+@    subtitle size 1.000000
+@    subtitle color 1
+@    xaxes scale Normal
+@    yaxes scale Normal
+@    xaxes invert off
+@    yaxes invert off
+@    xaxis  on
+@    xaxis  type zero false
+@    xaxis  offset 0.000000 , 0.000000
+@    xaxis  bar on
+@    xaxis  bar color 1
+@    xaxis  bar linestyle 1
+@    xaxis  bar linewidth 1.0
+@    xaxis  label "Time [s]"
+@    xaxis  label layout para
+@    xaxis  label place auto
+@    xaxis  label char size 1.000000
+@    xaxis  label font 0
+@    xaxis  label color 1
+@    xaxis  label place normal
+@    xaxis  tick on
+@    xaxis  tick major 1000
+@    xaxis  tick minor ticks 0
+@    xaxis  tick default 6
+@    xaxis  tick place rounded true
+@    xaxis  tick in
+@    xaxis  tick major size 1.000000
+@    xaxis  tick major color 7
+@    xaxis  tick major linewidth 1.0
+@    xaxis  tick major linestyle 2
+@    xaxis  tick major grid on
+@    xaxis  tick minor color 1
+@    xaxis  tick minor linewidth 1.0
+@    xaxis  tick minor linestyle 1
+@    xaxis  tick minor grid off
+@    xaxis  tick minor size 0.500000
+@    xaxis  ticklabel on
+@    xaxis  ticklabel format general
+@    xaxis  ticklabel prec 5
+@    xaxis  ticklabel formula ""
+@    xaxis  ticklabel append ""
+@    xaxis  ticklabel prepend ""
+@    xaxis  ticklabel angle 0
+@    xaxis  ticklabel skip 0
+@    xaxis  ticklabel stagger 0
+@    xaxis  ticklabel place normal
+@    xaxis  ticklabel offset auto
+@    xaxis  ticklabel offset 0.000000 , 0.010000
+@    xaxis  ticklabel start type auto
+@    xaxis  ticklabel start 0.000000
+@    xaxis  ticklabel stop type auto
+@    xaxis  ticklabel stop 0.000000
+@    xaxis  ticklabel char size 1.000000
+@    xaxis  ticklabel font 0
+@    xaxis  ticklabel color 1
+@    xaxis  tick place both
+@    xaxis  tick spec type none
+@    yaxis  on
+@    yaxis  type zero false
+@    yaxis  offset 0.000000 , 0.000000
+@    yaxis  bar on
+@    yaxis  bar color 1
+@    yaxis  bar linestyle 1
+@    yaxis  bar linewidth 1.0
+@    yaxis  label "Packet  Delivery Ratio"
+@    yaxis  label layout para
+@    yaxis  label place auto
+@    yaxis  label char size 1.000000
+@    yaxis  label font 0
+@    yaxis  label color 1
+@    yaxis  label place normal
+@    yaxis  tick on
+@    yaxis  tick major 0.2
+@    yaxis  tick minor ticks 0
+@    yaxis  tick default 6
+@    yaxis  tick place rounded true
+@    yaxis  tick in
+@    yaxis  tick major size 1.000000
+@    yaxis  tick major color 7
+@    yaxis  tick major linewidth 1.0
+@    yaxis  tick major linestyle 2
+@    yaxis  tick major grid on
+@    yaxis  tick minor color 1
+@    yaxis  tick minor linewidth 1.0
+@    yaxis  tick minor linestyle 1
+@    yaxis  tick minor grid off
+@    yaxis  tick minor size 0.500000
+@    yaxis  ticklabel on
+@    yaxis  ticklabel format general
+@    yaxis  ticklabel prec 5
+@    yaxis  ticklabel formula ""
+@    yaxis  ticklabel append ""
+@    yaxis  ticklabel prepend ""
+@    yaxis  ticklabel angle 0
+@    yaxis  ticklabel skip 0
+@    yaxis  ticklabel stagger 0
+@    yaxis  ticklabel place normal
+@    yaxis  ticklabel offset auto
+@    yaxis  ticklabel offset 0.000000 , 0.010000
+@    yaxis  ticklabel start type auto
+@    yaxis  ticklabel start 0.000000
+@    yaxis  ticklabel stop type auto
+@    yaxis  ticklabel stop 0.000000
+@    yaxis  ticklabel char size 1.000000
+@    yaxis  ticklabel font 0
+@    yaxis  ticklabel color 1
+@    yaxis  tick place both
+@    yaxis  tick spec type both
+@    yaxis  tick spec 6
+@    yaxis  tick major 0, 0
+@    yaxis  ticklabel 0, "0"
+@    yaxis  tick major 1, 0.2
+@    yaxis  ticklabel 1, "0.2"
+@    yaxis  tick major 2, 0.4
+@    yaxis  ticklabel 2, "0.4"
+@    yaxis  tick major 3, 0.6
+@    yaxis  ticklabel 3, "0.6"
+@    yaxis  tick major 4, 0.8
+@    yaxis  ticklabel 4, "0.8"
+@    yaxis  tick major 5, 1
+@    yaxis  ticklabel 5, "1"
+@    altxaxis  off
+@    altyaxis  off
+@    legend on
+@    legend loctype view
+@    legend 0.85, 0.8
+@    legend box color 1
+@    legend box pattern 1
+@    legend box linewidth 1.0
+@    legend box linestyle 1
+@    legend box fill color 0
+@    legend box fill pattern 1
+@    legend font 0
+@    legend char size 1.000000
+@    legend color 1
+@    legend length 8
+@    legend vgap 1
+@    legend hgap 1
+@    legend invert false
+@    frame type 0
+@    frame linestyle 1
+@    frame linewidth 1.0
+@    frame color 1
+@    frame pattern 1
+@    frame background color 0
+@    frame background pattern 0
+@    s0 hidden false
+@    s0 type xy
+@    s0 symbol 0
+@    s0 symbol size 1.000000
+@    s0 symbol color 1
+@    s0 symbol pattern 1
+@    s0 symbol fill color 1
+@    s0 symbol fill pattern 0
+@    s0 symbol linewidth 1.0
+@    s0 symbol linestyle 1
+@    s0 symbol char 65
+@    s0 symbol char font 0
+@    s0 symbol skip 0
+@    s0 line type 1
+@    s0 line linestyle 5
+@    s0 line linewidth 3.0
+@    s0 line color 1
+@    s0 line pattern 1
+@    s0 baseline type 0
+@    s0 baseline off
+@    s0 dropline off
+@    s0 fill type 0
+@    s0 fill rule 0
+@    s0 fill color 1
+@    s0 fill pattern 1
+@    s0 avalue off
+@    s0 avalue type 2
+@    s0 avalue char size 1.000000
+@    s0 avalue font 0
+@    s0 avalue color 1
+@    s0 avalue rot 0
+@    s0 avalue format general
+@    s0 avalue prec 3
+@    s0 avalue prepend ""
+@    s0 avalue append ""
+@    s0 avalue offset 0.000000 , 0.000000
+@    s0 errorbar on
+@    s0 errorbar place both
+@    s0 errorbar color 1
+@    s0 errorbar pattern 1
+@    s0 errorbar size 1.000000
+@    s0 errorbar linewidth 1.0
+@    s0 errorbar linestyle 1
+@    s0 errorbar riser linewidth 1.0
+@    s0 errorbar riser linestyle 1
+@    s0 errorbar riser clip off
+@    s0 errorbar riser clip length 0.100000
+@    s0 comment "/home/tai/calipso-integrated/examples-calipso/wos-example/calipsostats/exp_orpl/delay.rpl.32340"
+@    s0 legend  "ORPL + ContikiMAC"
+@    s1 hidden false
+@    s1 type xy
+@    s1 symbol 0
+@    s1 symbol size 1.000000
+@    s1 symbol color 2
+@    s1 symbol pattern 1
+@    s1 symbol fill color 2
+@    s1 symbol fill pattern 0
+@    s1 symbol linewidth 1.0
+@    s1 symbol linestyle 1
+@    s1 symbol char 65
+@    s1 symbol char font 0
+@    s1 symbol skip 0
+@    s1 line type 1
+@    s1 line linestyle 3
+@    s1 line linewidth 3.0
+@    s1 line color 2
+@    s1 line pattern 1
+@    s1 baseline type 0
+@    s1 baseline off
+@    s1 dropline off
+@    s1 fill type 0
+@    s1 fill rule 0
+@    s1 fill color 1
+@    s1 fill pattern 1
+@    s1 avalue off
+@    s1 avalue type 2
+@    s1 avalue char size 1.000000
+@    s1 avalue font 0
+@    s1 avalue color 1
+@    s1 avalue rot 0
+@    s1 avalue format general
+@    s1 avalue prec 3
+@    s1 avalue prepend ""
+@    s1 avalue append ""
+@    s1 avalue offset 0.000000 , 0.000000
+@    s1 errorbar on
+@    s1 errorbar place both
+@    s1 errorbar color 2
+@    s1 errorbar pattern 1
+@    s1 errorbar size 1.000000
+@    s1 errorbar linewidth 1.0
+@    s1 errorbar linestyle 1
+@    s1 errorbar riser linewidth 1.0
+@    s1 errorbar riser linestyle 1
+@    s1 errorbar riser clip off
+@    s1 errorbar riser clip length 0.100000
+@    s1 comment "/home/tai/calipso-integrated/examples-calipso/wos-example/calipsostats/exp_rrpl/delay.rpl.32357"
+@    s1 legend  "RRPL + ContikiMAC"
+@    s2 hidden false
+@    s2 type xy
+@    s2 symbol 0
+@    s2 symbol size 1.000000
+@    s2 symbol color 4
+@    s2 symbol pattern 1
+@    s2 symbol fill color 4
+@    s2 symbol fill pattern 0
+@    s2 symbol linewidth 1.0
+@    s2 symbol linestyle 1
+@    s2 symbol char 65
+@    s2 symbol char font 0
+@    s2 symbol skip 0
+@    s2 line type 1
+@    s2 line linestyle 1
+@    s2 line linewidth 3.0
+@    s2 line color 4
+@    s2 line pattern 1
+@    s2 baseline type 0
+@    s2 baseline off
+@    s2 dropline off
+@    s2 fill type 0
+@    s2 fill rule 0
+@    s2 fill color 1
+@    s2 fill pattern 1
+@    s2 avalue off
+@    s2 avalue type 2
+@    s2 avalue char size 1.000000
+@    s2 avalue font 0
+@    s2 avalue color 1
+@    s2 avalue rot 0
+@    s2 avalue format general
+@    s2 avalue prec 3
+@    s2 avalue prepend ""
+@    s2 avalue append ""
+@    s2 avalue offset 0.000000 , 0.000000
+@    s2 errorbar on
+@    s2 errorbar place both
+@    s2 errorbar color 4
+@    s2 errorbar pattern 1
+@    s2 errorbar size 1.000000
+@    s2 errorbar linewidth 1.0
+@    s2 errorbar linestyle 1
+@    s2 errorbar riser linewidth 1.0
+@    s2 errorbar riser linestyle 1
+@    s2 errorbar riser clip off
+@    s2 errorbar riser clip length 0.100000
+@    s2 comment "/home/tai/calipso-integrated/examples-calipso/wos-example/calipsostats/exp_rawmac/delay.rpl.32357"
+@    s2 legend  "RPL + RAWMAC"
+@target G0.S0
+@type xy
+893.985 0
+1219.75 0.86956522
+1272.13 0.85185185
+1633.18 0.8
+2048.02 0.76595745
+2462 0.74576271
+2614.73 0.74603175
+2799.43 0.74626866
+2933.35 0.74647887
+3098.97 0.74666667
+3264.49 0.73417722
+3352.95 0.74698795
+3542.12 0.74712644
+3657.69 0.74725275
+3980.27 0.73737374
+4080.74 0.74757282
+4279.91 0.74766355
+4404.29 0.74774775
+4606.77 0.73913043
+4700.16 0.7394958
+4864.11 0.7398374
+5302.02 0.74074074
+5428.43 0.74820144
+5654.73 0.74825175
+5731.59 0.75510204
+6059.78 0.7483871
+6219.83 0.74842767
+6517.28 0.75449102
+6940.47 0.75418994
+7069.66 0.75956284
+7389.4 0.7591623
+7580.37 0.75897436
+7855.98 0.75369458
+8005.35 0.75362319
+8110.75 0.75829384
+8476.9 0.74885845
+8885.85 0.74458874
+9093.6 0.74893617
+9206.08 0.74895397
+9421.68 0.75308642
+&
+@target G0.S1
+@type xy
+11.615 0
+218.457 1
+322.792 1
+470.382 1
+619.865 1
+769.936 1
+920.889 1
+1067.11 1
+1224.07 1
+1371.03 1
+1517.25 1
+1669.33 1
+2350.42 0.79104478
+2418.28 0.8028169
+2571.99 0.81333333
+2727.71 0.82278481
+2870.16 0.8313253
+3017.63 0.83908046
+3175.72 0.84615385
+3317.93 0.85263158
+3472.02 0.85858586
+3621.36 0.86407767
+3770.7 0.86915888
+3921.93 0.87387387
+4067.63 0.87826087
+4217.84 0.88235294
+4406.29 0.88617886
+4517.39 0.88976378
+4666.6 0.89312977
+4817.69 0.8962963
+4972.9 0.89928058
+5117.24 0.9020979
+5267.95 0.9047619
+5418.54 0.90728477
+5583.75 0.90967742
+5843.2 0.89308176
+5994.78 0.88343558
+6017.28 0.88622754
+6167.99 0.88888889
+6319.85 0.89142857
+6472.91 0.89385475
+6619.63 0.89617486
+6767.97 0.89839572
+7035.28 0.88481675
+7087.64 0.88717949
+7221.11 0.88944724
+7366.32 0.89162562
+8463.7 0.8008658
+8607.39 0.8
+8716.11 0.80334728
+9909.33 0.72284644
+9955.19 0.72693727
+10082.4 0.73090909
+10215.1 0.73476703
+&
+@target G0.S2
+@type xy
+73.055 0
+231.822 0.91666667
+379.661 0.9375
+528 0.95
+675.585 0.95833333
+826.422 0.96428571
+975.272 0.96875
+1125.23 0.97222222
+1278.19 0.975
+1433.28 0.97727273
+1575.12 0.97916667
+1724.83 0.98076923
+1874.79 0.98214286
+2024.5 0.98333333
+2174.97 0.98461538
+2325.05 0.98630137
+2474.52 0.98701299
+2624.48 0.98765432
+2776.08 0.98823529
+2925.16 0.98876404
+3074.12 0.98924731
+3223.84 0.98969072
+3373.92 0.99009901
+3524.14 0.99047619
+3675.85 0.99082569
+3824.06 0.99115044
+3974.03 0.99145299
+4123.99 0.99173554
+4273.95 0.992
+4423.79 0.99224806
+4573.38 0.9924812
+4723.6 0.99270073
+4873.68 0.9929078
+5023.64 0.99310345
+5173.73 0.99328859
+5323.57 0.99346405
+5473.54 0.99363057
+5623.5 0.99378882
+5773.39 0.99393939
+5922.92 0.99408284
+6073.01 0.99421965
+6223.23 0.99435028
+6373.19 0.99447514
+6523.15 0.99459459
+6673.12 0.99470899
+6823.08 0.99481865
+6973.04 0.99492386
+7122.51 0.99502488
+7272.47 0.99512195
+7422.69 0.99521531
+7572.78 0.99530516
+7722.74 0.99539171
+7872.7 0.99547511
+8024.04 0.99555556
+8172.63 0.99563319
+8322.59 0.99570815
+8472.06 0.99578059
+8622.39 0.99585062
+8772.36 0.99591837
+8922.32 0.99598394
+9072.28 0.99604743
+9222.25 0.99610895
+9372.59 0.99616858
+9522.17 0.99622642
+9672.14 0.99628253
+9821.6 0.996337
+9971.69 0.99638989
+10121.9 0.99644128
+10271.9 0.99649123
+10422.1 0.99653979
+10571.8 0.99658703
+10721.8 0.996633
+10871.8 0.99667774
+11021.7 0.99672131
+11171.1 0.99676375
+11321.2 0.99680511
+11471.6 0.99684543
+11621.4 0.99688474
+11771.4 0.99692308
+11921.5 0.99696049
+12071.4 0.996997
+12221.3 0.99703264
+12371.1 0.99706745
+12520.7 0.99710145
+12671.4 0.99713467
+12821 0.99716714
+12971 0.99719888
+13120.9 0.99722992
+13271.3 0.99726027
+13420.8 0.99728997
+13570.8 0.99731903
+13720.5 0.99734748
+13870.7 0.99737533
+14020.5 0.9974026
+14171 0.99742931
+14320.9 0.99745547
+14470.7 0.99748111
+14620.6 0.99750623
+14770.5 0.99753086
+14920.9 0.99755501
+15071.1 0.99757869
+15220.2 0.99760192
+15370.2 0.9976247
+15521.3 0.99764706
+15670.7 0.997669
+15821.1 0.99769053
+15970.5 0.99771167
+16120.4 0.99773243
+16270.5 0.99775281
+16420.4 0.99777283
+16570.3 0.99779249
+16720.2 0.99781182
+16870.8 0.9978308
+17021 0.99784946
+17170.7 0.9978678
+17320.3 0.99788584
+17470.4 0.99790356
+17620.3 0.997921
+17769.5 0.99793814
+17919.9 0.99795501
+18070 0.9979716
+18220.1 0.99798793
+18370.3 0.99800399
+18520.2 0.9980198
+18670.1 0.99803536
+18819.9 0.99805068
+18969.9 0.99806576
+19119.2 0.99808061
+19269.9 0.99809524
+19419.6 0.99810964
+19569.6 0.99812383
+19719.6 0.9981378
+19869.5 0.99815157
+20019.5 0.99816514
+20169.5 0.99817851
+20319.7 0.99819168
+20468.9 0.99820467
+20619.5 0.99821747
+20769.2 0.99823009
+20919.1 0.99824253
+21069.1 0.9982548
+21219.1 0.9982669
+21369 0.99827883
+21519 0.99829352
+21668.8 0.99830508
+21818.4 0.9983165
+21968.6 0.99832776
+22118.7 0.99833887
+22268.8 0.99834983
+22418.9 0.99836066
+22568.6 0.99837134
+22719.4 0.99838188
+22868.5 0.99839228
+23018.4 0.99840256
+23170.5 0.9984127
+23318.1 0.99842271
+23469 0.9984326
+23618.4 0.99844237
+23768.2 0.99845201
+23918.2 0.99846154
+24068.1 0.99847095
+24218.3 0.99848024
+24368.3 0.99848943
+24517.8 0.9984985
+24667.6 0.99850746
+24817.8 0.99851632
+24967.8 0.99852507
+25117.7 0.99853372
+25268.6 0.9985444
+25417.7 0.99855282
+25567.6 0.99856115
+25717.1 0.99856938
+25867.2 0.99857752
+26017.8 0.99858557
+26167.4 0.99859353
+26317.3 0.9986014
+26467.5 0.99860918
+26617.5 0.99861687
+26767.8 0.99862448
+26917.2 0.99863201
+27066.6 0.99863946
+27216.6 0.99864682
+27366.7 0.9986541
+27516.9 0.99866131
+27666.9 0.99866844
+27816.8 0.9986755
+27966.8 0.99868248
+28117.3 0.99868938
+28266.7 0.99869622
+28416.2 0.99870298
+28566.3 0.99870968
+28716.5 0.9987163
+28866.7 0.99872286
+29016.4 0.99872935
+29166.4 0.99873578
+29316.3 0.99874214
+29466.3 0.99874844
+29616.8 0.99875467
+29765.7 0.99876084
+29915.8 0.99876695
+30066.9 0.99877301
+30215.6 0.998779
+30365.8 0.99878493
+30543.7 0.99879081
+30693.9 0.99879663
+30843.9 0.9988024
+30994.1 0.9988081
+31143.2 0.99881376
+31293.3 0.99881936
+31443.4 0.99882491
+31593.8 0.99883041
+31743.3 0.99883586
+31893.3 0.99884125
+32043.2 0.9988466
+32194.2 0.99885189
+32343.4 0.99885714
+32492.8 0.99886234
+32642.8 0.9988675
+32793.8 0.9988726
+32943.3 0.99887767
+33093.6 0.99888268
+33242.8 0.99888765
+33392.8 0.99889258
+33542.8 0.99889746
+33693.2 0.99890231
+33842.6 0.9989071
+33992.4 0.99891186
+34142.5 0.99891658
+34292.4 0.99892125
+34442.4 0.99892589
+34592.4 0.99893048
+34742.3 0.99893504
+34892.3 0.99893955
+35041.8 0.99894403
+35191.7 0.99894848
+35341.8 0.99895288
+35492 0.99895725
+35642 0.99896158
+35791.9 0.99896587
+35941.9 0.99897013
+36091.9 0.99897436
+36241.8 0.99897855
+36391.3 0.99898271
+36541.3 0.99898683
+36691.4 0.99899092
+36841.6 0.99899497
+36991.5 0.998999
+37141.5 0.99900299
+37291.5 0.99900695
+37441.4 0.99901088
+37591.4 0.99901478
+37741.7 0.99901865
+37890.9 0.99902248
+38040.9 0.99902629
+38191 0.99903007
+38341.1 0.99903382
+38491 0.99903754
+38641 0.99904123
+38791 0.99904489
+38940.9 0.99904853
+39091.1 0.99905213
+39240.9 0.99905571
+39390.6 0.99905927
+39540.7 0.99906279
+39690.9 0.99906629
+39840.6 0.99906977
+39990.6 0.99907322
+40140.5 0.99907664
+40290.5 0.99908004
+40440.1 0.99908341
+40590 0.99908676
+40740.2 0.99909008
+40890.2 0.99909338
+41040.2 0.99909666
+41190.1 0.99909991
+41340.1 0.99910314
+41490.1 0.99910634
+41640 0.99910953
+41789.5 0.99911269
+41939.6 0.99911583
+42089.8 0.99911894
+42240 0.99912204
+42390 0.99912511
+42539.7 0.99912816
+42689.6 0.99913119
+42840 0.9991342
+42989.6 0.99913719
+43139 0.99914089
+43289.1 0.99914384
+43439.3 0.99914676
+43589.3 0.99914966
+43739.5 0.99915254
+43889.2 0.99915541
+44039.2 0.99915825
+44189.2 0.99916107
+44339.1 0.99916388
+44488.7 0.99916667
+44638.8 0.99916944
+44788.9 0.99917219
+44938.8 0.99917492
+45088.8 0.99917763
+45238.8 0.99918033
+45388.7 0.99918301
+45538.7 0.99918567
+45688.2 0.99918831
+45838.1 0.99919094
+45988.2 0.99919355
+46138.4 0.99919614
+46288.4 0.99919872
+46438.4 0.99920128
+46588.3 0.99920382
+46738.3 0.99920635
+46888.9 0.99920886
+47038 0.99921136
+47187.7 0.99921384
+47338.4 0.9992163
+47488 0.99921875
+47638.1 0.99922118
+47787.9 0.9992236
+47937.9 0.99922601
+48087.8 0.9992284
+48237.8 0.99923077
+48387.3 0.99923313
+48537.3 0.99923606
+48687.3 0.99923839
+48837.5 0.9992407
+48987.5 0.999243
+49138.1 0.99924528
+49287.4 0.99924755
+49437.6 0.99924981
+49587.3 0.99925206
+49736.8 0.99925429
+49887.1 0.99925651
+50037.1 0.99925871
+50187.3 0.9992609
+50337 0.99926308
+50487.6 0.99926579
+50637.2 0.99926794
+50786.9 0.99927007
+50936.9 0.9992722
+51086.2 0.99927431
+51236.4 0.99927641
+51387 0.9992785
+51537 0.99928058
+51686.5 0.99928264
+51836.3 0.99928469
+51986.4 0.99928673
+52136.1 0.99928876
+52286.7 0.99929078
+52435.4 0.99929279
+52585.7 0.99929478
+52735.8 0.99929677
+52885.8 0.99929874
+53035.7 0.9993007
+53185.7 0.99930265
+53335.7 0.99930459
+53485.5 0.99930652
+53635.8 0.99930844
+53785.7 0.99931034
+53935.9 0.99931224
+54085.6 0.99931413
+54235.5 0.99931601
+54386.4 0.99931787
+54535.6 0.99931973
+54685.5 0.99932157
+54835.7 0.99932341
+54984.9 0.99932524
+55134.5 0.99932705
+55284.6 0.99932886
+55435.2 0.99933066
+55586.4 0.99933244
+55735 0.99933422
+55884.7 0.99933599
+56034.9 0.99933775
+56184.6 0.9993395
+56334.6 0.99934124
+56484.3 0.99934297
+56634.2 0.99934469
+56784.7 0.99934641
+56934.3 0.99934811
+57084.4 0.9993498
+57235.1 0.99935149
+57384.7 0.99935317
+57534.8 0.99935484
+57683.6 0.9993565
+57834.1 0.99935815
+57984.2 0.9993598
+58133.9 0.99936143
+58284.1 0.99936306
+58434.4 0.99936468
+58583.8 0.99936629
+58734.6 0.99936789
+58884.2 0.99936948
+59033.3 0.99937107
+59183.9 0.99937265
+59334.1 0.99937422
+59483.8 0.99937578
+59633.8 0.99937733
+59784.3 0.99937888
+59934.1 0.99938042
+60083.6 0.99938195
+60233.7 0.99938348
+60383.2 0.99938499
+60533.7 0.9993865
+60683.3 0.999388
+60834.1 0.9993895
+60985.4 0.99939099
+61134.8 0.99939247
+61283.6 0.99939394
+61433.6 0.99939541
+61583.3 0.99939686
+61733 0.99939832
+61884.5 0.99939976
+62033 0.9994012
+62183.8 0.99940263
+62333.6 0.99940405
+62482.9 0.99940547
+62634 0.99940688
+62782.9 0.99940828
+62932.8 0.99940968
+63082.3 0.99941107
+63232.5 0.99941246
+63383.7 0.99941383
+63532.6 0.9994152
+63682.9 0.99941657
+63833 0.99941793
+63982.4 0.99941928
+64132.4 0.99942063
+64282.9 0.99942197
+64432.7 0.9994233
+64583.2 0.99942463
+64732.6 0.99942628
+64882.6 0.99942759
+65033.6 0.9994289
+65182.4 0.9994302
+65332 0.9994315
+65483.3 0.99943279
+65631.9 0.99943407
+65781.9 0.99943535
+65931.5 0.99943662
+66082.9 0.99943789
+66232 0.99943915
+66381.6 0.9994404
+66532 0.99944165
+66682.3 0.9994429
+66833.8 0.99944414
+66982.5 0.99944537
+67132.7 0.9994466
+67282.4 0.99944782
+67432.2 0.99944904
+67582.7 0.99945025
+67731.5 0.99945145
+67882.4 0.99945265
+68031.1 0.99945385
+68181.7 0.99945504
+68331.6 0.99945623
+68481.9 0.99945741
+68630.7 0.99945887
+68781.1 0.99946004
+68931.6 0.9994615
+69087.3 0.99946265
+&

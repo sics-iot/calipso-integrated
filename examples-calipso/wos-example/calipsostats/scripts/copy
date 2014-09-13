@@ -1,0 +1,6 @@
+cp stat_extraction.m ../rpl_contikimac_6nodes_multihop
+cp stat_extraction.m ../rpl_nullmac_6nodes_multihop
+cp stat_extraction.m ../rpl_rawmac_6nodes_multihop
+cp stat_extraction.m ../rrpl_contikimac_6nodes_multihop
+cp stat_extraction.m ../orpl_contikimac_6nodes_multihop
+

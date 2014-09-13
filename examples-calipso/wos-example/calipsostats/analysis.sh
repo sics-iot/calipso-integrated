@@ -29,7 +29,7 @@ for e in ${experimentationlist[@]} ; do
 
 		#Arrival time
 		arr_time=$(cat results.$e | grep "_nodeinfo" |sed -e 's/\"/ /g' | sed -e 's/:/ /g' | sed -e 's/,/ /g' | sed -e 's/\}/ /g' |  sed -e 's/\[/ /g' | sed -e 's/\]/ /g'  | tr '\{' '\n' |grep "parking/"$s    | awk '{print $17}'| tail -1)
-		
+		#arr_time=1410280016803
 		
 		#Energy instantaneous for each node over time
 		cat results.$e | grep "energy" | sed -e 's/\// /g' | awk '($2=='"$s"') {print ($4-'"$arr_time"')/1000 " " $5}'  > $res/energy.$e.$s
@@ -57,6 +57,10 @@ for e in ${experimentationlist[@]} ; do
 		$scriptDir/plot.sh $res/overhead.$e.$s $res/overhead.$e.$s "time" "overhead (packets)"
 		echo "<center><img src='$res/overhead.$e.$s.png'/></center>" >> $res/index.html				
 		
+		cat results.$e | grep "presence" | sed -e 's/\// /g'  | awk '($2=='"$s"') {print ($4-'"$arr_time"')/1000 " " 1}' > $res/presence.$e.$s
+		$scriptDir/plot.sh $res/presence.$e.$s $res/presence.$e.$s "time" "Presence"
+		echo "<center><img src='$res/presence.$e.$s.png'/></center>" >> $res/index.html	
+
 	done
 done
 

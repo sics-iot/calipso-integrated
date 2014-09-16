@@ -1,4 +1,4 @@
-#include "cc2420.h"
+#include "dev/cc2420.h"
 #include "dev/watchdog.h"
 #include "dev/uart1.h"
 #include "lib/ringbuf.h"
@@ -56,12 +56,11 @@
 #define LOCAL_PORT      UIP_HTONS(COAP_DEFAULT_PORT+1)
 #define REMOTE_PORT     UIP_HTONS(COAP_DEFAULT_PORT)
 
-#define PUSH_INTERVAL   			75 // interval at which to send radio statistics (seconds)
+#define PUSH_INTERVAL   			150 // interval at which to send radio statistics (seconds)
 #define ENERGY_UPDATE_INTERVAL  	60 // simple ENERGEST step interval (seconds)
-#define MAX_URL_SIZE	32		// URL request max size (bytes)
+#define MAX_URL_SIZE	64		// URL request max size (bytes)
 #define MAX_ID_SIZE		16		// max length server generated ID string (bytes)
 static char url_str_buf[MAX_URL_SIZE];
-static char id_str_buf[MAX_ID_SIZE];
 
 typedef enum {
 	CMD_NONE			= 0,
@@ -104,6 +103,7 @@ static void concat_strbuf( str_buf_t *url, char *buf, uint8_t len ) {
 static void concat_formatted( str_buf_t *url, const char *format, ...) {
   int res;
   va_list ap;
+  if ( (url->len+2) >= url->max_len ) return;
   va_start(ap, format);
   res = vsnprintf(&(url->str[url->len]), url->max_len-url->len-1, format, ap);
   va_end(ap);
@@ -278,11 +278,11 @@ static void (*service_str_builder[NUMBER_OF_RES])(str_buf_t*) = {
 		get_overhead_str,
 		get_pdrstats_str
 };
+static uint8_t registeredFlag;
 static uint8_t reg_resource_idx;
 static uint8_t reg_resource_status[NUMBER_OF_RES]; // stores 1 iff the corresponding resource has been successfully registered
 // auxiliary string buffers
 static str_buf_t request_url;
-static str_buf_t url_id;
 static str_buf_t stats;
 static str_buf_t sfmsg;
 static char stats_buf[STATS_DATA_SIZE];
@@ -305,14 +305,11 @@ static uint8_t parentId;
 void
 client_id_handler(void *response)
 {
-  const uint8_t *buf;
   coap_packet_t* packet = response;
 
   if ( REST.status.CREATED == packet->code ) {
-	uint8_t len = coap_get_header_location_path(response, (const char **)&buf); // the identifier is passed in the location path
-	reset_strbuf(&url_id);
-	concat_strbuf(&url_id,(char *)buf,len);
-	PRINTF("CODE=%d  ID: %s\n", packet->code, id_str_buf);
+	registeredFlag = 1;
+	PRINTF("CODE=%d\n", packet->code);
   }
 }
 
@@ -346,8 +343,7 @@ static void build_coap_msg(coap_packet_t *request, str_buf_t* url, coap_method_t
 
 static void build_url( str_buf_t *url, char *res_name ) {
 	reset_strbuf(url);
-	concat_strbuf(url,url_id.str,url_id.len);
-	concat_strbuf(url,res_name,0);
+	concat_formatted( url, "/parking/%u%s", sigfox_cmd.nodeid,res_name);
 }
 
 // statistic data extraction functions
@@ -402,7 +398,7 @@ PROCESS_THREAD(sigfox_process, ev, data) {
 		cmd = get_cmd();
 		if ( CMD_SFSEND == cmd->cmd ) { // sensor message received
 			write_sfsent();
-			if ( 0==url_id.len ) {
+			if ( !registeredFlag ) {
 				uip_ipaddr_t ipaddr;
 				get_global_addr(&ipaddr);
 				reset_strbuf(&stats);
@@ -502,18 +498,19 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	static coap_packet_t pkt[1];
 	static struct etimer et;
 	static missed_ev_t missed_evs;
+	static uint8_t retries;
 
 	ADD_EVENT(&missed_evs, ev);
 
 	PROCESS_BEGIN();
 //	process_start(&rrpl_process, NULL);
+	registeredFlag = 0;
 	memset( reg_resource_status, 0, NUMBER_OF_RES);
 	memset( &sigfox_cmd, 0x00, sizeof(cmd_t) );
 	INIT_MISSED_EVS(&missed_evs);
 
 	init_strbuf(&request_url,url_str_buf,MAX_URL_SIZE);
 	init_strbuf(&stats,stats_buf,STATS_DATA_SIZE);
-	init_strbuf(&url_id,id_str_buf,MAX_ID_SIZE);
 	init_strbuf(&sfmsg,sfmsg_buf,SIGFOX_MSG_BUFFER_LEN);
 
 	tx_pkts = 0;
@@ -532,6 +529,7 @@ PROCESS_THREAD(main_wos_process, ev, data)
 #endif /* WITH_ORPL */
 
 
+  	retries = 1;
 	// register the node and obtain identifier
 	while (1) {
 		PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
@@ -541,16 +539,19 @@ PROCESS_THREAD(main_wos_process, ev, data)
 			concat_strbuf(&request_url,"/parking/",0);
 			build_coap_msg(pkt, &request_url, COAP_POST, stats.str, stats.len, NULL, 0);
 			COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, client_id_handler);
-		}
+		} else retries--;
 		// retry until successful
-		if ( 0==url_id.len ) {
+		if ( !registeredFlag && ++retries<5/*20*/ ) {
 			etimer_restart(&et);
 		} else {
 			//printf("Done\n");
+			registeredFlag = 1;
+			printf("Done\n");
 			break;
 		}
 	}
 
+	retries = 0;
 	// register to each resource
 	for (reg_resource_idx=0;reg_resource_idx<NUMBER_OF_RES;) {
 	  build_url( &request_url, service_urls[reg_resource_idx] );
@@ -558,10 +559,14 @@ PROCESS_THREAD(main_wos_process, ev, data)
 	  build_coap_msg(pkt, &request_url, COAP_POST, NULL, 0,NULL,0);
 	  COAP_BLOCKING_REQUEST(&server_ipaddr, REMOTE_PORT, pkt, register_res_reply_handler);
 	  // retry until successful
-	  if ( 0==reg_resource_status[reg_resource_idx] ) {
+	  if ( 0==reg_resource_status[reg_resource_idx] && retries++<2/*10*/ ) {
 		  etimer_restart(&et);
 		  PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
-	  } else reg_resource_idx++;
+	  } else {
+		  retries = 0;
+		  reg_resource_status[reg_resource_idx] = 1;
+		  reg_resource_idx++;
+	  }
 	}
 
 	etimer_set(&et, PUSH_INTERVAL * CLOCK_SECOND);

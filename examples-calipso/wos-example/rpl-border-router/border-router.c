@@ -49,6 +49,7 @@
 #endif /* WITH_ORPL */
 
 
+#include "dev/cc2420.h"
 #include "net/netstack.h"
 #include "dev/button-sensor.h"
 #include "dev/slip.h"
@@ -343,6 +344,13 @@ set_prefix_64(uip_ipaddr_t *prefix_64)
 }
 /*---------------------------------------------------------------------------*/
 #if UIP_CONF_UIP_DS6_NOTIFICATIONS
+void print_full_ipv6_addr(uip_ipaddr_t *ipaddr){
+  int i;
+  for(i = 0; i < 7; ++i)
+      printf("%02x%02x:", ipaddr->u8[i * 2], ipaddr->u8[i * 2 + 1]);
+  printf("%02x%02x", ipaddr->u8[14], ipaddr->u8[15]);
+}
+
 void CTIME_callback(int event, uip_ipaddr_t *ipaddr, uip_ipaddr_t *nexthop, int num_routes){
   if(event == UIP_DS6_NOTIFICATION_ROUTE_ADD){
 	  PRINTF("CTIME\t");
@@ -366,13 +374,6 @@ void CTIME_callback(int event, uip_ipaddr_t *ipaddr, uip_ipaddr_t *nexthop, int 
 	  PRINTF(")\n");
 	  */
   }
-}
-
-void print_full_ipv6_addr(uip_ipaddr_t *ipaddr){
-  int i;
-  for(i = 0; i < 7; ++i)
-      printf("%02x%02x:", ipaddr->u8[i * 2], ipaddr->u8[i * 2 + 1]);
-  printf("%02x%02x", ipaddr->u8[14], ipaddr->u8[15]);
 }
 #endif
 /*---------------------------------------------------------------------------*/
@@ -430,9 +431,12 @@ PROCESS_THREAD(border_router_process, ev, data)
 #endif
 
   /* Now turn the radio on, but disable radio duty cycling.
-   * Since we are the DAG root, reception delays would constrain mesh throughbut.
+   * Since we are the DAG root, reception delays would constrain mesh throughput.
    */
-  NETSTACK_MAC.off(1);
+  //NETSTACK_MAC.off(1);
+  NETSTACK_MAC.on();
+  cc2420_set_cca_threshold(BR_RXTHRES);
+  cc2420_set_txpower(BR_TXPOWER);
 
 #if DEBUG || 1
   print_local_addresses();

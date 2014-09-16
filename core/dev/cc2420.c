@@ -879,8 +879,17 @@ void
 cc2420_set_cca_threshold(int value)
 {
   uint16_t shifted = value << 8;
+  #ifdef CC2420_CCA_USRMODE
+  uint16_t old = 0;
+  #endif
   GET_LOCK();
   setreg(CC2420_RSSI, shifted);
+  #ifdef CC2420_CCA_USRMODE
+  old = getreg(CC2420_MDMCTRL0);
+  old &= ~(0x03<<6);
+  old |= (CC2420_CCA_USRMODE<<6);
+  setreg(CC2420_MDMCTRL0, old);
+  #endif
   RELEASE_LOCK();
 }
 /*---------------------------------------------------------------------------*/

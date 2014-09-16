@@ -35,8 +35,12 @@ public class CalipsoSmartParkingServer {
 		String redisHost = "127.0.0.1";
 		int redisPort = 6379;
 		String timeDatabaseURL = "http://localhost:50080";
+		String log_ctimeName = "/tmp/calipso/log_ctime.txt";
 
-		if(args.length == 3){
+		if (args.length >= 4) {
+			log_ctimeName = args[3];
+		}
+		if(args.length >= 3){
 			redisHost = args[0];
 			redisPort = Integer.parseInt(args[1]);
 			timeDatabaseURL = args[2];
@@ -65,7 +69,7 @@ public class CalipsoSmartParkingServer {
 		server.setExecutor(Executors.newScheduledThreadPool(10));
 		CalipsoSmartParkingResource resource = new CalipsoSmartParkingResource("parking");
 		resource.addListener(new PDRListener());
-		resource.startConvergenceTimeAnalyzer("/tmp/calipso/log_ctime.txt", resource);
+		resource.startConvergenceTimeAnalyzer(log_ctimeName, resource);
 		server.add(resource);
 		server.start();
 

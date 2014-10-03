@@ -1,8 +1,10 @@
 package it.unipr.iot.calipso.coap.server.util;
 
+import com.google.gson.Gson;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * 
@@ -40,8 +42,14 @@ public class ResourceManager {
 
 	public Set<String> getResources() {
 		synchronized (this.map){
-			return this.map.keySet();
+			TreeSet<String> res = new TreeSet<>(this.map.keySet());
+			return res;
 		}
 	}
 
+	public String getResourcesAsJson() {
+		synchronized (this.map){
+			return new Gson().toJson(this.map.keySet());
+		}
+	}
 }

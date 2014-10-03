@@ -95,6 +95,9 @@ void RPL_DEBUG_DAO_OUTPUT(rpl_parent_t *);
 #endif
 
 extern rpl_of_t RPL_OF;
+uint16_t dio_count = 0;
+uint16_t dao_count = 0;
+uint16_t dis_count = 0;
 
 /*---------------------------------------------------------------------------*/
 int

@@ -105,9 +105,9 @@ public class CalipsoSmartParkingResource extends ResourceBase implements CoAPEve
 		logger.info("New NODE: " + nodeInfo);
 		String nodeId = "/" + this.getName() + "/" + id;
 		NodeManager.getInstance().addNode(nodeId, nodeInfo);
-		RedisStorage.getInstance().store(NODE_LIST, new Gson().toJson(NodeManager.getInstance().getNodes()));
-		TimeDatabaseStorage.getInstance().store(NODE_LIST, new Gson().toJson(NodeManager.getInstance().getNodes()));
-		TimeDatabaseStorage.getInstance().store(NODE_INFO_LIST, new Gson().toJson(NodeManager.getInstance().getNodeInfoList()));
+		RedisStorage.getInstance().store(NODE_LIST, NodeManager.getInstance().getNodesAsJson());
+		TimeDatabaseStorage.getInstance().store(NODE_LIST, NodeManager.getInstance().getNodesAsJson());
+		TimeDatabaseStorage.getInstance().store(NODE_INFO_LIST, NodeManager.getInstance().getNodeInfoListAsJson());
 		for(CoAPEventListener listener : this.listeners){
 			listener.onNewNode(nodeId, nodeInfo);
 		}
@@ -120,8 +120,8 @@ public class CalipsoSmartParkingResource extends ResourceBase implements CoAPEve
 	public void onNewResource(String resource) {
 		logger.info("New RESOURCE: " + resource);
 		ResourceManager.getInstance().addResource(resource);
-		RedisStorage.getInstance().store(RESOURCE_LIST, new Gson().toJson(ResourceManager.getInstance().getResources()));
-		TimeDatabaseStorage.getInstance().store(RESOURCE_LIST, new Gson().toJson(ResourceManager.getInstance().getResources()));
+		RedisStorage.getInstance().store(RESOURCE_LIST, ResourceManager.getInstance().getResourcesAsJson());
+		TimeDatabaseStorage.getInstance().store(RESOURCE_LIST, ResourceManager.getInstance().getResourcesAsJson());
 		for(CoAPEventListener listener : this.listeners){
 			listener.onNewResource(resource);
 		}

@@ -1,35 +1,65 @@
 a1 = load("delay.rpl.12638");
-a2 = load("delay.rpl.28320");
-a3 = load("delay.rpl.12681");
-a4 = load("delay.rpl.12669");
-a5 = load("delay.rpl.32357");
+a2 = load("delay.rpl.12694");
+a3 = load("delay.rpl.12652");
+a4 = load("delay.rpl.32357");
+a5 = load("delay.rpl.32308");
 a6 = load("delay.rpl.32340");    
 
 b1 = load("overhead.rpl.12638");
-b2 = load("overhead.rpl.28320");
-b3 = load("overhead.rpl.12681");
-b4 = load("overhead.rpl.12669");
-b5 = load("overhead.rpl.32357");
+b2 = load("overhead.rpl.12694");
+b3 = load("overhead.rpl.12652");
+b4 = load("overhead.rpl.32357");
+b5 = load("overhead.rpl.32308");
 b6 = load("overhead.rpl.32340");    
 
 c1 = load("energy_int.rpl.12638");
-c2 = load("energy_int.rpl.28320");
-c3 = load("energy_int.rpl.12681");
-c4 = load("energy_int.rpl.12669");
-c5 = load("energy_int.rpl.32357");
+c2 = load("energy_int.rpl.12694");
+c3 = load("energy_int.rpl.12652");
+c4 = load("energy_int.rpl.32357");
+c5 = load("energy_int.rpl.32308");
 c6 = load("energy_int.rpl.32340");    
 
 d1 = load("pdr.rpl.12638");
-d2 = load("pdr.rpl.28320");
-d3 = load("pdr.rpl.12681");
-d4 = load("pdr.rpl.12669");
-d5 = load("pdr.rpl.32357");
-d6 = load("pdr.rpl.32340");    
+d2 = load("pdr.rpl.12694");
+d3 = load("pdr.rpl.12652");
+d4 = load("pdr.rpl.32357");
+d5 = load("pdr.rpl.32308");
+d6 = load("pdr.rpl.32340");  
 
 
 
-delay = (mean(a1(:,2))+mean(a2(:,2))+mean(a3(:,2))+mean(a4(:,2))+mean(a5(:,2))+mean(a6(:,2)))/6;
+delay(1,1) = (mean(a1(:,2))+mean(a2(:,2))+mean(a3(:,2))+mean(a4(:,2))+mean(a5(:,2))+mean(a6(:,2)))/6;
+N = 0;
+rms = 0;
+for i=1:1:length(a1)
+++N;
+rms += (a1(i,2)-delay(1,1))^2;
+end
+for i=1:1:length(a2)
+++N;
+rms += (a2(i,2)-delay(1,1))^2;
+end
+for i=1:1:length(a3)
+++N;
+rms += (a3(i,2)-delay(1,1))^2;
+end
+for i=1:1:length(a4)
+++N;
+rms += (a4(i,2)-delay(1,1))^2;
+end
+for i=1:1:length(a5)
+++N;
+rms += (a5(i,2)-delay(1,1))^2;
+end
+for i=1:1:length(a6)
+++N;
+rms += (a6(i,2)-delay(1,1))^2;
+end
+
+delay(1,2) = sqrt(rms/N);
+
 save("delay.dat","delay");
+
 
 TIME_LENGTH  = 2100;
 TIME_SPAN = 150;

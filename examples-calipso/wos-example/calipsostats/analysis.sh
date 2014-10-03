@@ -17,20 +17,19 @@ echo "<html><body><h1>Results</h1><br>" > $res/index.html
 #parameters
 experimentationlist=(rpl)
 #old topology
-#nodelist=(12638 28320 12652 12669 32357 32340)
-#new topology
-nodelist=(12638 12681 32340 32357 12669 28320)
+nodelist=(12638 12694 12652 32357 32308 32340)
+
 
 for e in ${experimentationlist[@]} ; do
 	list="plot "
 	echo "<h2>Experimentation: $e</h2>" >> $res/index.html
 	for s in ${nodelist[@]} ; do
 		echo "<h3>Results for node: $s</h3>" >> $res/index.html
-
+		cat results.$e | grep "_nodeinfo2" |sed -e 's/\"/ /g' | sed -e 's/:/ /g' | sed -e 's/,/ /g' | sed -e 's/\}/ /g' |  sed -e 's/\[/ /g' | sed -e 's/\]/ /g'  | tr '\{' '\n' |grep "parking/"$s
 		#Arrival time
-		arr_time=$(cat results.$e | grep "_nodeinfo" |sed -e 's/\"/ /g' | sed -e 's/:/ /g' | sed -e 's/,/ /g' | sed -e 's/\}/ /g' |  sed -e 's/\[/ /g' | sed -e 's/\]/ /g'  | tr '\{' '\n' |grep "parking/"$s    | awk '{print $17}'| tail -1)
+		arr_time=$(cat results.$e | grep "_nodeinfo2" |sed -e 's/\"/ /g' | sed -e 's/:/ /g' | sed -e 's/,/ /g' | sed -e 's/\}/ /g' |  sed -e 's/\[/ /g' | sed -e 's/\]/ /g'  | tr '\{' '\n' |grep "parking/"$s    | awk '{print $17}'| tail -1)
 		#arr_time=1410280016803
-		
+		echo $arr_time
 		#Energy instantaneous for each node over time
 		cat results.$e | grep "energy" | sed -e 's/\// /g' | awk '($2=='"$s"') {print ($4-'"$arr_time"')/1000 " " $5}'  > $res/energy.$e.$s
 		$scriptDir/plot.sh $res/enerygy.$e.$s $res/energy.$e.$s "time" "energy"

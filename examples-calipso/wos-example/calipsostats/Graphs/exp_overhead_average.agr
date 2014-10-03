@@ -91,7 +91,7 @@
 @timestamp rot 0
 @timestamp font 0
 @timestamp char size 1.000000
-@timestamp def "Sat Sep 13 17:14:54 2014"
+@timestamp def "Thu Sep 25 19:14:11 2014"
 @r0 off
 @link r0 to g0
 @r0 type above
@@ -138,7 +138,7 @@
 @g0 fixedpoint format general general
 @g0 fixedpoint prec 6, 6
 @with g0
-@    world 0, 0, 2100, 300
+@    world 0, 0, 2100, 70
 @    stack world 0, 0, 0, 0
 @    znorm 1
 @    view 0.054224, 0.059269, 1.360656, 0.978562
@@ -220,7 +220,7 @@
 @    yaxis  label color 1
 @    yaxis  label place normal
 @    yaxis  tick on
-@    yaxis  tick major 50
+@    yaxis  tick major 10
 @    yaxis  tick minor ticks 0
 @    yaxis  tick default 6
 @    yaxis  tick place rounded true
@@ -260,7 +260,7 @@
 @    altyaxis  off
 @    legend on
 @    legend loctype view
-@    legend 0.85, 0.65
+@    legend 0.2, 0.75
 @    legend box color 1
 @    legend box pattern 1
 @    legend box linewidth 1.0
@@ -283,19 +283,19 @@
 @    frame background pattern 0
 @    s0 hidden false
 @    s0 type xy
-@    s0 symbol 0
+@    s0 symbol 1
 @    s0 symbol size 1.000000
 @    s0 symbol color 1
 @    s0 symbol pattern 1
 @    s0 symbol fill color 1
-@    s0 symbol fill pattern 0
+@    s0 symbol fill pattern 1
 @    s0 symbol linewidth 1.0
 @    s0 symbol linestyle 1
 @    s0 symbol char 65
 @    s0 symbol char font 0
 @    s0 symbol skip 0
 @    s0 line type 1
-@    s0 line linestyle 5
+@    s0 line linestyle 1
 @    s0 line linewidth 3.0
 @    s0 line color 1
 @    s0 line pattern 1
@@ -329,22 +329,22 @@
 @    s0 errorbar riser clip off
 @    s0 errorbar riser clip length 0.100000
 @    s0 comment "/home/tai/calipso-integrated/examples-calipso/wos-example/calipsostats/exp_orpl/delay.rpl.32340"
-@    s0 legend  "ORPL + ContikiMAC"
+@    s0 legend  "RPL + NullRDC"
 @    s1 hidden false
 @    s1 type xy
-@    s1 symbol 0
+@    s1 symbol 2
 @    s1 symbol size 1.000000
 @    s1 symbol color 2
 @    s1 symbol pattern 1
 @    s1 symbol fill color 2
-@    s1 symbol fill pattern 0
+@    s1 symbol fill pattern 1
 @    s1 symbol linewidth 1.0
 @    s1 symbol linestyle 1
 @    s1 symbol char 65
 @    s1 symbol char font 0
 @    s1 symbol skip 0
 @    s1 line type 1
-@    s1 line linestyle 3
+@    s1 line linestyle 1
 @    s1 line linewidth 3.0
 @    s1 line color 2
 @    s1 line pattern 1
@@ -378,15 +378,15 @@
 @    s1 errorbar riser clip off
 @    s1 errorbar riser clip length 0.100000
 @    s1 comment "/home/tai/calipso-integrated/examples-calipso/wos-example/calipsostats/exp_rrpl/delay.rpl.32357"
-@    s1 legend  "RRPL + ContikiMAC"
+@    s1 legend  "RPL + ContikiMAC"
 @    s2 hidden false
 @    s2 type xy
-@    s2 symbol 0
+@    s2 symbol 3
 @    s2 symbol size 1.000000
-@    s2 symbol color 4
+@    s2 symbol color 3
 @    s2 symbol pattern 1
-@    s2 symbol fill color 4
-@    s2 symbol fill pattern 0
+@    s2 symbol fill color 3
+@    s2 symbol fill pattern 1
 @    s2 symbol linewidth 1.0
 @    s2 symbol linestyle 1
 @    s2 symbol char 65
@@ -395,7 +395,7 @@
 @    s2 line type 1
 @    s2 line linestyle 1
 @    s2 line linewidth 3.0
-@    s2 line color 4
+@    s2 line color 3
 @    s2 line pattern 1
 @    s2 baseline type 0
 @    s2 baseline off
@@ -417,7 +417,7 @@
 @    s2 avalue offset 0.000000 , 0.000000
 @    s2 errorbar on
 @    s2 errorbar place both
-@    s2 errorbar color 4
+@    s2 errorbar color 3
 @    s2 errorbar pattern 1
 @    s2 errorbar size 1.000000
 @    s2 errorbar linewidth 1.0
@@ -428,51 +428,178 @@
 @    s2 errorbar riser clip length 0.100000
 @    s2 comment "/home/tai/calipso-integrated/examples-calipso/wos-example/calipsostats/exp_rawmac/delay.rpl.32357"
 @    s2 legend  "RPL + RAWMAC"
+@    s3 hidden false
+@    s3 type xy
+@    s3 symbol 4
+@    s3 symbol size 1.000000
+@    s3 symbol color 4
+@    s3 symbol pattern 1
+@    s3 symbol fill color 4
+@    s3 symbol fill pattern 1
+@    s3 symbol linewidth 1.0
+@    s3 symbol linestyle 1
+@    s3 symbol char 65
+@    s3 symbol char font 0
+@    s3 symbol skip 0
+@    s3 line type 1
+@    s3 line linestyle 1
+@    s3 line linewidth 3.0
+@    s3 line color 4
+@    s3 line pattern 1
+@    s3 baseline type 0
+@    s3 baseline off
+@    s3 dropline off
+@    s3 fill type 0
+@    s3 fill rule 0
+@    s3 fill color 1
+@    s3 fill pattern 1
+@    s3 avalue off
+@    s3 avalue type 2
+@    s3 avalue char size 1.000000
+@    s3 avalue font 0
+@    s3 avalue color 1
+@    s3 avalue rot 0
+@    s3 avalue format general
+@    s3 avalue prec 3
+@    s3 avalue prepend ""
+@    s3 avalue append ""
+@    s3 avalue offset 0.000000 , 0.000000
+@    s3 errorbar on
+@    s3 errorbar place both
+@    s3 errorbar color 4
+@    s3 errorbar pattern 1
+@    s3 errorbar size 1.000000
+@    s3 errorbar linewidth 1.0
+@    s3 errorbar linestyle 1
+@    s3 errorbar riser linewidth 1.0
+@    s3 errorbar riser linestyle 1
+@    s3 errorbar riser clip off
+@    s3 errorbar riser clip length 0.100000
+@    s3 comment "/home/tai/calipso-integrated/examples-calipso/wos-example/calipsostats/exp_rpl_cmac/overhead.dat"
+@    s3 legend  "ORPL + ContikiMAC"
+@    s4 hidden false
+@    s4 type xy
+@    s4 symbol 10
+@    s4 symbol size 1.000000
+@    s4 symbol color 6
+@    s4 symbol pattern 1
+@    s4 symbol fill color 6
+@    s4 symbol fill pattern 0
+@    s4 symbol linewidth 3.0
+@    s4 symbol linestyle 1
+@    s4 symbol char 65
+@    s4 symbol char font 0
+@    s4 symbol skip 0
+@    s4 line type 1
+@    s4 line linestyle 1
+@    s4 line linewidth 3.0
+@    s4 line color 6
+@    s4 line pattern 1
+@    s4 baseline type 0
+@    s4 baseline off
+@    s4 dropline off
+@    s4 fill type 0
+@    s4 fill rule 0
+@    s4 fill color 1
+@    s4 fill pattern 1
+@    s4 avalue off
+@    s4 avalue type 2
+@    s4 avalue char size 1.000000
+@    s4 avalue font 0
+@    s4 avalue color 1
+@    s4 avalue rot 0
+@    s4 avalue format general
+@    s4 avalue prec 3
+@    s4 avalue prepend ""
+@    s4 avalue append ""
+@    s4 avalue offset 0.000000 , 0.000000
+@    s4 errorbar on
+@    s4 errorbar place both
+@    s4 errorbar color 6
+@    s4 errorbar pattern 1
+@    s4 errorbar size 1.000000
+@    s4 errorbar linewidth 1.0
+@    s4 errorbar linestyle 1
+@    s4 errorbar riser linewidth 1.0
+@    s4 errorbar riser linestyle 1
+@    s4 errorbar riser clip off
+@    s4 errorbar riser clip length 0.100000
+@    s4 comment "/home/tai/calipso-integrated/examples-calipso/wos-example/calipsostats/exp_nullrdc/overhead.dat"
+@    s4 legend  "RRPL + ContikiMAC"
 @target G0.S0
 @type xy
-225 12
-375 15.666667
-525 16.666667
-675 18.666667
-825 19.333333
-975 19.833333
-1125 20.333333
-1275 20.333333
-1425 20.833333
-1575 21.833333
-1725 22.333333
-1875 22.833333
-2025 22.833333
+225 13.333333
+375 16.833333
+525 18
+675 19.166667
+825 19.666667
+975 20.166667
+1125 20.833333
+1275 21
+1425 21
+1575 21.166667
+1725 21.666667
+1875 22
+2025 22.333333
 &
 @target G0.S1
 @type xy
-225 8.6666667
-375 13.2
-525 14.166667
-675 16.666667
-825 19.166667
-975 21.166667
-1125 24.4
-1275 26
-1425 27.4
-1575 27.666667
-1725 29
-1875 29.5
-2025 30
+225 16.2
+375 21.2
+525 26.666667
+675 28.6
+825 34.166667
+975 36
+1125 40.2
+1275 44
+1425 45.8
+2025 62
 &
 @target G0.S2
 @type xy
-225 195.16667
-375 211.66667
-525 219.5
-675 222.83333
-825 223.66667
-975 224.83333
-1125 226.83333
-1275 228.83333
-1425 253.4
-1575 253.6
-1725 253.8
-1875 254
-2025 254.6
+225 12.666667
+375 17.5
+525 22
+675 25.666667
+825 27.833333
+975 28.666667
+1125 29.833333
+1275 29.833333
+1425 30.166667
+1575 30.666667
+1725 30.833333
+1875 31.166667
+2025 31.5
+&
+@target G0.S3
+@type xy
+225 12.5
+375 13.5
+525 17
+675 17.666667
+825 19.666667
+975 21.333333
+1125 21
+1275 21.6
+1425 21.6
+1575 21.714286
+1725 22.6
+1875 21.6
+2025 25
+&
+@target G0.S4
+@type xy
+225 7.6666667
+375 11.5
+525 15.666667
+675 20
+825 26.166667
+975 28.833333
+1125 29.8
+1275 32.75
+1425 44.2
+1575 54
+1725 59.25
+1875 61.75
+2025 70
 &

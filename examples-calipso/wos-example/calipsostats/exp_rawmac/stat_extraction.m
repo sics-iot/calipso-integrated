@@ -1,37 +1,32 @@
 a1 = load("delay.rpl.12638");
-a2 = load("delay.rpl.28320");
-a3 = load("delay.rpl.12681");
+a2 = load("delay.rpl.12694");
+a3 = load("delay.rpl.12652");
 a4 = load("delay.rpl.12669");
-a5 = load("delay.rpl.32357");
+a5 = load("delay.rpl.32308");
 a6 = load("delay.rpl.32340");    
 
 b1 = load("overhead.rpl.12638");
-b2 = load("overhead.rpl.28320");
-b3 = load("overhead.rpl.12681");
+b2 = load("overhead.rpl.12694");
+b3 = load("overhead.rpl.12652");
 b4 = load("overhead.rpl.12669");
-b5 = load("overhead.rpl.32357");
+b5 = load("overhead.rpl.32308");
 b6 = load("overhead.rpl.32340");    
 
 c1 = load("energy_int.rpl.12638");
-c2 = load("energy_int.rpl.28320");
-c3 = load("energy_int.rpl.12681");
+c2 = load("energy_int.rpl.12694");
+c3 = load("energy_int.rpl.12652");
 c4 = load("energy_int.rpl.12669");
-c5 = load("energy_int.rpl.32357");
+c5 = load("energy_int.rpl.32308");
 c6 = load("energy_int.rpl.32340");    
 
 d1 = load("pdr.rpl.12638");
-d2 = load("pdr.rpl.28320");
-d3 = load("pdr.rpl.12681");
+d2 = load("pdr.rpl.12694");
+d3 = load("pdr.rpl.12652");
 d4 = load("pdr.rpl.12669");
-d5 = load("pdr.rpl.32357");
+d5 = load("pdr.rpl.32308");
 d6 = load("pdr.rpl.32340");    
 
-e1 = load("presence.rpl.12638");
-e2 = load("presence.rpl.28320");
-e3 = load("presence.rpl.12681");
-e4 = load("presence.rpl.12669");
-e5 = load("presence.rpl.32357");
-e6 = load("presence.rpl.32340"); 
+ 
 
 delay = (mean(a1(:,2))+mean(a2(:,2))+mean(a3(:,2))+mean(a4(:,2))+mean(a5(:,2))+mean(a6(:,2)))/6;
 save("delay.dat","delay");
@@ -175,50 +170,6 @@ for i=1:1:length(d_mean)
 end
 save("pdr.dat","pdr");
 
-%Presence
-for i=1:1:TIME_LENGTH/TIME_SPAN
-e_mean(i,1) = i*TIME_SPAN - TIME_SPAN/2  ;
-e_mean(i,2)=0;
-occurrence(i)=0;
-end
 
-for j=1:1:min([length(e1),length(e2),length(e3),length(e4),length(e5),length(e6)])
-for i=1:1:TIME_LENGTH/TIME_SPAN
-	
-	if (e1(j,1)>(i-1)*TIME_SPAN & e1(j,1) < i*TIME_SPAN)
-	e_mean(i,2)+= e1(j,2);
-	occurrence(i)++;
-	end
-	if (e2(j,1)>(i-1)*TIME_SPAN & e2(j,1) < i*TIME_SPAN)
-	e_mean(i,2)+= e2(j,2);
-	occurrence(i)++;
-	end
-	if (e3(j,1)>(i-1)*TIME_SPAN & e3(j,1) < i*TIME_SPAN)
-	e_mean(i,2)+= e3(j,2);
-	occurrence(i)++;
-	end
-	if (e4(j,1)>(i-1)*TIME_SPAN & e4(j,1) < i*TIME_SPAN)
-	e_mean(i,2)+= e4(j,2);
-	occurrence(i)++;
-	end
-	if (e5(j,1)>(i-1)*TIME_SPAN & e5(j,1) < i*TIME_SPAN)
-	e_mean(i,2)+= e5(j,2);
-	occurrence(i)++;
-	end
-	if (e6(j,1)>(i-1)*TIME_SPAN & e6(j,1) < i*TIME_SPAN)
-	e_mean(i,2)+= e6(j,2);
-	occurrence(i)++;
-	end
-end
-end
-
-vect_index=1;
-for i=1:1:length(e_mean)
-	if (occurrence(i)!=0)
-	presence(vect_index,:)= [e_mean(i,1) e_mean(i,2)];
-	vect_index++;
-	end
-end
-save("presence.dat","presence");
 
 

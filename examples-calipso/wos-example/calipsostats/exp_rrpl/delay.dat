@@ -1,6 +1,8 @@
-# Created by Octave 3.8.1, Sat Sep 13 17:29:27 2014 CEST <tai@Parme>
+# Created by Octave 3.8.1, Thu Sep 25 16:55:51 2014 CEST <tai@Parme>
 # name: delay
-# type: scalar
-1179.155588322223
+# type: matrix
+# rows: 1
+# columns: 2
+ 840.3412199269542 1025.178472478831
 
 

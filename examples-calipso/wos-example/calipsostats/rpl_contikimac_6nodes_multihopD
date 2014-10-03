@@ -1,0 +1,178 @@
+a1 = load("delay.rpl.12638");
+a2 = load("delay.rpl.28320");
+a3 = load("delay.rpl.12652");
+a4 = load("delay.rpl.12669");
+a5 = load("delay.rpl.32357");
+a6 = load("delay.rpl.32340");    
+
+b1 = load("overhead.rpl.12638");
+b2 = load("overhead.rpl.28320");
+b3 = load("overhead.rpl.12652");
+b4 = load("overhead.rpl.12669");
+b5 = load("overhead.rpl.32357");
+b6 = load("overhead.rpl.32340");    
+
+c1 = load("energy_int.rpl.12638");
+c2 = load("energy_int.rpl.28320");
+c3 = load("energy_int.rpl.12652");
+c4 = load("energy_int.rpl.12669");
+c5 = load("energy_int.rpl.32357");
+c6 = load("energy_int.rpl.32340");    
+
+d1 = load("pdr.rpl.12638");
+d2 = load("pdr.rpl.28320");
+d3 = load("pdr.rpl.12652");
+d4 = load("pdr.rpl.12669");
+d5 = load("pdr.rpl.32357");
+d6 = load("pdr.rpl.32340");    
+
+delay = (mean(a1(:,2))+mean(a2(:,2))+mean(a3(:,2))+mean(a4(:,2))+mean(a5(:,2))+mean(a6(:,2)))/6;
+
+TIME_LENGTH  = 2100;
+TIME_SPAN = 100;
+
+%Overhead
+count (1:6)= 1;
+for i=1:1:TIME_LENGTH/TIME_SPAN
+b_mean(i,1) = i*TIME_SPAN - TIME_SPAN/2  ;
+b_mean(i,2)=0;
+occurrence(i)=0;
+	if (b1(count(1),1)>(i-1)*TIME_SPAN & b1(count(1),1) < i*TIME_SPAN)
+	b_mean(i,2)+= b1(count(1),2);
+	count(1)++;
+	occurrence(i)++;
+	end
+	if (b2(count(2),1)>(i-1)*TIME_SPAN & b2(count(2),1) < i*TIME_SPAN)
+	b_mean(i,2)+= b2(count(2),2);
+	count(2)++;
+	occurrence(i)++;
+	end
+	if (b3(count(3),1)>(i-1)*TIME_SPAN & b3(count(3),1) < i*TIME_SPAN)
+	b_mean(i,2)+= b3(count(3),2);
+	count(3)++;
+	occurrence(i)++;
+	end
+	if (b4(count(4),1)>(i-1)*TIME_SPAN & b4(count(4),1) < i*TIME_SPAN)
+	b_mean(i,2)+= b4(count(4),2);
+	count(4)++;
+	occurrence(i)++;
+	end
+	if (b5(count(5),1)>(i-1)*TIME_SPAN & b5(count(5),1) < i*TIME_SPAN)
+	b_mean(i,2)+= b5(count(5),2);
+	count(5)++;
+	occurrence(i)++;
+	end
+	if (b6(count(6),1)>(i-1)*TIME_SPAN & b6(count(6),1) < i*TIME_SPAN)
+	b_mean(i,2)+= b6(count(6),2);
+	count(6)++;
+	occurrence(i)++;
+	end
+
+end
+
+vect_index=1;
+for i=1:1:TIME_LENGTH/TIME_SPAN
+	if (occurrence(i)!=0)
+	overhead(vect_index,:)= [b_mean(i,1) b_mean(i,2)/occurrence(i)];
+	vect_index++;
+	end
+end
+save("overhead.dat","overhead");
+
+
+%Energy
+count (1:6)= 1;
+for i=1:1:TIME_LENGTH/TIME_SPAN
+c_mean(i,1) = i*TIME_SPAN - TIME_SPAN/2 ;
+c_mean(i,2)=0;
+occurrence(i)=0;
+	if (c1(count(1),1)>(i-1)*TIME_SPAN & c1(count(1),1) < i*TIME_SPAN)
+	c_mean(i,2)+= c1(count(1),2);
+	count(1)++;
+	occurrence(i)++;
+	end
+	if (c2(count(2),1)>(i-1)*TIME_SPAN & c2(count(2),1) < i*TIME_SPAN)
+	c_mean(i,2)+= c2(count(2),2);
+	count(2)++;
+	occurrence(i)++;
+	end
+	if (c3(count(3),1)>(i-1)*TIME_SPAN &c3(count(3),1) < i*TIME_SPAN)
+	c_mean(i,2)+= c3(count(3),2);
+	count(3)++;
+	occurrence(i)++;
+	end
+	if (c4(count(4),1)>(i-1)*TIME_SPAN & c4(count(4),1) < i*TIME_SPAN)
+	c_mean(i,2)+= c4(count(4),2);
+	count(4)++;
+	occurrence(i)++;
+	end
+	if (c5(count(5),1)>(i-1)*TIME_SPAN & c5(count(5),1) < i*TIME_SPAN)
+	c_mean(i,2)+= c5(count(5),2);
+	count(5)++;
+	occurrence(i)++;
+	end
+	if (c6(count(6),1)>(i-1)*TIME_SPAN & c6(count(6),1) < i*TIME_SPAN)
+	c_mean(i,2)+= c6(count(6),2);
+	count(6)++;
+	occurrence(i)++;
+	end
+
+end
+
+vect_index=1;
+for i=1:1:TIME_LENGTH/TIME_SPAN
+	if (occurrence(i)!=0)
+	energy(vect_index,:)= [c_mean(i,1) c_mean(i,2)/occurrence(i)];
+	vect_index++;
+	end
+end
+save("energy.dat","energy");
+
+%PDR
+count (1:6)= 1;
+for i=1:1:TIME_LENGTH/TIME_SPAN
+d_mean(i,1) = i*TIME_SPAN - TIME_SPAN/2  ;
+d_mean(i,2)=0;
+occurrence(i)=0;
+	if (d1(count(1),1)>(i-1)*TIME_SPAN & d1(count(1),1) < i*TIME_SPAN)
+	d_mean(i,2)+= d1(count(1),2);
+	count(1)++;
+	occurrence(i)++;
+	end
+	if (d2(count(2),1)>(i-1)*TIME_SPAN & d2(count(2),1) < i*TIME_SPAN)
+	d_mean(i,2)+= d2(count(2),2);
+	count(2)++;
+	occurrence(i)++;
+	end
+	if (d3(count(3),1)>(i-1)*TIME_SPAN & d3(count(3),1) < i*TIME_SPAN)
+	d_mean(i,2)+= d3(count(3),2);
+	count(3)++;
+	occurrence(i)++;
+	end
+	if (d4(count(4),1)>(i-1)*TIME_SPAN & d4(count(4),1) < i*TIME_SPAN)
+	d_mean(i,2)+= d4(count(4),2);
+	count(4)++;
+	occurrence(i)++;
+	end
+	if (d5(count(5),1)>(i-1)*TIME_SPAN & d5(count(5),1) < i*TIME_SPAN)
+	d_mean(i,2)+= d5(count(5),2);
+	count(5)++;
+	occurrence(i)++;
+	end
+	if (d6(count(6),1)>(i-1)*TIME_SPAN & d6(count(6),1) < i*TIME_SPAN)
+	d_mean(i,2)+= d6(count(6),2);
+	count(6)++;
+	occurrence(i)++;
+	end
+
+end
+
+vect_index=1;
+for i=1:1:TIME_LENGTH/TIME_SPAN
+	if (occurrence(i)!=0)
+	pdr(vect_index,:)= [d_mean(i,1) d_mean(i,2)/occurrence(i)];
+	vect_index++;
+	end
+end
+save("pdr.dat","pdr");
+
